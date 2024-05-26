@@ -1,18 +1,25 @@
 import React from 'react'
 
-import { Card, Suit } from '../models/Card'
+import { Card } from '../models/Card'
+
+import { DeckFactory } from '../models/DeckFactory'
+
 import CardComponent from './CardComponent'
 
 
 
 const HandComponent = () => {
-  const card = new Card('A', Suit.Spades); // Ensure the Suit enum is imported and used correctly
+  //const card = new Card('A', "spades"); 
+
+
+  const deckFactory : DeckFactory = new DeckFactory();
+  const deck = deckFactory.makeEuchreDeck();
 
   return (
     <>
-      <CardComponent card={card} />
-      <CardComponent card={card} />
-      <CardComponent card={card} />
+      {deck.map((card, index) =>
+        <CardComponent key={index} card={card} />
+      )}
     </>
   );
 }

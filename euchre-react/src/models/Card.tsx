@@ -1,14 +1,9 @@
-export const enum Suit {
-    Diamonds = "diamonds",
-    Hearts = "hearts",
-    Spades = "spades",
-    Clubs = "clubs"
-}
+
 
 
 export class Card {
     public faceValue : string;
-    public suit : Suit;
+    public suit : string;
 
     constructor(faceValue: string = 'unknown', suit : Suit = Suit.Diamonds) {
         this.faceValue = faceValue;
