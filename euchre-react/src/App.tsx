@@ -13,6 +13,7 @@ function App() {
 
   return (
     <>
+      <div className="scoreboard">Scoreboard</div>
       <TableComponent />
     </>
   )
