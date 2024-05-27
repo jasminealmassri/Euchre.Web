@@ -1,4 +1,0 @@
-To start the project:
-npm run dev
-
-I have to test my deck model 
