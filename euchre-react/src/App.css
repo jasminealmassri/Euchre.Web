@@ -2,3 +2,14 @@ body {
   background-color: rgb(7, 39, 7);
 }
 
+.scoreboard {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: white;
+  border: 1px solid white;
+  border-radius: 20px;
+  width: 50%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 1%;
+
+}

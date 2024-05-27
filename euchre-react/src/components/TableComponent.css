@@ -14,11 +14,39 @@
     }
 }
 
+#player-1-label, #player-2-label, #player-3-label, #player-4-label {
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+}
+
+#player-1-label {
+    bottom: 10%;
+    right: 20%;
+}
+
+#player-2-label {
+    
+    bottom: 18%;
+    left: 11%;
+}
+
+#player-3-label {
+    top: 10%;
+    left: 18%;
+}
+
+#player-4-label {
+    top: 20%;
+    right: 11%;
+}
+
 .player-2-hand {
 
     /* position: relative; */
     position: absolute;
     top: 30%;
+    left: 10%;
     /* background-color: red; */
     width: 10%;
     height: 50%;
@@ -70,7 +98,7 @@
     /* position: relative; */
     position: absolute;
     top: 30%;
-    right: 20%;
+    right: 10%;
     /* background-color: red; */
     width: 10%;
     height: 50%;
