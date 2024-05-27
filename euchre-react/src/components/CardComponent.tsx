@@ -65,12 +65,6 @@ import clubsK from '../assets/images/Cards/clubsK.png';
 // const getImagePath = (imageName : string)  => images[`./assets/${imageName}.png`]();
 
 
-
-
-interface  CardComponentProps {
-    card: Card;
-}
-
 const cardImages = {
     'spadesA' : spadesA,
     'spades2': spades2,
@@ -111,7 +105,6 @@ const cardImages = {
     'heartsJ': heartsJ,
     'heartsQ': heartsQ,
     'heartsK': heartsK,
-
     'clubsA' : clubsA,
     'clubs2': clubs2,
     'clubs3': clubs3,
@@ -127,9 +120,13 @@ const cardImages = {
     'clubsK': clubsK,
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({card}) => {
+interface  CardComponentProps {
+    card: Card;
+}
 
-    const [flippedUp, setFlippedUp] = useState(true);
+const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp}) => {
+
+    //const [flippedUp, setFlippedUp] = useState(true);
     //const [img, setImage] = useState('');
 
     //const imgUrl = `/assets/images/Cards/${card.faceValue}${card.suit}.png`;
