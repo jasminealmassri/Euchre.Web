@@ -122,6 +122,7 @@ const cardImages = {
 
 interface  CardComponentProps {
     card: Card;
+    flippedUp: boolean;
 }
 
 const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp}) => {
@@ -131,7 +132,7 @@ const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp}) => {
 
     //const imgUrl = `/assets/images/Cards/${card.faceValue}${card.suit}.png`;
 
-    const imgPath = `${card.faceValue}${card.suit}`;
+    const imgPath = `${card.suit}${card.faceValue}`;
     const cardImage : any = cardImages[imgPath];
 
     if(flippedUp) {

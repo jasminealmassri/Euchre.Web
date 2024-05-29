@@ -18,7 +18,7 @@ export class DeckFactory {
             {
                 for (let value of this.faceValues)
                     {
-                        deck.push(new Card(suit, value));
+                        deck.push(new Card(value, suit));
                     }
             }
         return deck;
@@ -32,7 +32,7 @@ export class DeckFactory {
             {
                 for (let value of this.euchreFaceValues)
                     {
-                        deck.push(new Card(suit, value));
+                        deck.push(new Card(value, suit));
                     }
             }
         return deck;

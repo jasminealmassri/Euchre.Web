@@ -1,0 +1,48 @@
+.trick {
+    position: absolute;
+    width: 50%;
+    height: 35%;
+    top: 40%;
+    left: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    color: white;
+
+    
+
+}
+
+.card {
+    width: 50%;
+}
+
+/* this isnt working yet */
+.player-1-card {
+    position: absolute;
+    bottom: 00%;
+    left: 40%;
+    
+}
+
+.player-2-card {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    
+}
+
+.player-3-card {
+    position: absolute;
+    top: 0%;
+    left: 40%;
+    
+}
+
+.player-4-card {
+    position: absolute;
+    bottom: 25%;
+    right: 0%;
+    
+}

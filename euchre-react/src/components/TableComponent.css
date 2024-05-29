@@ -27,17 +27,17 @@
 
 #player-2-label {
     
-    bottom: 18%;
+    bottom: 15%;
     left: 11%;
 }
 
 #player-3-label {
-    top: 10%;
+    top: 22%;
     left: 18%;
 }
 
 #player-4-label {
-    top: 20%;
+    top: 30%;
     right: 11%;
 }
 
@@ -45,7 +45,7 @@
 
     /* position: relative; */
     position: absolute;
-    top: 30%;
+    top: 40%;
     left: 10%;
     /* background-color: red; */
     width: 10%;
@@ -84,7 +84,7 @@
 .player-3-hand {
 
     position: absolute;
-    top: 5%;
+    top: 20%;
     left: 30%;
 
     .card {
@@ -97,7 +97,7 @@
 
     /* position: relative; */
     position: absolute;
-    top: 30%;
+    top: 40%;
     right: 10%;
     /* background-color: red; */
     width: 10%;

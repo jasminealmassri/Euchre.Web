@@ -4,6 +4,8 @@ import { DeckFactory } from '../models/DeckFactory'
 
 import HandComponent from './HandComponent';
 
+import TrickComponent from './TrickComponent'
+
 import './TableComponent.css';
 
 
@@ -27,6 +29,7 @@ const TableComponent = () => {
         <HandComponent key={2} cards={hand2} className="player-2-hand"/>
         <HandComponent key={3} cards={hand3} className="player-3-hand"/>
         <HandComponent key={4} cards={hand4} className="player-4-hand"/>
+        <TrickComponent></TrickComponent>
     </>
   )
 }
