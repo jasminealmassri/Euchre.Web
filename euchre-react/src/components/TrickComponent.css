@@ -23,28 +23,28 @@
 /* this isnt working yet */
 .player-1-card {
     position: absolute;
-    bottom: 1rem;
-    left: 10rem;
+    bottom: 2%;
+    left: 40%;
     
 }
 
 .player-2-card {
     position: absolute;
-    bottom: 4.5rem;
-    left: 4.5rem;
+    bottom: 32%;
+    left: 18%;
     
 }
 
 .player-3-card {
     position: absolute;
-    top: 1rem;
-    left: 10rem;
+    top: 2%;
+    left: 40%;
     
 }
 
 .player-4-card {
     position: absolute;
-    bottom: 4.5rem;
-    right: 4.5rem;
+    bottom: 32%;
+    left: 62%;
     
 }
