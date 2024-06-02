@@ -5,7 +5,7 @@
     left: 30%;
 
     .card {
-        width: 12%;
+        width: 4rem;
         transition: all 0.2s linear;
     }
 
@@ -52,7 +52,7 @@
     height: 50%;
 
     .card {
-        width: 100%;
+        width: 3rem;
         
     }
 
@@ -84,11 +84,11 @@
 .player-3-hand {
 
     position: absolute;
-    top: 20%;
-    left: 30%;
+    top: 25%;
+    left: 35%;
 
     .card {
-        width: 12%;
+        width: 2.5rem;
         transition: all 0.2s linear;
     }
 }
@@ -104,7 +104,7 @@
     height: 50%;
 
     .card {
-        width: 100%;
+        width: 3rem;
         
     }
 

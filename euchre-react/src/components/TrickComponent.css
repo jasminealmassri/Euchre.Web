@@ -1,13 +1,15 @@
 .trick {
     position: absolute;
     width: 50%;
-    height: 35%;
-    top: 40%;
+    height: 45%;
+    top: 30%;
     left: 25%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid white;
+    border: 2px solid rgb(128, 111, 91);
+    background-color: rgb(36, 25, 9);
+    border-radius: 25px;
     color: white;
 
     
@@ -15,34 +17,34 @@
 }
 
 .card {
-    width: 50%;
+    width: 5rem;
 }
 
 /* this isnt working yet */
 .player-1-card {
     position: absolute;
-    bottom: 00%;
-    left: 40%;
+    bottom: 1rem;
+    left: 10rem;
     
 }
 
 .player-2-card {
     position: absolute;
-    bottom: 25%;
-    left: 15%;
+    bottom: 4.5rem;
+    left: 4.5rem;
     
 }
 
 .player-3-card {
     position: absolute;
-    top: 0%;
-    left: 40%;
+    top: 1rem;
+    left: 10rem;
     
 }
 
 .player-4-card {
     position: absolute;
-    bottom: 25%;
-    right: 0%;
+    bottom: 4.5rem;
+    right: 4.5rem;
     
 }
