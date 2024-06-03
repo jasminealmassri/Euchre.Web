@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
@@ -8,24 +8,36 @@ import './App.css'
 
 import TableComponent from './components/TableComponent'
 
+import ScoreComponent from './components/ScoreComponent'
+
+export interface gameInterface {
+  // players 1-4
+  player1: Player;
+  // This is a function pointer
+  updateGame: React.Dispatch<React.SetStateAction<gameInterface>>;
+
+}
+
+interface Player {
+  // pointers to the use State variables that get updated
+  score: number;
+}
+
+
 function App() {
-  //const [count, setCount] = useState(0)
+  const [game, setGame] = useState({} as gameInterface);
+
+  useEffect(() => {
+    let newGame : gameInterface = {
+      player1: {score: 1},
+      updateGame: setGame,
+      }
+      setGame(newGame) // define the game object as the new game object that was just created
+    }, []); // empty array means only called at the start of the program
 
   return (
     <>
-      <div className="scoreboard">
-        <div className="scores">
-          <div>Your team: 5 points</div>
-          <div>Enemy team: 2 points</div>
-        </div>
-        <div className="trump">
-          <p>Current trump: Spades</p>
-        </div>
-        <div className="tricks">
-           <div>Tricks won: 2</div>
-          <div>Tricks lost: 2</div>
-        </div>
-      </div>
+      <ScoreComponent game={game}/>
       <TableComponent />
     </>
   )
