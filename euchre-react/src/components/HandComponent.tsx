@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Card } from '../models/Card'
+import { Hand } from '../models/Hand'
 
 import { DeckFactory } from '../models/DeckFactory'
 
@@ -8,12 +9,13 @@ import CardComponent from './CardComponent'
 
 
 interface HandComponentProps {
-  cards: Card[];
+  hand : Hand;
+  //cards: Card[];
   className?: string; 
   isPlayer1 : boolean;
 }
 
-const HandComponent = ({cards, className, isPlayer1 = false}) => {
+const HandComponent = ({hand, className, isPlayer1 = false}) => {
   //const card = new Card('A', "spades"); 
 
 
@@ -22,7 +24,7 @@ const HandComponent = ({cards, className, isPlayer1 = false}) => {
 
   return (
     <div className={className}>
-      {cards.map((card, index) =>
+      {hand.cards.map((card, index) =>
         <CardComponent key={index} card={card} flippedUp={isPlayer1} />
       )}
     </div>

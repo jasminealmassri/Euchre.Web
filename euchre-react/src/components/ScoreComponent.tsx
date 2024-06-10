@@ -9,7 +9,7 @@ interface props {
 
 
 
-const ScoreComponent = (prop: props) => {
+const ScoreComponent : React.FC<props> = ({ game }) => {
     let your_team_score = 0;
     let trump = "Spades";
     
@@ -19,7 +19,8 @@ const ScoreComponent = (prop: props) => {
   return (
     <div className="scoreboard">
     <div className="scores">
-      <div>Your team: { prop.game.player1.score } points</div>
+      <div>Your team: { your_team_score } points</div>
+      {/* <div>Your team: { prop.game.player1.score } points</div> */}
       <div>Enemy team: { your_team_score } points</div>
     </div>
     <div className="trump">

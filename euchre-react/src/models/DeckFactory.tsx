@@ -1,16 +1,16 @@
 import { Card } from "./Card";
 
 export class DeckFactory {
-    suits : string[] = ["diamonds", "clubs", "spades", "hearts" ];
-    faceValues : string[] = ["1", "2", "3", "4", "5", "6", "7" , "8", "9", "10", "J", "Q", "K", "A"];
-    euchreFaceValues: string[] = ["9", "10", "J", "Q", "K", "A"];
+    static suits : string[] = ["diamonds", "clubs", "spades", "hearts" ];
+    static faceValues : string[] = ["1", "2", "3", "4", "5", "6", "7" , "8", "9", "10", "J", "Q", "K", "A"];
+    static euchreFaceValues: string[] = ["9", "10", "J", "Q", "K", "A"];
 
 
     constructor() {
        
     }
 
-    public makeDeck() : Card[] {
+    public static makeDeck() : Card[] {
 
         let deck : Card[] = [];
 
@@ -24,7 +24,7 @@ export class DeckFactory {
         return deck;
     }
 
-    public makeEuchreDeck() : Card[] {
+    public static makeEuchreDeck() : Card[] {
 
         let deck : Card[] = [];
 
