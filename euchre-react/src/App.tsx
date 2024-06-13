@@ -1,11 +1,10 @@
-import { SetStateAction, useEffect, useState } from 'react'
+import {  useEffect, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
 
 import { DeckFactory } from './models/DeckFactory';
 import { Deck } from './models/Deck';
-import { Card } from './models/Card';
 import { Hand } from './models/Hand';
 import { Trick } from './models/Trick';
 
@@ -37,7 +36,7 @@ interface Player {
 
 
 function App() {
-  const [game, setGame] = useState({} as gameInterface);
+  const [game, setGame] = useState<gameInterface | null>(null);
 
   useEffect(() => {
     let newGame : gameInterface = {
@@ -55,6 +54,9 @@ function App() {
    if (!game) {
     return <div>Loading...</div>;
   }
+
+  game.deck.shuffleDeck();
+
   return (
     <>
       <ScoreComponent game={game}/>
