@@ -1,5 +1,9 @@
 .card {
     width: 3.5rem;
+    box-shadow: 2px 2px 1px 2px rgb(17, 17, 17);
+    border-radius: 5px;
+    cursor: pointer;
+    
 }
 
 .player-2-hand, .player-3-hand, .player-4-hand {
@@ -14,7 +18,8 @@
     .card {
         /* border: 3px solid black;
         border-radius: 8px; */
-        box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.407);
+        /* box-shadow: 1px 1px 10px rgba(5, 5, 5, 0.407); */
+     
         /* width: 14%; */
         transition: all 0.2s linear;
     }
@@ -94,4 +99,12 @@
 
     /* display: flex;
     flex-direction: column; */
+}
+
+.player-1-card, .player-2-card, .player-3-card, .player-4-card {
+    .card {
+        box-shadow: 2px 2px 1px 2px black;
+        border-radius: 3px;
+    }
+    
 }

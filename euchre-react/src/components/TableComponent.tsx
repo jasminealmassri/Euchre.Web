@@ -53,7 +53,7 @@ const TableComponent : React.FC<props> = ({game}) => {
         <HandComponent key={3} hand={hand3} className="player-3-hand"/>
         <HandComponent key={4} hand={hand4} className="player-4-hand"/>
         <TrickComponent></TrickComponent>
-        <button onClick={dealCards}>Deal Cards</button>
+        {/* <button onClick={dealCards}>Deal Cards</button> */}
     </>
   )
 }
