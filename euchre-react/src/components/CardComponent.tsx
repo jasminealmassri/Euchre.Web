@@ -4,6 +4,8 @@ import back from '../assets/images/Cards/back.png';
 
 import { Card } from '../models/Card';
 
+import './CardComponent.css';
+
 import { Deck } from '../models/DeckFactory';
 
 

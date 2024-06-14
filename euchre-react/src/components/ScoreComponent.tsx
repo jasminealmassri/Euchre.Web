@@ -22,22 +22,21 @@ const ScoreComponent : React.FC<props> = ({ game }) => {
   return (
     <>
       <div className="total_scores">
-        <div>Your team: { your_team_score } points</div>
-        <div>Enemy team: { their_team_score }</div>
+          <div>Your team: { your_team_score } points</div>
+          <div>Enemy team: { their_team_score }</div>
       </div>
       <div className="scoreboard">
-      <div className="left_score">
-        
-        {/* <div>Your team: { prop.game.player1.score } points</div> */}
-        <div>Tricks won: { tricks_won } points</div>
+        <div className="left_score">
+          {/* <div>Your team: { prop.game.player1.score } points</div> */}
+          <p>Tricks won: { tricks_won } points</p>
+        </div>
+        <div className="middle_score">
+          <p>Current trump: { trump }</p>
+        </div>
+        <div className="right_score">
+          <p>Tricks lost: {tricks_lost}</p>
+        </div>
       </div>
-      <div className="middle_score">
-        <p>Current trump: { trump }</p>
-      </div>
-      <div className="right_score">
-        <div>Tricks lost: {tricks_lost}</div>
-      </div>
-    </div>
     </>
   )
 }

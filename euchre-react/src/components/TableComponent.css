@@ -5,44 +5,34 @@
     left: 25%;
     z-index: 10;
 
-    .card {
-        /* border: 3px solid black;
-        border-radius: 8px; */
-        box-shadow: 1px 1px 8px black;
-        width: 14%;
-        transition: all 0.2s linear;
-    }
-
-    .card:hover {
-        transform: translate(0, -20%);
-    }
 }
 
 #player-1-label, #player-2-label, #player-3-label, #player-4-label {
     color: white;
+    font-size: 0.8rem;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     position: absolute;
 }
 
 #player-1-label {
     bottom: 10%;
-    right: 20%;
+    left: 80%;
 }
 
 #player-2-label {
     
-    bottom: 25%;
+    bottom: 23%;
     left: 9%;
 }
 
 #player-3-label {
     top: 22%;
-    left: 30%;
+    left: 24%;
 }
 
 #player-4-label {
     top: 35%;
-    right: 13%;
+   left: 80%;
 }
 
 .player-2-hand {
@@ -54,47 +44,14 @@
     /* background-color: red; */
     width: 10%;
     height: 50%;
-
-    .card {
-        width: 3rem;
-        
-    }
-
-    .card:nth-child(1) {
-        position: absolute;
-    }
-    .card:nth-child(2) {
-        position: absolute;
-        top: 10%;
-    }
-    .card:nth-child(3) {
-        position: absolute;
-        top: 20%;
-    }
-    .card:nth-child(4) {
-        position: absolute;
-        top: 30%;
-    }
-    .card:nth-child(5) {
-        position: absolute;
-        top: 40%;
-    }
-
-
     /* display: flex;
     flex-direction: column; */
 }
 
 .player-3-hand {
-
     position: absolute;
-    top: 20%;
-    left: 40%;
-
-    .card {
-        width: 2.5rem;
-        transition: all 0.2s linear;
-    }
+    top: 16%;
+    left: 35%;
 }
 
 .player-4-hand {
@@ -106,33 +63,6 @@
     /* background-color: red; */
     width: 10%;
     height: 50%;
-
-    .card {
-        width: 3rem;
-        
-    }
-
-    .card:nth-child(1) {
-        position: absolute;
-    }
-    .card:nth-child(2) {
-        position: absolute;
-        top: 10%;
-    }
-    .card:nth-child(3) {
-        position: absolute;
-        top: 20%;
-    }
-    .card:nth-child(4) {
-        position: absolute;
-        top: 30%;
-    }
-    .card:nth-child(5) {
-        position: absolute;
-        top: 40%;
-    }
-
-
     /* display: flex;
     flex-direction: column; */
 }
