@@ -7,9 +7,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 1px 1px 4px black;
-    border: 3px dotted rgb(54, 44, 32);
-    background-color: rgb(31, 23, 11);
+    box-shadow: 1px 1px 5px black;
+    border: 4px dotted rgb(54, 44, 32);
+    background-color: rgb(40, 31, 18);
     border-radius: 25px;
     color: white;
 

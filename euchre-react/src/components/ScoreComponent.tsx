@@ -28,7 +28,7 @@ const ScoreComponent : React.FC<props> = ({ game }) => {
       <div className="scoreboard">
         <div className="left_score">
           {/* <div>Your team: { prop.game.player1.score } points</div> */}
-          <p>Tricks won: { tricks_won } points</p>
+          <p>Tricks won: { tricks_won }</p>
         </div>
         <div className="middle_score">
           <p>Current trump: { trump }</p>
