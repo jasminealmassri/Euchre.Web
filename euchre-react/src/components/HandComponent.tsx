@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useState } from 'react'
+
 import { Card } from '../models/Card'
 import { Hand } from '../models/Hand'
 
@@ -15,19 +17,25 @@ interface HandComponentProps {
   isPlayer1 : boolean;
 }
 
+
 const HandComponent = ({hand, className, isPlayer1 = false}) => {
-  //const card = new Card('A', "spades"); 
+  
+  const [newHand, setNewHand] = useState<Hand>(hand);
 
-
-  //const deckFactory : DeckFactory = new DeckFactory();
-  //const deck = deckFactory.makeEuchreDeck();
+  const playCard = (index: number) => {
+    const playedCard = newHand.playCard(index);
+    setNewHand(new Hand([...newHand.cards]));
+  }
 
   return (
-    <div className={className}>
-      {hand.cards.map((card, index) =>
-        <CardComponent key={index} card={card} flippedUp={isPlayer1} />
-      )}
-    </div>
+    <>
+      <div className={className}>
+        {hand.cards.map((card, index) =>
+          <CardComponent key={index} card={card} flippedUp={isPlayer1} />
+        )}
+      </div>
+      <button onClick={() => playCard(3)}>Play Card</button>
+    </>
   );
 }
 export default HandComponent;

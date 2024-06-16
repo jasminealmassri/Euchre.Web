@@ -40,10 +40,10 @@ function App() {
 
   useEffect(() => {
     let newGame : gameInterface = {
-      player1: {score: 1, hand : new Hand() },
-      player2: {score: 1, hand : new Hand() },
-      player3: {score: 1, hand : new Hand() },
-      player4: {score: 1, hand : new Hand() },
+      player1: {score: 0, hand : new Hand() },
+      player2: {score: 0, hand : new Hand() },
+      player3: {score: 0, hand : new Hand() },
+      player4: {score: 0, hand : new Hand() },
       trick: {cards: []},
       deck: new Deck(DeckFactory.makeEuchreDeck()),
       updateGame: setGame,

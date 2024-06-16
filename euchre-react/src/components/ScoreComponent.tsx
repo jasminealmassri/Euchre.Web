@@ -12,18 +12,30 @@ interface props {
 
 
 const ScoreComponent : React.FC<props> = ({ game }) => {
-    let your_team_score = 0;
-    let their_team_score = 0;
+    // let your_team_score = 0;
+    // let their_team_score = 0;
     let trump = "Spades";
     
     let tricks_won = 0;
     let tricks_lost = 0;
 
+  const changeScore = (num : number) => {
+    game.updateGame(prevGame => {
+      if (prevGame) {
+        return {
+          ...prevGame,
+          player1: {...prevGame.player1, score: prevGame.player1.score + num}
+        }
+      }
+    })
+  }
+
+
   return (
     <>
       <div className="total_scores">
-          <div>Your team:   { your_team_score } points</div>
-          <div>Enemy team:  { their_team_score } points</div>
+          <div>Your team:   { game.player1.score + game.player3.score } points</div>
+          <div>Enemy team:  { game.player2.score + game.player4.score } points</div>
       </div>
       <div className="scoreboard">
         <div className="left_score">
@@ -37,6 +49,7 @@ const ScoreComponent : React.FC<props> = ({ game }) => {
           <p>Tricks lost: {tricks_lost}</p>
         </div>
       </div>
+      <button onClick={() => changeScore(1)}>Change score</button>
     </>
   )
 }
