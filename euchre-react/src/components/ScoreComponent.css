@@ -1,7 +1,7 @@
 .total_scores, .scoreboard {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(202, 202, 202);
-    font-size: 0.6rem;
+    font-size: 0.8rem;
     display: flex;
     justify-content: center;
     margin: 2% auto;
@@ -43,7 +43,7 @@
     text-align: center;
     margin: 0 auto;
     /* padding: 1%; */
-    height: 20%;
+    /* height: 20%; */
     display: flex;
     justify-content: space-around;
     align-items: center;

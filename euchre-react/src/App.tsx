@@ -59,8 +59,11 @@ function App() {
 
   return (
     <>
-      <ScoreComponent game={game}/>
-      <TableComponent game={game}/>
+    
+      <div className="game">
+        <ScoreComponent game={game}/>
+        <TableComponent game={game}/>
+      </div>
     </>
   )
 }

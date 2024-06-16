@@ -1,6 +1,27 @@
 body {
-  background-color: rgb(10, 45, 10);
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  margin: 1rem;
+  background-color: rgb(205, 204, 204);
+  justify-content: center;
+  /* padding: 2rem; */
 }
+
+.game {
+  background-color: rgb(10, 45, 10);
+  width: 40rem;
+  height: 36rem;
+  border: 3px solid rgb(12, 12, 12);
+  border-radius: 25px;
+  box-shadow: -15px -15px 3px rgb(238, 238, 238), 15px 15px 3px rgb(80, 80, 80);
+  /* box-shadow: 15px 15px 3px rgb(80, 80, 80); */
+  position: relative;
+  /* margin: 0 auto; */
+}
+
+
+
 
 p {
   margin: 0;
