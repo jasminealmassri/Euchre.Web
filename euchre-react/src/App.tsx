@@ -16,16 +16,32 @@ import TableComponent from './components/TableComponent'
 import ScoreComponent from './components/ScoreComponent'
 
 export interface gameInterface {
-  // players 1-4
   player1: Player;
   player2: Player;
   player3: Player;
   player4: Player;
   trick : Trick;
+  startingPlayer: number;
+  tricks_won: number;
+  tricks_lost: number;
+  trump: Suit;
   deck: Deck;
+  phase: gamePhase;
   // This is a function pointer
   updateGame: React.Dispatch<React.SetStateAction<gameInterface>>;
+}
 
+export enum Suit {
+  Diamonds = "diamonds",
+  Spades = "spades",
+  Clubs = "clubs",
+  Hearts = "hearts"
+}
+
+export enum gamePhase {
+  firstRoundTrump,
+  secondRoundTrump,
+  round,
 }
 
 interface Player {
@@ -46,6 +62,9 @@ function App() {
       player4: {score: 0, hand : new Hand() },
       trick: {cards: []},
       deck: new Deck(DeckFactory.makeEuchreDeck()),
+      tricks_won: 0,
+      tricks_lost: 0,
+      trump: Suit.Hearts,
       updateGame: setGame,
       }
       setGame(newGame) // define the game object as the new game object that was just created

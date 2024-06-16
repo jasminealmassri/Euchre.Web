@@ -125,9 +125,10 @@ const cardImages = {
 interface  CardComponentProps {
     card: Card;
     flippedUp: boolean;
+    onClick?: () => void;
 }
 
-const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp}) => {
+const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp, onClick}) => {
 
     //const [flippedUp, setFlippedUp] = useState(true);
     //const [img, setImage] = useState('');
@@ -135,18 +136,22 @@ const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp}) => {
     //const imgUrl = `/assets/images/Cards/${card.faceValue}${card.suit}.png`;
 
     const imgPath = `${card.suit}${card.faceValue}`;
-    const cardImage : any = cardImages[imgPath];
+    const cardImage = flippedUp? cardImages[imgPath] : back;
 
-    if(flippedUp) {
-        return (
-            <img className="card" src={cardImage}/>
-          )
-    }
-    else {
-        return (
-            <img className="card" src={back}/>
-          )
-    }
+    return <img onClick={onClick} className="card" src={cardImage}/>
+
+    // return 
+    // const img = 
+    // if(flippedUp) {
+    //     return (
+    //         <img className="card" src={cardImage}/>
+    //       )
+    // }
+    // else {
+    //     return (
+    //         <img className="card" src={back}/>
+    //       )
+    // }
  
 }
 

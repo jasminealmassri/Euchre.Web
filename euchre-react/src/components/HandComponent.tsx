@@ -18,7 +18,7 @@ interface HandComponentProps {
 }
 
 
-const HandComponent = ({hand, className, isPlayer1 = false}) => {
+const HandComponent = ({hand, className, isPlayer1 = false} : HandComponentProps) => {
   
   const [newHand, setNewHand] = useState<Hand>(hand);
 
@@ -31,10 +31,10 @@ const HandComponent = ({hand, className, isPlayer1 = false}) => {
     <>
       <div className={className}>
         {hand.cards.map((card, index) =>
-          <CardComponent key={index} card={card} flippedUp={isPlayer1} />
+          <CardComponent key={index} card={card} flippedUp={isPlayer1} onClick={() => playCard(index)}/>
         )}
       </div>
-      <button onClick={() => playCard(3)}>Play Card</button>
+      {/* <button onClick={() => playCard(3)}>Play Card</button> */}
     </>
   );
 }
