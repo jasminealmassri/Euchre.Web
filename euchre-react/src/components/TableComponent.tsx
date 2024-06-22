@@ -1,4 +1,5 @@
-import React from 'react'
+import { GameContext } from '../App';
+import React, {useContext} from 'react'
 
 import { DeckFactory } from '../models/DeckFactory'
 
@@ -13,11 +14,12 @@ import TrickComponent from './TrickComponent'
 import './TableComponent.css';
 
 interface props {
-  game: gameInterface;
+  //game: gameInterface;
 }
 
-const TableComponent : React.FC<props> = ({game}) => {
+const TableComponent : React.FC<props> = () => {
 
+  const [game, setGame] = useContext(GameContext);
   //const deck = DeckFactory.makeEuchreDeck();
 
   const hand1 : Hand = game.player1.hand;
@@ -48,10 +50,10 @@ const TableComponent : React.FC<props> = ({game}) => {
         <p id="player-2-label">Player 2</p>
         <p id="player-3-label">Player 3</p>
         <p id="player-4-label">Player 4</p>
-        <HandComponent key={1} hand={hand1} className="player-1-hand" isPlayer1={true}/>
-        <HandComponent key={2} hand={hand2} className="player-2-hand"/>
-        <HandComponent key={3} hand={hand3} className="player-3-hand"/>
-        <HandComponent key={4} hand={hand4} className="player-4-hand"/>
+        <HandComponent key={1} initialHand={hand1} className="player-1-hand" isPlayer1={true}/>
+        <HandComponent key={2} initialHand={hand2} className="player-2-hand" isPlayer1={false}/>
+        <HandComponent key={3} initialHand={hand3} className="player-3-hand" isPlayer1={false}/>
+        <HandComponent key={4} initialHand={hand4} className="player-4-hand" isPlayer1={false}/>
         <TrickComponent></TrickComponent>
         <button onClick={dealCards}>Deal Cards</button>
     </>

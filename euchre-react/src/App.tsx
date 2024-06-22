@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react'
+import React, {  crGameeateGameContext, useEffect, useState } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
@@ -50,6 +50,8 @@ interface Player {
   hand: Hand;
 }
 
+export const GameContext = React.createContext({});
+
 
 function App() {
   const [game, setGame] = useState<gameInterface | null>(null);
@@ -78,11 +80,12 @@ function App() {
 
   return (
     <>
-    
-      <div className="game">
-        <ScoreComponent game={game}/>
-        <TableComponent game={game}/>
-      </div>
+      <GameContext.Provider value={[game, setGame]}>
+        <div className="game">
+          <ScoreComponent/>
+          <TableComponent game={game}/>
+        </div>
+      </GameContext.Provider>
     </>
   )
 }

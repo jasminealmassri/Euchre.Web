@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { gameInterface } from '../App';
 
 import './ScoreComponent.css'
 
+import { GameContext } from '../App';
+
 interface props {
-  game: gameInterface;
+  //game: gameInterface;
 }
 
 
 
 
-const ScoreComponent : React.FC<props> = ({ game }) => {
+const ScoreComponent : React.FC<props> = () => {
+  const [game, setGame] = useContext(GameContext);
     // let your_team_score = 0;
     // let their_team_score = 0;
     let trump = "Spades";

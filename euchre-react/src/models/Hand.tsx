@@ -12,7 +12,12 @@ export class Hand {
         if (index < 0 || index >= this.cards.length) {
             throw new Error('Invalid card index');
         }
+        
 
-        return this.cards.splice(index, 1)[0];
+        const Card =  this.cards.splice(index, 1)[0];
+        console.log('In the hand class:');
+        console.log(`Card clicked is ${JSON.stringify(Card)}`);
+        console.log(`Hand is ${JSON.stringify(this.cards)}`)
+        return Card;
     }
 }
