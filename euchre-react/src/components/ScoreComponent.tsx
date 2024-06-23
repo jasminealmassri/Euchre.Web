@@ -14,7 +14,7 @@ interface props {
 
 
 const ScoreComponent : React.FC<props> = () => {
-  const [game, setGame] = useContext(GameContext);
+  const game = useContext(GameContext);
     // let your_team_score = 0;
     // let their_team_score = 0;
     let trump = "Spades";

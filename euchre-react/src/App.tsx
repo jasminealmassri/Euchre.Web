@@ -28,7 +28,7 @@ export interface gameInterface {
   deck: Deck;
   phase: gamePhase;
   // This is a function pointer
-  updateGame: React.Dispatch<React.SetStateAction<gameInterface>>;
+  updateGame: React.Dispatch<React.SetStateAction<gameInterface | null>>;
 }
 
 export enum Suit {
@@ -50,7 +50,7 @@ interface Player {
   hand: Hand;
 }
 
-export const GameContext = React.createContext({});
+export const GameContext = React.createContext<gameInterface | null>(null);
 
 
 function App() {
@@ -63,9 +63,11 @@ function App() {
       player3: {score: 0, hand : new Hand() },
       player4: {score: 0, hand : new Hand() },
       trick: {cards: []},
+      startingPlayer: 0,
       deck: new Deck(DeckFactory.makeEuchreDeck()),
       tricks_won: 0,
       tricks_lost: 0,
+      phase: gamePhase.firstRoundTrump,
       trump: Suit.Hearts,
       updateGame: setGame,
       }
@@ -80,10 +82,10 @@ function App() {
 
   return (
     <>
-      <GameContext.Provider value={[game, setGame]}>
+      <GameContext.Provider value={game}>
         <div className="game">
           <ScoreComponent/>
-          <TableComponent game={game}/>
+          <TableComponent/>
         </div>
       </GameContext.Provider>
     </>
