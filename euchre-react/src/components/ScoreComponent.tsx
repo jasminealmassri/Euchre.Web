@@ -1,26 +1,13 @@
 import React, {useContext} from 'react'
-
-import { gameInterface } from '../App';
-
 import './ScoreComponent.css'
-
 import { GameContext } from '../App';
 
-interface props {
-  //game: gameInterface;
-}
 
-
-
-
-const ScoreComponent : React.FC<props> = () => {
+const ScoreComponent = () => {
   const game = useContext(GameContext);
-    // let your_team_score = 0;
-    // let their_team_score = 0;
-    let trump = "Spades";
-    
-    let tricks_won = 0;
-    let tricks_lost = 0;
+  let trump = "Spades";   
+  let tricks_won = 0;
+  let tricks_lost = 0;
 
   const changeScore = (num : number) => {
     game.updateGame(prevGame => {
@@ -42,7 +29,6 @@ const ScoreComponent : React.FC<props> = () => {
       </div>
       <div className="scoreboard">
         <div className="left_score">
-          {/* <div>Your team: { prop.game.player1.score } points</div> */}
           <p>Tricks won: { tricks_won }</p>
         </div>
         <div className="middle_score">

@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
-//import spades9 from '../assets/images/Cards/spades9.png';
+import React from 'react';
 import back from '../assets/images/Cards/back.png';
 
 import { Card } from '../models/Card';
 
 import './CardComponent.css';
-
-import { Deck } from '../models/DeckFactory';
-
 
 import spadesA from '../assets/images/Cards/spadesA.png';
 import spades2 from '../assets/images/Cards/spades2.png';
@@ -61,10 +57,6 @@ import clubs10 from '../assets/images/Cards/clubs10.png';
 import clubsJ from '../assets/images/Cards/clubsJ.png';
 import clubsQ from '../assets/images/Cards/clubsQ.png';
 import clubsK from '../assets/images/Cards/clubsK.png';
-
-//const images = import.meta.glob('./assets/*.png');
-
-// const getImagePath = (imageName : string)  => images[`./assets/${imageName}.png`]();
 
 
 const cardImages = {
@@ -130,28 +122,10 @@ interface  CardComponentProps {
 
 const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp, onClick}) => {
 
-    //const [flippedUp, setFlippedUp] = useState(true);
-    //const [img, setImage] = useState('');
-
-    //const imgUrl = `/assets/images/Cards/${card.faceValue}${card.suit}.png`;
-
     const imgPath = `${card.suit}${card.faceValue}`;
     const cardImage = flippedUp? cardImages[imgPath] : back;
 
     return <img onClick={onClick} className="card" src={cardImage}/>
-
-    // return 
-    // const img = 
-    // if(flippedUp) {
-    //     return (
-    //         <img className="card" src={cardImage}/>
-    //       )
-    // }
-    // else {
-    //     return (
-    //         <img className="card" src={back}/>
-    //       )
-    // }
  
 }
 

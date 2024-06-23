@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import './App.css'
-
 import { DeckFactory } from './models/DeckFactory';
 import { Deck } from './models/Deck';
 import { Hand } from './models/Hand';
 import { Trick } from './models/Trick';
-
-// import HandComponent from './components/HandComponent'
-// import CardComponent from './components/CardComponent'
-
 import TableComponent from './components/TableComponent'
-
 import ScoreComponent from './components/ScoreComponent'
 
 export interface gameInterface {
@@ -27,8 +19,7 @@ export interface gameInterface {
   trump: Suit;
   deck: Deck;
   phase: gamePhase;
-  // This is a function pointer
-  updateGame: React.Dispatch<React.SetStateAction<gameInterface | null>>;
+  updateGame: React.Dispatch<React.SetStateAction<gameInterface>>;
 }
 
 export enum Suit {
@@ -45,16 +36,15 @@ export enum gamePhase {
 }
 
 interface Player {
-  // pointers to the use State variables that get updated
   score: number;
   hand: Hand;
 }
 
-export const GameContext = React.createContext<gameInterface | null>(null);
+export const GameContext = React.createContext<gameInterface>();
 
 
 function App() {
-  const [game, setGame] = useState<gameInterface | null>(null);
+  const [game, setGame] = useState<gameInterface>();
 
   useEffect(() => {
     let newGame : gameInterface = {
@@ -71,8 +61,8 @@ function App() {
       trump: Suit.Hearts,
       updateGame: setGame,
       }
-      setGame(newGame) // define the game object as the new game object that was just created
-    }, []); // empty array means only called at the start of the program
+      setGame(newGame)
+    }, []); 
 
    if (!game) {
     return <div>Loading...</div>;

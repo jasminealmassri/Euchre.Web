@@ -6,7 +6,7 @@ export class Card {
     public suit : Suit;
     public faceUp : boolean;
 
-    constructor(faceValue: string = 'unknown', suit : Suit, faceUp : boolean = true) {
+    constructor(faceValue: string = 'unknown', suit : Suit = Suit.Diamonds, faceUp : boolean = true) {
         this.faceValue = faceValue;
         this.suit = suit;
         this.faceUp = faceUp;
