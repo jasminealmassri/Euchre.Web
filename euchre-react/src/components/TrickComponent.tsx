@@ -1,6 +1,6 @@
 import CardComponent from './CardComponent';
 
-import { GameContext } from '../App';
+import { GameContext } from './EuchreComponent';
 import { useContext } from 'react';
 import './TrickComponent.css';
 import { Trick } from '../models/Trick';

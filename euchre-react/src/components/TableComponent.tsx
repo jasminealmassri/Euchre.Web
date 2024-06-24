@@ -1,4 +1,4 @@
-import { GameContext } from '../App';
+import { GameContext } from './EuchreComponent';
 import {useContext} from 'react'
 import HandComponent from './HandComponent';
 import TrickComponent from './TrickComponent'
@@ -8,7 +8,11 @@ import './TableComponent.css';
 
 const TableComponent = () => {
 
+
   const game = useContext(GameContext);
+  if (!game) {
+    return <div>Loading...</div>; // Render a loading indicator while game is undefined
+  }
   const dealCards = () => {
     const numCards = 5; // Number of cards to deal to each player
     game.deck.dealCards(numCards, game.player1.hand.cards);

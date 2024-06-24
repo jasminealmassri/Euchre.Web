@@ -1,6 +1,6 @@
 import React, {useContext} from 'react'
 import './ScoreComponent.css'
-import { GameContext } from '../App';
+import { GameContext } from './EuchreComponent';
 
 
 const ScoreComponent = () => {

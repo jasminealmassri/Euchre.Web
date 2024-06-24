@@ -1,6 +1,6 @@
 import {useContext} from 'react'
 import { Hand } from '../models/Hand';
-import { GameContext } from '../App';
+import { GameContext } from './EuchreComponent';
 import CardComponent from './CardComponent'
 
 
