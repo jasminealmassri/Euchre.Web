@@ -1,4 +1,4 @@
-import { Suit } from "../components/EuchreComponent";
+import { Suit } from "./Suit";
 
 
 export class Card {
