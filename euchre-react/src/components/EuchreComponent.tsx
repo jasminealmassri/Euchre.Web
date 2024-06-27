@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { DeckFactory } from '../models/DeckFactory';
 import { Deck } from '../models/Deck';
 import { Hand } from '../models/Hand';
@@ -8,21 +8,8 @@ import { Suit } from '../models/Suit';
 import { dealCards } from '../functions/Euchre/DealCards';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
+import { render } from 'react-dom';
 
-// export interface gameInterface {
-//     player1: Player;
-//     player2: Player;
-//     player3: Player;
-//     player4: Player;
-//     trick : Trick;
-//     startingPlayer: number;
-//     tricks_won: number;
-//     tricks_lost: number;
-//     trump: Suit;
-//     deck: Deck;
-//     phase: gamePhase;
-//     updateGame?: React.Dispatch<React.SetStateAction<gameInterface | undefined>>;
-//   }
   
 const startingGame : gameInterface = {
   player1:  {score: 0, hand : new Hand() },
@@ -46,54 +33,47 @@ interface props {
   children: React.ReactNode;
 }
 
-const EuchreComponent : React.FC<props> = ({children}) => {
 
-    const [game, setGame] = useState<gameInterface>();
+
+const EuchreComponent : React.FC<props> = ({children}) => {
+    const renderCount = useRef(0);
+    //console.log('render count is ', renderCount);
+    const [game, setGame] = useState<gameInterface | undefined>(startingGame);
 
     const startNewGame = () => {
       const newGame : gameInterface = {
         ...startingGame,
         updateGame: setGame,
       };
+     
+      newGame.deck.shuffleDeck();
       dealCards(newGame);
-
-    //   if (newGame) {
-        
-    //     newGame.deck.shuffleDeck();
-    //     const numCards = 5; // Number of cards to deal to each player
-    //     newGame.deck.dealCards(numCards, newGame.player1.hand.cards);
-    //     newGame.deck.dealCards(numCards, newGame.player2.hand.cards);
-    //     newGame.deck.dealCards(numCards, newGame.player3.hand.cards);
-    //     newGame.deck.dealCards(numCards, newGame.player4.hand.cards);
-    
-    //     if (newGame.updateGame) {
-    //       newGame.updateGame({
-    //         ...newGame,
-    //         player1: { ...newGame.player1, hand: newGame.player1.hand },
-    //         player2: { ...newGame.player2, hand: newGame.player2.hand },
-    //         player3: { ...newGame.player3, hand: newGame.player3.hand },
-    //         player4: { ...newGame.player4, hand: newGame.player4.hand },
-    //         deck: newGame.deck,
-    //         phase: gamePhase.firstRoundTrump,
-           
-    //       });
-    //     }
-    //   }
-    // };
+      setGame(newGame);
+      console.log('New game initialized:', newGame);
     };
 
     
     useEffect(() => {
+      console.log('EuchreComponent mounted');
         startNewGame();
     }, []); 
 
     useEffect(() => {
-      console.log(`${JSON.stringify(game)}`);
+      console.log('Game state updated:', game);
+      if (game) {
+        console.log('Game phase is now:', game.phase);
+      }
     }, [game]); // Log whenever game state changes
     
       if (!game) {
       return <div>Loading...</div>;
     }
+
+    useEffect(() => {
+      renderCount.current += 1;
+      console.log('render count is ', renderCount.current);
+    });
+  
     
 
     //const game = useContext(GameContext);

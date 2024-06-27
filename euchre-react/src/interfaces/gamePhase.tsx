@@ -1,5 +1,5 @@
 export enum gamePhase {
-    newGame,
+    newGame = 0,
     firstRoundTrump,
     secondRoundTrump,
     round,

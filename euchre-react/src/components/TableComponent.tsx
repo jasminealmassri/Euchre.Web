@@ -3,6 +3,7 @@ import {useContext} from 'react'
 import HandComponent from './HandComponent';
 import TrickComponent from './TrickComponent'
 import './TableComponent.css';
+import MessageComponent from './MessageComponent';
 
 
 
@@ -33,6 +34,7 @@ const TableComponent = () => {
 
   return (
     <>
+        <MessageComponent game={game}/>
         <p id="player-1-label">You</p>
         <p id="player-2-label">Player 2</p>
         <p id="player-3-label">Player 3</p>
