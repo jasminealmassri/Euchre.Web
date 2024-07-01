@@ -13,6 +13,11 @@ export class Deck {
         cards.push(...dealtCards);
     }
 
+    public dealCard() : Card {
+        const cards = this.cards.splice(0, 1);
+        return cards[0];
+    }
+
     public shuffleDeck() {
         const shuffledDeck = this.cards.slice();
         for (let i = shuffledDeck.length - 1; i > 0; i--) {

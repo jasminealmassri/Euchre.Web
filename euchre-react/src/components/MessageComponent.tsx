@@ -3,7 +3,7 @@ import React from 'react'
 import { gameInterface } from '../interfaces/gameInterface'
 import { gamePhase } from '../interfaces/gamePhase';
 import { GameContext } from './EuchreComponent';
-
+import './MessageComponent.css'
 
 
 const MessageComponent = () => {

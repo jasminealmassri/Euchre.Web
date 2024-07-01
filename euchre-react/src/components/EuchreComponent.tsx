@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DeckFactory } from '../models/DeckFactory';
 import { Deck } from '../models/Deck';
 import { Hand } from '../models/Hand';
 import { Trick } from '../models/Trick';
 import { Suit } from '../models/Suit';
-
 import { dealCards } from '../functions/Euchre/DealCards';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
@@ -34,22 +33,30 @@ interface props {
 }
 
 
-
 const EuchreComponent : React.FC<props> = ({children}) => {
     
     const renderCount = useRef(0);
-    //console.log('render count is ', renderCount);
     const [game, setGame] = useState<gameInterface | undefined>(startingGame);
     const hasMounted = useRef(false);
 
     const startNewGame = () => {
+      const rand = Math.floor(Math.random() * 4);
       let newGame : gameInterface = {
         ...startingGame,
         updateGame: setGame,
+        dealer: rand,
       };
      
       newGame.deck.shuffleDeck();
       newGame = dealCards(newGame);
+
+      let newTrick = new Trick();
+      newTrick.cards[rand] = newGame.deck.dealCard();
+      newGame = {
+        ...newGame,
+        trick: newTrick,
+      } 
+
       setGame(newGame);
       console.log('New game initialized:', newGame);
     };
@@ -57,20 +64,18 @@ const EuchreComponent : React.FC<props> = ({children}) => {
     
     useEffect(() => {
       if (!hasMounted.current) {
-        console.log('EuchreComponent mounted');
         startNewGame();
-        hasMounted.current = true; // Mark as mounted
+        hasMounted.current = true; 
       }
-    }, []); // Run once on component mount
+    }, []); 
 
     useEffect(() => {
-      console.log('Game state updated:', game);
       if (game) {
         console.log('Game phase is now:', game.phase);
       }
-    }, [game]); // Log whenever game state changes
+    }, [game]); 
     
-      if (!game) {
+    if (!game) {
       return <div>Loading...</div>;
     }
 
@@ -78,13 +83,7 @@ const EuchreComponent : React.FC<props> = ({children}) => {
       renderCount.current += 1;
       console.log('render count is ', renderCount.current);
     });
-  
-    
-
-    //const game = useContext(GameContext);
-
-   
-    
+      
 
     return (
         <GameContext.Provider value={game}>

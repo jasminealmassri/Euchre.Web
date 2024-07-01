@@ -34,7 +34,7 @@ const TableComponent = () => {
 
   return (
     <>
-        <MessageComponent game={game}/>
+        <MessageComponent/>
         <p id="player-1-label">You</p>
         <p id="player-2-label">Player 2</p>
         <p id="player-3-label">Player 3</p>

@@ -38,7 +38,7 @@ const ScoreComponent = () => {
           <p>Tricks lost: {tricks_lost}</p>
         </div>
       </div>
-      <button onClick={() => changeScore(1)}>Change score</button>
+      {/* <button onClick={() => changeScore(1)}>Change score</button> */}
     </>
   )
 }
