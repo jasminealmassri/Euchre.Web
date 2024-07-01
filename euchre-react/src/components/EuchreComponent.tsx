@@ -8,7 +8,7 @@ import { Suit } from '../models/Suit';
 import { dealCards } from '../functions/Euchre/DealCards';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
-import { render } from 'react-dom';
+
 
   
 const startingGame : gameInterface = {
@@ -16,7 +16,7 @@ const startingGame : gameInterface = {
   player2: {score: 0, hand : new Hand() },
   player3: {score: 0, hand : new Hand() },
   player4: {score: 0, hand : new Hand() },
-  trick: {cards: []},
+  trick: new Trick(),
   startingPlayer: 0,
   deck: new Deck(DeckFactory.makeEuchreDeck()),
   tricks_won: 0,
@@ -36,27 +36,32 @@ interface props {
 
 
 const EuchreComponent : React.FC<props> = ({children}) => {
+    
     const renderCount = useRef(0);
     //console.log('render count is ', renderCount);
     const [game, setGame] = useState<gameInterface | undefined>(startingGame);
+    const hasMounted = useRef(false);
 
     const startNewGame = () => {
-      const newGame : gameInterface = {
+      let newGame : gameInterface = {
         ...startingGame,
         updateGame: setGame,
       };
      
       newGame.deck.shuffleDeck();
-      dealCards(newGame);
+      newGame = dealCards(newGame);
       setGame(newGame);
       console.log('New game initialized:', newGame);
     };
 
     
     useEffect(() => {
-      console.log('EuchreComponent mounted');
+      if (!hasMounted.current) {
+        console.log('EuchreComponent mounted');
         startNewGame();
-    }, []); 
+        hasMounted.current = true; // Mark as mounted
+      }
+    }, []); // Run once on component mount
 
     useEffect(() => {
       console.log('Game state updated:', game);

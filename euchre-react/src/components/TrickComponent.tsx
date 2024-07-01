@@ -19,7 +19,7 @@ const TrickComponent : React.FC<props> = ({trick} : props) => {
   return (
     <div className="trick">
         {trick.cards.map((card, index) => (
-            <div className={player_classes[index]}>
+            <div key={index} className={player_classes[index]}>
                 <CardComponent key={index} card={card} flippedUp={true} />
             </div>
         ))}
