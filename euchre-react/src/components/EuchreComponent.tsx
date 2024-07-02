@@ -63,10 +63,13 @@ const EuchreComponent : React.FC<props> = ({children}) => {
 
     
     useEffect(() => {
-      if (!hasMounted.current) {
-        startNewGame();
-        hasMounted.current = true; 
-      }
+      setTimeout(() => {
+        if (!hasMounted.current) {
+          startNewGame();
+          hasMounted.current = true; 
+        }
+      }, 500);
+     
     }, []); 
 
     useEffect(() => {
