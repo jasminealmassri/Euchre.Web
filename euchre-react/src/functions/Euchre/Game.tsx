@@ -3,10 +3,9 @@ import { gameInterface } from "../../interfaces/gameInterface";
 import { Hand } from "../../models/Hand";
 
 export function dealCards(game: gameInterface): gameInterface {
-  console.log('Deal cards ran');
-  const numCards = 5; // Number of cards to deal to each player
 
-  // Create new hand objects to avoid direct mutation
+  const numCards = 5; 
+
   const newPlayer1Hand = new Hand([...game.player1.hand.cards]);
   const newPlayer2Hand = new Hand([...game.player2.hand.cards]);
   const newPlayer3Hand = new Hand([...game.player3.hand.cards]);
@@ -17,7 +16,6 @@ export function dealCards(game: gameInterface): gameInterface {
   game.deck.dealCards(numCards, newPlayer3Hand.cards);
   game.deck.dealCards(numCards, newPlayer4Hand.cards);
 
-  // Return a new game state object
   return {
     ...game,
     player1: { ...game.player1, hand: newPlayer1Hand },

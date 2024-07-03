@@ -4,7 +4,7 @@ import { Deck } from '../models/Deck';
 import { Hand } from '../models/Hand';
 import { Trick } from '../models/Trick';
 import { Suit } from '../models/Suit';
-import { dealCards } from '../functions/Euchre/DealCards';
+import { dealCards } from '../functions/Euchre/Game';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
 

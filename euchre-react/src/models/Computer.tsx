@@ -1,7 +1,7 @@
 import { Card } from "./Card";
 import { Hand } from "./Hand";
 
-export class Player {
+export class Computer {
 
     hand: Hand;
 
@@ -14,6 +14,6 @@ export class Player {
     }
 
     pickItUp() : boolean {
-        return false;
+        return true;
     }
 }
