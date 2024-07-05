@@ -15,7 +15,7 @@ export interface gameInterface {
     startingPlayer: number;
     tricks_won: number;
     tricks_lost: number;
-    trump: Suit;
+    trump?: Suit;
     deck: Deck;
     dealer: number;
     phase: gamePhase;

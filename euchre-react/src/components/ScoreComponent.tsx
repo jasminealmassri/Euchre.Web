@@ -5,7 +5,7 @@ import { GameContext } from './EuchreComponent';
 
 const ScoreComponent = () => {
   const game = useContext(GameContext);
-  let trump = "Spades";   
+  //let trump = "Spades";   
   let tricks_won = 0;
   let tricks_lost = 0;
 
@@ -32,7 +32,7 @@ const ScoreComponent = () => {
           <p>Tricks won: { tricks_won }</p>
         </div>
         <div className="middle_score">
-          <p>Current trump: { trump }</p>
+          <p>Current trump: { game.trump }</p>
         </div>
         <div className="right_score">
           <p>Tricks lost: {tricks_lost}</p>

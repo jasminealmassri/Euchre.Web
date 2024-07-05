@@ -122,7 +122,7 @@ interface  CardComponentProps {
 
 const CardComponent: React.FC<CardComponentProps> = ({card, flippedUp, onClick}) => {
 
-    const imgPath = `${card.suit}${card.faceValue}`;
+    const imgPath = `${card.suit.toLowerCase()}${card.faceValue}`;
     const cardImage = flippedUp? cardImages[imgPath] : back;
 
     return <img onClick={onClick} className="card" src={cardImage}/>

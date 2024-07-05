@@ -30,14 +30,16 @@ export function firstRoundTrump(game : gameInterface): gameInterface {
         //game.phase = gamePhase.round;
         //return game;
       }
-      game.prompt2Handler = () => {
-        console.log('Prompt 2 was chosen')
+      game.prompt2Handler = (game : gameInterface) => {
+        console.log('Prompt 2 was chosen');
+        game.trump = game.trick.cards[game.dealer].suit;
+        game.phase = gamePhase.round;
+        game.updateGame({...game});
       }
       game.prompt2 = `Tell Player ${game.dealer + 1} to pick it up`;
       // if (pickItUp()) {
-      //   game.trump = game.trick.cards[game.dealer].suit;
-      //   game.phase = gamePhase.round;
-      //   return game;
+
+      return game;
       // }
       // else {
       //   currIndex = nextWrapIndex(currIndex, 4);

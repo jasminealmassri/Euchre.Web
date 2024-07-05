@@ -31,8 +31,8 @@ const PromptComponent = () => {
   if (game.prompt1 !== '' || game.prompt2 !== '') {
     return (
       <>
-        <button className="prompt_choice1" onClick={ game.prompt1Handler }>{ game.prompt1 }</button>
-        <button className="prompt_choice2" onClick={ game.prompt2Handler }>{ game.prompt2 }</button>
+        <button className="prompt_choice1" onClick={ () => game.prompt1Handler(game) }>{ game.prompt1 }</button>
+        <button className="prompt_choice2" onClick={ () => game.prompt2Handler(game) }>{ game.prompt2 }</button>
         <div className={`${dealerCSSClass}`}>Dealer</div>
       </>
     )

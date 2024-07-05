@@ -23,7 +23,7 @@ const startingGame : gameInterface = {
   tricks_lost: 0,
   phase: gamePhase.newGame,
   dealer: 0,
-  trump: Suit.Hearts,
+  //trump: Suit.Hearts,
   updateGame: undefined,
   prompt1: '',
   prompt2: '',

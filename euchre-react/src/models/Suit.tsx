@@ -1,7 +1,7 @@
 
 export enum Suit {
-    Diamonds = "diamonds",
-    Spades = "spades",
-    Clubs = "clubs",
-    Hearts = "hearts"
+    Diamonds = "Diamonds",
+    Spades = "Spades",
+    Clubs = "Clubs",
+    Hearts = "Hearts"
   }
