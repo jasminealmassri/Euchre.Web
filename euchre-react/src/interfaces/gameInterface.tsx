@@ -20,4 +20,6 @@ export interface gameInterface {
     dealer: number;
     phase: gamePhase;
     updateGame?: React.Dispatch<React.SetStateAction<gameInterface | undefined>>;
+    prompt1: string;
+    prompt2: string;
   }

@@ -24,6 +24,8 @@ const startingGame : gameInterface = {
   dealer: 0,
   trump: Suit.Hearts,
   updateGame: undefined,
+  prompt1: '',
+  prompt2: '',
 };
 
 export const GameContext = React.createContext<gameInterface>(startingGame);
