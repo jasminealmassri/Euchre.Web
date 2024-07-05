@@ -22,4 +22,6 @@ export interface gameInterface {
     updateGame?: React.Dispatch<React.SetStateAction<gameInterface | undefined>>;
     prompt1: string;
     prompt2: string;
+    prompt1Handler: any;
+    prompt2Handler : any;
   }

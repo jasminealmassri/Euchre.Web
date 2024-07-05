@@ -7,6 +7,7 @@ import { Suit } from '../models/Suit';
 import { dealCards } from '../functions/Euchre/Game';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
+import { firstRoundTrump } from '../functions/Euchre/Game';
 
 
   
@@ -26,6 +27,8 @@ const startingGame : gameInterface = {
   updateGame: undefined,
   prompt1: '',
   prompt2: '',
+  prompt1Handler: undefined,
+  prompt2Handler: undefined,
 };
 
 export const GameContext = React.createContext<gameInterface>(startingGame);
@@ -61,8 +64,11 @@ const EuchreComponent : React.FC<props> = ({children}) => {
 
       setGame(newGame);
       console.log('New game initialized:', newGame);
+
+      firstRoundTrump(newGame);
     };
 
+  
     
     useEffect(() => {
       setTimeout(() => {

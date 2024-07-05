@@ -23,7 +23,8 @@ const HandComponent = ({hand, className, playerIndex} : HandComponentProps) => {
           if (playerIndex == 0) {
           game.trick.cards[playerIndex] = hand.playCard(index); 
           game.updateGame({...game});
-          console.log(`In hand component, hand is now ${JSON.stringify(hand)}`)}}}/>
+          //console.log(`In hand component, hand is now ${JSON.stringify(hand)}`)
+          }}}/>
         )}
       </div>
     </>

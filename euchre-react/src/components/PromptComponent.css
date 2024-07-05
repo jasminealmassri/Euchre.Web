@@ -30,7 +30,7 @@
     color: white;
     border: 1px solid rgba(255,255,255,0.5);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    position: relative;
+    position: absolute;
     width: 4rem;
     padding: 1%;
     border-radius: 20px;
@@ -41,21 +41,21 @@
 }
 
 .player_1_is_dealer {
-    top: 50%;
+    top: 80%;
     left: 78%;
 }
 
 .player_2_is_dealer {
-    top: -2%;
+    top: 28%;
     left: 9%;
 }
 
 .player_3_is_dealer {
-    top: -14%;
+    top: 16%;
     left: 23%;
 }
 
 .player_4_is_dealer {
-    top: -2%;
+    top: 28%;
     left: 78%;
 }

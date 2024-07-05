@@ -15,9 +15,9 @@ export class Hand {
         
 
         const Card =  this.cards.splice(index, 1)[0];
-        console.log('In the hand class:');
-        console.log(`Card clicked is ${JSON.stringify(Card)}`);
-        console.log(`Hand is ${JSON.stringify(this.cards)}`)
+        //console.log('In the hand class:');
+       // console.log(`Card clicked is ${JSON.stringify(Card)}`);
+        //console.log(`Hand is ${JSON.stringify(this.cards)}`)
         return Card;
     }
 }
