@@ -59,7 +59,7 @@ import clubsQ from '../assets/images/Cards/clubsQ.png';
 import clubsK from '../assets/images/Cards/clubsK.png';
 
 
-const cardImages = {
+const cardImages : any = {
     'spadesA' : spadesA,
     'spades2': spades2,
     'spades3': spades3,

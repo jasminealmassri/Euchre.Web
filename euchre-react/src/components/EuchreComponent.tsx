@@ -29,6 +29,7 @@ const startingGame : gameInterface = {
   prompt2: '',
   prompt1Handler: undefined,
   prompt2Handler: undefined,
+  message: 'Welcome',
 };
 
 export const GameContext = React.createContext<gameInterface>(startingGame);
