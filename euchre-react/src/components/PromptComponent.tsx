@@ -17,24 +17,17 @@ const PromptComponent = () => {
       setdealerCSSClass(dealerClasses[game.dealer]);
     }
     }, [game]);
-    //   switch (game.phase) {
-    //     case gamePhase.firstRoundTrump:
-    //       setMessage('Your turn');
-    //       break;
-    //     default:
-    //       setMessage('Welcome'); // Default message if phase doesn't match
-    //       break;
-    //   }
-    // }
-  // }, [game]); // Update only when game or game.phase changes
   
   if (game.prompt1 !== '' || game.prompt2 !== '') {
     return (
       <>
-        <button className="prompt_choice1" onClick={ () => game.prompt1Handler(game) }>{ game.prompt1 }</button>
-        <button className="prompt_choice2" onClick={ () => game.prompt2Handler(game) }>{ game.prompt2 }</button>
+        <div className="prompt_container">
+          <button className="prompt_choice1" onClick={ () => game.prompt1Handler(game) }>{ game.prompt1 }</button>
+          <button className="prompt_choice2" onClick={ () => game.prompt2Handler(game) }>{ game.prompt2 }</button>
+        </div>
         <div className={`${dealerCSSClass}`}>Dealer</div>
       </>
+
     )
   }
   else {

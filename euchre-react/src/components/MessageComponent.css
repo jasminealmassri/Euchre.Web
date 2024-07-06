@@ -1,5 +1,5 @@
 .message {
-    position: relative;
+    position: absolute;
     display: flex;
     border-radius: 10px;
     box-sizing: border-box;
@@ -7,13 +7,13 @@
     align-items: center;
     text-align: center;
     justify-content: center;
-    top: 48%;
-    left: 30%;
+    top: 80%;
+    left: 5%;
     z-index: 10;
     border: 2px solid white;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 0.8rem;
-    padding: 1%;
+    font-size: 1rem;
+    padding: 5% 8%;
     height: 8%;
     width: 10%;
     animation: fade 2s linear infinite;

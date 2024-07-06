@@ -1,28 +1,40 @@
+.prompt_container {
+    position: absolute;
+    /* background-color: red; */
+    width: 50%;
+    top: 67%;
+    left: 25%;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+}
+
+
 .prompt_choice1, .prompt_choice2 {
-    position: relative;
-    padding : 1.5%;
+    /* position: relative; */
+    padding : 2.5%;
     box-sizing: border-box;
     margin: 1%;
     border-radius: 20px;
     background-color: rgb(236, 236, 236);
     box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
     z-index: 10;
-    top: 48%;
+    /* top: 48%; */
     cursor: pointer;
     transition: all 0.2s linear;
 }
 
 .prompt_choice1 {
-    left: 30%;
+    /* left: 30%; */
 }
 
 .prompt_choice2 {
-    left: 35%;
+    /* left: 35%; */
 }
 
 .prompt_choice1:hover, .prompt_choice2:hover {
     background-color: rgb(250, 208, 90);
-    top: 47%;
+    /* top: 47%; */
     transform: scale(1.1);
 }
 
