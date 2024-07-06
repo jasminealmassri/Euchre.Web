@@ -20,52 +20,46 @@ export async function firstRoundTrump(game : gameInterface): Promise<gameInterfa
   let currIndex = nextWrapIndex(game.dealer, 4);
 
   for (let i = 0; i < 4; i++) {
+    if (game.phase != gamePhase.firstRoundTrump)
+    {
+      break;
+    }
+
     console.log(`Current Index is: ${currIndex}`)
     // prompt player
     if (currIndex == 0) {
-      console.log('Setting up prompts for player 0');
-
+      game.message = 'Your turn';
       game.prompt1 = 'Pass';
-      // game.prompt1Handler = () => {
-      //   console.log('Prompt 1 was chosen')
-      //   //game.trump = game.trick.cards[game.dealer].suit;
-      //   //game.phase = gamePhase.round;
-      //   //return game;
-      // }
-      // game.prompt2Handler = (game : gameInterface) => {
-      //   console.log('Prompt 2 was chosen');
-      //   game.trump = game.trick.cards[game.dealer].suit;
-      //   game.phase = gamePhase.round;
-      //   game.prompt1 = '';
-      //   game.prompt2 = '';
-      //   if (game.updateGame) {
-      //     game.updateGame({...game});
-      //   }
-      // }
-      game.prompt2 = `Tell Player ${game.dealer + 1} to pick it up`;
+      switch(game.dealer) {
+        case 0:
+          game.prompt2 = 'Pick it up?';
+          break;
+        case 2: 
+          game.prompt2 = 'Tell Player 3 to pick it up and go alone?';
+          break;
+        default:
+          game.prompt2 = `Tell Player ${game.dealer + 1} to pick it up`;
+          break;
+
+      }
+      //game.dealer === 2 ? `Tell Player 3 to pick it up and go alone?` : `Tell Player ${game.dealer + 1} to pick it up`;
       if (game.updateGame) {
         game.updateGame({...game});
       }
       
-
       await waitForUserReponse(game);
-      // if (pickItUp()) {
+      if (game.updateGame) {
+        game.updateGame({...game});
+      }
+
     }
     else {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      game.message = `Player ${currIndex + 1} passed`;
+      if (game.updateGame) {
+        game.updateGame({...game});
+      }
+      await new Promise(resolve => setTimeout(resolve, 800));
     }
-    //   return game;
-    //   // }
-    //   // else {
-    //   //   currIndex = nextWrapIndex(currIndex, 4);
-    //   // }
-    // }  
-    // else {
-    //   // setTimeout(()=>{
-    //   //   // prompt computer
-    //   // },500);
-      
-    //}
     currIndex = nextWrapIndex(currIndex, 4);
   }
 
@@ -77,15 +71,17 @@ export async function firstRoundTrump(game : gameInterface): Promise<gameInterfa
 function waitForUserReponse(game: gameInterface) : Promise<void> {
   return new Promise<void>(resolve => {
     game.prompt1Handler = () => {
-      //console.log('Prompt 1 was chosen');
+      console.log('Prompt 1 was chosen');
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
     };
     game.prompt2Handler = () => {
-      //console.log('Prompt 2 was chosen');
+      console.log('Prompt 2 was chosen');
       game.trump = game.trick.cards[game.dealer].suit;
+      game.message = `Trump is ${game.trump}`;
       game.phase = gamePhase.round;
+      game.trick.cards = [];
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
