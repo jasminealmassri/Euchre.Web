@@ -3,14 +3,12 @@ import { DeckFactory } from '../models/DeckFactory';
 import { Deck } from '../models/Deck';
 import { Hand } from '../models/Hand';
 import { Trick } from '../models/Trick';
-import { Suit } from '../models/Suit';
 import { dealCards } from '../functions/Euchre/Game';
 import { gameInterface } from '../interfaces/gameInterface';
 import { gamePhase } from '../interfaces/gamePhase';
 import { firstRoundTrump } from '../functions/Euchre/Game';
 
 
-  
 const startingGame : gameInterface = {
   player1:  {score: 0, hand : new Hand() },
   player2: {score: 0, hand : new Hand() },
@@ -30,6 +28,7 @@ const startingGame : gameInterface = {
   prompt1Handler: undefined,
   prompt2Handler: undefined,
   message: 'Welcome',
+  userTurnToPlay: false,
 };
 
 export const GameContext = React.createContext<gameInterface>(startingGame);

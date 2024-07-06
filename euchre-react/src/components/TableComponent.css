@@ -1,11 +1,10 @@
 .player-1-hand {
-
     position: absolute;
     bottom: 5%;
     left: 25%;
     z-index: 10;
-
 }
+
 
 #player-1-label, #player-2-label, #player-3-label, #player-4-label {
     color: rgb(186, 186, 186);

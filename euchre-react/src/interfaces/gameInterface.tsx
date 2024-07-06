@@ -25,4 +25,5 @@ export interface gameInterface {
     prompt1Handler: any;
     prompt2Handler : any;
     message: string;
+    userTurnToPlay: boolean;
   }

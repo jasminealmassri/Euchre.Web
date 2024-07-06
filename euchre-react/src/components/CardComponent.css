@@ -2,7 +2,6 @@
     width: 4.1rem;
     box-shadow: 2px 2px 1px 2px rgb(17, 17, 17);
     border-radius: 5px;
-    cursor: pointer;
     
 }
 
@@ -20,14 +19,13 @@
 }
 
 
-.player-1-hand {
-    .card {
-        transition: all 0.2s linear;
-    }
+.player-1-hand .card {
+    transition: all 0.2s linear;
+}
 
-    .card:hover {
-        transform: translate(0, -20%);
-    }
+.playableCards .card:hover {
+    transform: translate(0, -20%);
+    cursor: pointer;
 }
 
 .player-2-hand {
