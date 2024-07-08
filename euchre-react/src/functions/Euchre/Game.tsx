@@ -1,8 +1,8 @@
 import { gamePhase } from "../../interfaces/gamePhase";
-import { gameInterface } from "../../interfaces/gameInterface";
+import { EuchreGame } from "../../models/EuchreGame";
 import { nextWrapIndex } from './Utility.tsx'
 
-export function dealCards(game: gameInterface): gameInterface {
+export function dealCards(game: EuchreGame): EuchreGame {
 
   const numCards = 5; 
 
@@ -15,7 +15,7 @@ export function dealCards(game: gameInterface): gameInterface {
   return game;
 }
 
-export async function firstRoundTrump(game : gameInterface): Promise<gameInterface> {
+export async function firstRoundTrump(game : EuchreGame): Promise<EuchreGame> {
   
   let currIndex = nextWrapIndex(game.dealer, 4);
 
@@ -62,10 +62,11 @@ export async function firstRoundTrump(game : gameInterface): Promise<gameInterfa
       return game;
 }
 
-function waitForUserReponse(game: gameInterface) : Promise<void> {
+function waitForUserReponse(game: EuchreGame) : Promise<void> {
   return new Promise<void>(resolve => {
     game.prompt1Handler = () => {
       console.log('Prompt 1 was chosen');
+      game.test();
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
@@ -75,7 +76,8 @@ function waitForUserReponse(game: gameInterface) : Promise<void> {
       game.trump = game.trick.cards[game.dealer].suit;
       game.message = `Trump is ${game.trump}`;
       game.phase = gamePhase.round;
-      game.trick.cards = [];
+      game.test2();
+      //game.trick.cards = [];
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
