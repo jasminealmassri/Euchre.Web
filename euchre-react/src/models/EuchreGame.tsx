@@ -10,10 +10,12 @@ import { Card } from "./Card";
 
 
 export class EuchreGame {
+
     player1: Player;
     player2: Player;
     player3: Player;
     player4: Player;
+    playersArray: Player[];
     trick : Trick;
     startingPlayer: number;
     tricks_won: number;
@@ -29,11 +31,13 @@ export class EuchreGame {
     prompt2Handler : any;
     message: string;
     userTurnToPlay: boolean;
+
     constructor() {
       this.player1 =  {score: 0, hand : new Hand() };
       this.player2 = {score: 0, hand : new Hand() };
       this.player3 = {score: 0, hand : new Hand() };
       this.player4 = {score: 0, hand : new Hand() };
+      this.playersArray = [this.player1, this.player2, this.player3, this.player4];
       this.trick = new Trick();
       this.startingPlayer = 0;
       this.deck = new Deck(DeckFactory.makeEuchreDeck());
@@ -49,12 +53,11 @@ export class EuchreGame {
       this.message = 'Welcome';
       this.userTurnToPlay = false;
     }
-    test() : void {
-      console.log('test method');
-    }
+    // test() : void {
+    //   console.log('test method');
+    // }
 
-    test2() : void {
-      this.trick.cards = [new Card('9', Suit.Clubs, false), new Card('10', Suit.Hearts, true)];
-      //this.updateGame(this);
-    }
+    // test2() : void {
+    //   this.trick.cards = [new Card('9', Suit.Clubs, false), new Card('10', Suit.Hearts, true)];
+    // }
   }

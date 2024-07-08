@@ -32,8 +32,6 @@ const EuchreComponent : React.FC<props> = ({children}) => {
       firstRoundTrump(newGame);
     };
 
-  
-    
     useEffect(() => {
       setTimeout(() => {
         if (!hasMounted.current) {

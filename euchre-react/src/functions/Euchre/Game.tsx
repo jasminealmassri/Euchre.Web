@@ -45,6 +45,7 @@ export async function firstRoundTrump(game : EuchreGame): Promise<EuchreGame> {
       game.updateGame({...game});
       
       await waitForUserReponse(game);
+
       game.updateGame({...game});
       
 
@@ -57,16 +58,15 @@ export async function firstRoundTrump(game : EuchreGame): Promise<EuchreGame> {
     currIndex = nextWrapIndex(currIndex, 4);
   }
 
-      // remove after
-      game.phase = gamePhase.secondRoundTrump;
-      return game;
+    // remove after
+    game.phase = gamePhase.secondRoundTrump;
+    return game;
 }
 
 function waitForUserReponse(game: EuchreGame) : Promise<void> {
   return new Promise<void>(resolve => {
     game.prompt1Handler = () => {
       console.log('Prompt 1 was chosen');
-      game.test();
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
@@ -76,8 +76,7 @@ function waitForUserReponse(game: EuchreGame) : Promise<void> {
       game.trump = game.trick.cards[game.dealer].suit;
       game.message = `Trump is ${game.trump}`;
       game.phase = gamePhase.round;
-      game.test2();
-      //game.trick.cards = [];
+      game.trick.cards = [];
       game.prompt1 = '';
       game.prompt2 = '';
       resolve();
