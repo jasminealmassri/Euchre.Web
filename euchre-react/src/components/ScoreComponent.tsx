@@ -1,24 +1,23 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import './ScoreComponent.css'
 import { GameContext } from './EuchreComponent';
 
 
 const ScoreComponent = () => {
   const game = useContext(GameContext);
-  //let trump = "Spades";   
-  let tricks_won = 0;
-  let tricks_lost = 0;
+  //let tricks_won = 0;
+  //let tricks_lost = 0;
 
-  const changeScore = (num : number) => {
-    game.updateGame(prevGame => {
-      if (prevGame) {
-        return {
-          ...prevGame,
-          player1: {...prevGame.player1, score: prevGame.player1.score + num}
-        }
-      }
-    })
-  }
+  // const changeScore = (num : number) => {
+  //   game.updateGame(prevGame => {
+  //     if (prevGame) {
+  //       return {
+  //         ...prevGame,
+  //         player1: {...prevGame.player1, score: prevGame.player1.score + num}
+  //       }
+  //     }
+  //   })
+  // }
 
 
   return (
@@ -29,13 +28,13 @@ const ScoreComponent = () => {
       </div>
       <div className="scoreboard">
         <div className="left_score">
-          <p>Tricks won: { tricks_won }</p>
+          <p>Tricks won: { game.tricks_won }</p>
         </div>
         <div className="middle_score">
           <p>Current trump: { game.trump }</p>
         </div>
         <div className="right_score">
-          <p>Tricks lost: {tricks_lost}</p>
+          <p>Tricks lost: { game.tricks_lost } </p>
         </div>
       </div>
       {/* <button onClick={() => changeScore(1)}>Change score</button> */}

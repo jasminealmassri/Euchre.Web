@@ -19,7 +19,7 @@ export interface gameInterface {
     deck: Deck;
     dealer: number;
     phase: gamePhase;
-    updateGame?: React.Dispatch<React.SetStateAction<gameInterface | undefined>>;
+    updateGame: any;
     prompt1: string;
     prompt2: string;
     prompt1Handler: any;

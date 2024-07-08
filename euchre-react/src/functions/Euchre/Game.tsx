@@ -38,26 +38,20 @@ export async function firstRoundTrump(game : gameInterface): Promise<gameInterfa
           game.prompt2 = 'Tell Player 3 to pick it up and go alone?';
           break;
         default:
-          game.prompt2 = `Tell Player ${game.dealer + 1} to pick it up`;
+          game.prompt2 = `Tell Player ${game.dealer + 1} to pick it up?`;
           break;
 
       }
-      //game.dealer === 2 ? `Tell Player 3 to pick it up and go alone?` : `Tell Player ${game.dealer + 1} to pick it up`;
-      if (game.updateGame) {
-        game.updateGame({...game});
-      }
+      game.updateGame({...game});
       
       await waitForUserReponse(game);
-      if (game.updateGame) {
-        game.updateGame({...game});
-      }
+      game.updateGame({...game});
+      
 
     }
     else {
       game.message = `Player ${currIndex + 1} passed`;
-      if (game.updateGame) {
-        game.updateGame({...game});
-      }
+      game.updateGame({...game});
       await new Promise(resolve => setTimeout(resolve, 800));
     }
     currIndex = nextWrapIndex(currIndex, 4);
@@ -86,8 +80,8 @@ function waitForUserReponse(game: gameInterface) : Promise<void> {
       game.prompt2 = '';
       resolve();
     }
-    if (game.updateGame) {
-      game.updateGame({...game});
-    }
+
+    game.updateGame({...game});
+
   })
 }

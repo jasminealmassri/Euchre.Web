@@ -21,7 +21,6 @@ const startingGame : gameInterface = {
   tricks_lost: 0,
   phase: gamePhase.newGame,
   dealer: 0,
-  //trump: Suit.Hearts,
   updateGame: undefined,
   prompt1: '',
   prompt2: '',
@@ -41,7 +40,7 @@ interface props {
 const EuchreComponent : React.FC<props> = ({children}) => {
     
     const renderCount = useRef(0);
-    const [game, setGame] = useState<gameInterface | undefined>(startingGame);
+    const [game, setGame] = useState<gameInterface>(startingGame);
     const hasMounted = useRef(false);
 
     const startNewGame = () => {
@@ -87,7 +86,7 @@ const EuchreComponent : React.FC<props> = ({children}) => {
     }, [game]); 
     
     if (!game) {
-      return <div>Loading...</div>;
+      return <div>Something went wrong...</div>;
     }
 
     useEffect(() => {

@@ -11,6 +11,7 @@
 
 
 .prompt_choice1, .prompt_choice2 {
+    width: 45%;
     /* position: relative; */
     padding : 2.5%;
     box-sizing: border-box;

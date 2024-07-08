@@ -1,5 +1,4 @@
 import { useState, useContext, useEffect } from 'react';
-import { gamePhase } from '../interfaces/gamePhase';
 import { GameContext } from './EuchreComponent';
 import './PromptComponent.css'
 
@@ -7,9 +6,6 @@ const dealerClasses : string[] = ['player_1_is_dealer', 'player_2_is_dealer', 'p
 
 const PromptComponent = () => {
   const game = useContext(GameContext);
-  //const [message, setMessage] = useState('Welcome');
-  //const [prompt1, setPrompt1] = useState('Pass');
-  //const [prompt2, setPrompt2] = useState('Tell Player 2 to pick it up');
   const [dealerCSSClass, setdealerCSSClass] = useState('player_1_is_dealer');
 
   useEffect(() => {
