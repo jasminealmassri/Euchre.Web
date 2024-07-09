@@ -6,6 +6,7 @@ import { Player } from "../interfaces/player";
 import { Hand } from "./Hand";
 import { DeckFactory } from "./DeckFactory";
 import { Card } from "./Card";
+import { dealCards, firstRoundTrump } from "../functions/Euchre/Game";
 
 
 
@@ -60,4 +61,22 @@ export class EuchreGame {
     // test2() : void {
     //   this.trick.cards = [new Card('9', Suit.Clubs, false), new Card('10', Suit.Hearts, true)];
     // }
+    startNewGame(setGame : any) : void {
+      const rand = Math.floor(Math.random() * 4);
+      this.updateGame = setGame;
+      this.dealer = rand;
+      this.deck.shuffleDeck();
+      this.dealCards();
+      this.trick.cards[rand] = this.deck.dealCard();
+      this.phase = gamePhase.firstRoundTrump;
+      this.updateGame(this);
+      console.log("refactor game intialized", JSON.stringify(this));
+      firstRoundTrump(this); //refactor further after I make sure this works
+    }
+
+    dealCards() {
+      for (let player of this.playersArray) {
+        this.deck.dealCards(5, player.hand.cards);
+      }
+    }
   }

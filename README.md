@@ -1,6 +1,6 @@
 # Euchre.Web
 
-<p>I am making a web version of my favourite card game Euchre using React.ts + Vite. ♥️♠️♦️♣️</p>
+<p>I am making a web version of my favourite card game Euchre using React TS + Vite. ♥️♠️♦️♣️</p>
 
 ### June 15 snapshot
 

@@ -16,26 +16,25 @@ const EuchreComponent : React.FC<props> = ({children}) => {
     const [game, setGame] = useState<EuchreGame>(newGame);
     const hasMounted = useRef(false);
 
-    const startNewGame = () => {
-      const rand = Math.floor(Math.random() * 4);
-      newGame.updateGame = setGame;
-      newGame.dealer = rand;     
-      newGame.deck.shuffleDeck();
-      newGame = dealCards(newGame);
 
-      
-      newGame.trick.cards[rand] = newGame.deck.dealCard();
 
-      setGame(newGame);
-      console.log('New game initialized:', newGame);
+    // const startNewGame = () => {
+    //   const rand = Math.floor(Math.random() * 4);
+    //   newGame.updateGame = setGame;
+    //   newGame.dealer = rand;     
+    //   newGame.deck.shuffleDeck();
+    //   newGame = dealCards(newGame);
+    //   newGame.trick.cards[rand] = newGame.deck.dealCard();
 
-      firstRoundTrump(newGame);
-    };
+    //   setGame(newGame);
+    //   console.log('New game initialized:', newGame);
+    //   firstRoundTrump(newGame);
+    // };
 
     useEffect(() => {
       setTimeout(() => {
         if (!hasMounted.current) {
-          startNewGame();
+          game.startNewGame(setGame);
           hasMounted.current = true; 
         }
       }, 500);
