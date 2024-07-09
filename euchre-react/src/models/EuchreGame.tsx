@@ -5,10 +5,7 @@ import { Trick } from "./Trick";
 import { Player } from "../interfaces/player";
 import { Hand } from "./Hand";
 import { DeckFactory } from "./DeckFactory";
-import { Card } from "./Card";
-import { dealCards, firstRoundTrump } from "../functions/Euchre/Game";
-
-
+import { nextWrapIndex } from "../functions/Euchre/Utility";
 
 export class EuchreGame {
 
@@ -54,29 +51,88 @@ export class EuchreGame {
       this.message = 'Welcome';
       this.userTurnToPlay = false;
     }
-    // test() : void {
-    //   console.log('test method');
-    // }
 
-    // test2() : void {
-    //   this.trick.cards = [new Card('9', Suit.Clubs, false), new Card('10', Suit.Hearts, true)];
-    // }
+    dealCards() {
+      for (let player of this.playersArray) {
+        this.deck.dealCards(5, player.hand.cards);
+      }
+      this.updateGame({...this});
+    }
+
     startNewGame(setGame : any) : void {
       const rand = Math.floor(Math.random() * 4);
       this.updateGame = setGame;
       this.dealer = rand;
       this.deck.shuffleDeck();
       this.dealCards();
+      this.updateGame({...this});
       this.trick.cards[rand] = this.deck.dealCard();
       this.phase = gamePhase.firstRoundTrump;
-      this.updateGame(this);
+      this.updateGame({...this});
       console.log("refactor game intialized", JSON.stringify(this));
-      firstRoundTrump(this); //refactor further after I make sure this works
     }
 
-    dealCards() {
-      for (let player of this.playersArray) {
-        this.deck.dealCards(5, player.hand.cards);
+    async firstRoundTrump() : Promise<void> {
+
+      let currIndex = nextWrapIndex(this.dealer, 4);
+      for (let i = 0; i < 4; i++) {
+        if (this.phase != gamePhase.firstRoundTrump)
+        {
+          break;
+        }
+
+        if (currIndex == 0) {
+          this.message = 'Your turn';
+          this.prompt1 = 'Pass';
+          switch(this.dealer){
+            case 0:
+              this.prompt2 = 'Pick it up?';
+              break;
+            case 2:
+              this.prompt2 = 'Tell Player 3 to pick it up and go alone?';
+              break;
+            default:
+              this.prompt2 = `Tell Player ${this.dealer + 1} to pick it up?`
+              break;
+          }
+          this.updateGame({...this});
+
+          await this.waitForUserReponse();
+          
+          this.updateGame({...this});
+        }
+        else {
+          this.message = `Player ${currIndex + 1} passed`;
+          this.updateGame({...this});
+          await new Promise(resolve => setTimeout(resolve, 800));
+        }
+        currIndex = nextWrapIndex(currIndex, 4);
       }
+
+      this.phase = gamePhase.secondRoundTrump;
     }
+
+    waitForUserReponse() : Promise<void> {
+      return new Promise<void>(resolve => {
+        this.prompt1Handler = () => {
+          console.log('Prompt 1 was chosen');
+          this.prompt1 = '';
+          this.prompt2 = '';
+          resolve();
+        };
+        this.prompt2Handler = () => {
+          console.log('Prompt 2 was chosen');
+          this.trump = this.trick.cards[this.dealer].suit;
+          this.message = `Trump is ${this.trump}`;
+          this.phase = gamePhase.round;
+          this.trick.cards = [];
+          this.prompt1 = '';
+          this.prompt2 = '';
+          resolve();
+        }
+    
+        this.updateGame({...this});
+      })
   }
+}
+
