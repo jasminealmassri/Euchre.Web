@@ -2,18 +2,19 @@ import { gamePhase } from "../interfaces/gamePhase";
 import { Deck } from "./Deck";
 import { Suit } from "./Suit";
 import { Trick } from "./Trick";
-import { Player } from "../interfaces/player";
+import { Player } from "./Player";
+import { Computer } from "./Computer";
 import { Hand } from "./Hand";
 import { DeckFactory } from "./DeckFactory";
-import { nextWrapIndex } from "../functions/Euchre/Utility";
+import { nextWrapIndex, getOffsuit } from "../functions/Euchre/Utility";
 
 export class EuchreGame {
 
     player1: Player;
-    player2: Player;
-    player3: Player;
-    player4: Player;
-    playersArray: Player[];
+    player2: Computer;
+    player3: Computer;
+    player4: Computer;
+    playersArray: any[];
     trick : Trick;
     startingPlayer: number;
     tricks_won: number;
@@ -31,10 +32,10 @@ export class EuchreGame {
     userTurnToPlay: boolean;
 
     constructor() {
-      this.player1 =  {score: 0, hand : new Hand() };
-      this.player2 = {score: 0, hand : new Hand() };
-      this.player3 = {score: 0, hand : new Hand() };
-      this.player4 = {score: 0, hand : new Hand() };
+      this.player1 = new Player();
+      this.player2 = new Computer();
+      this.player3 = new Computer();
+      this.player4 = new Computer();
       this.playersArray = [this.player1, this.player2, this.player3, this.player4];
       this.trick = new Trick();
       this.startingPlayer = 0;

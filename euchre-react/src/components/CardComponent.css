@@ -5,6 +5,11 @@
     
 }
 
+.trump {
+    border-radius: 8px;
+    box-shadow: 0px 0px 0px 3px rgba(253, 206, 66, 0.8);
+}
+
 .player-1-card, .player-2-card, .player-3-card, .player-4-card {
     .card {
         box-shadow: 2px 2px 1px 2px black;

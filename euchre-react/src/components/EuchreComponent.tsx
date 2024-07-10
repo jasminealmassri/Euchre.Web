@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { dealCards } from '../functions/Euchre/Game';
 import { EuchreGame } from '../models/EuchreGame';
-import { firstRoundTrump } from '../functions/Euchre/Game';
 
 export const GameContext = React.createContext<EuchreGame>(new EuchreGame());
 
