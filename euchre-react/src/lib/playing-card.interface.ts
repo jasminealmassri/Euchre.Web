@@ -44,3 +44,20 @@ export const shuffle = <S, R>(pile: Pile<S, R>): Pile<S, R> =>
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
+
+export const head = <S, R>(pile: Pile<S, R>): [PlayingCard<S, R>] | [] =>
+  pile.slice(0, 1) as [PlayingCard<S, R>] | [];
+
+export const tail = <S, R>(pile: Pile<S, R>): Pile<S, R> | [] =>
+  pile.slice(1, pile.length);
+
+export const take = <S, R>(
+  n: number,
+  pile: Pile<S, R>
+): [Pile<S, R>, Pile<S, R>] => {
+  return [pile.slice(0, n), pile.slice(n, pile.length)];
+};
+
+export const takeTopCard = <S, R>(
+  pile: Pile<S, R>
+): [[PlayingCard<S, R>] | [], Pile<S, R>] => [head(pile), tail(pile)];
