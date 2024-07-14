@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import { makeDeck, shuffle } from "./card.interface";
+import { makeDeck, shuffle } from "./playing-card.interface";
 import { ranks, suits } from "./euchre.interface";
 
 const euchreDeck = makeDeck(suits, ranks);

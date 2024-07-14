@@ -1,23 +1,43 @@
-import { Card, Ranks, Suits } from "./card.interface";
-import { Player } from "./player.interface";
+import {
+  Deck,
+  PlayingCardRanks,
+  PlayingCardSuits,
+} from "./playing-card.interface";
 
-export type EuchreRank = "9" | "10" | "J" | "Q" | "K" | "A";
+export type EuchreSuit =
+  | PlayingCardSuits.DIAMONDS
+  | PlayingCardSuits.CLUBS
+  | PlayingCardSuits.HEARTS
+  | PlayingCardSuits.SPADES;
+export type EuchreRank =
+  | PlayingCardRanks.NINE
+  | PlayingCardRanks.TEN
+  | PlayingCardRanks.JACK
+  | PlayingCardRanks.QUEEN
+  | PlayingCardRanks.KING
+  | PlayingCardRanks.ACE;
 
 export const ranks: EuchreRank[] = [
-  Ranks.NINE,
-  Ranks.TEN,
-  Ranks.JACK,
-  Ranks.QUEEN,
-  Ranks.KING,
-  Ranks.ACE,
+  PlayingCardRanks.NINE,
+  PlayingCardRanks.TEN,
+  PlayingCardRanks.JACK,
+  PlayingCardRanks.QUEEN,
+  PlayingCardRanks.KING,
+  PlayingCardRanks.ACE,
 ];
 
-export const suits: Suits[] = [
-  Suits.DIAMONDS,
-  Suits.CLUBS,
-  Suits.HEARTS,
-  Suits.SPADES,
+export const suits: EuchreSuit[] = [
+  PlayingCardSuits.DIAMONDS,
+  PlayingCardSuits.CLUBS,
+  PlayingCardSuits.HEARTS,
+  PlayingCardSuits.SPADES,
 ];
+
+export type EuchrePlayerState = {
+  name: string;
+  tricks: number;
+  hand: Deck<EuchreSuit, EuchreRank>;
+};
 
 export enum Phases {
   DEALING = "dealing",
@@ -30,7 +50,7 @@ export enum Phases {
 
 interface EuchreGameState {
   phase: Phases;
-  deck: Card<EuchreRank>[];
+  deck: Deck<EuchreSuit, EuchreRank>[];
 }
 
 export const gameState: EuchreGameState = {
@@ -38,7 +58,8 @@ export const gameState: EuchreGameState = {
   deck: [],
 };
 
-export const playerState: Player<EuchreRank> = {
-  score: 0,
+export const playerState: EuchrePlayerState = {
+  name: "",
+  tricks: 0,
   hand: [],
 };

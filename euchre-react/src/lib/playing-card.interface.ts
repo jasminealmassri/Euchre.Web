@@ -1,11 +1,11 @@
-export enum Suits {
+export enum PlayingCardSuits {
   DIAMONDS = "diamonds",
   SPADES = "spades",
   CLUBS = "clubs",
   HEARTS = "hearts",
 }
 
-export enum Ranks {
+export enum PlayingCardRanks {
   TWO = "2",
   THREE = "3",
   FOUR = "4",
@@ -22,24 +22,24 @@ export enum Ranks {
   JOKER = "Joker",
 }
 
-export interface Card<T> {
-  suit: Suits;
-  rank: T;
+export interface PlayingCard<S, R> {
+  suit: S;
+  rank: R;
 }
 
-export type Pile<T> = Card<T>[];
-export type Deck<T> = Pile<T>;
+export type Pile<S, R> = PlayingCard<S, R>[];
+export type Deck<S, R> = Pile<S, R>;
 
-export const makeDeck = <R>(suits: Suits[], ranks: R[]): Deck<R> =>
+export const makeDeck = <S, R>(suits: S[], ranks: R[]): Deck<S, R> =>
   suits.reduce(
-    (deck: Deck<R>, suit: Suits) => [
+    (deck: Deck<S, R>, suit: S) => [
       ...deck,
       ...ranks.map((rank: R) => ({ suit, rank })),
     ],
     []
   );
 
-export const shuffle = <T>(pile: Pile<T>): Pile<T> =>
+export const shuffle = <S, R>(pile: Pile<S, R>): Pile<S, R> =>
   pile
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
