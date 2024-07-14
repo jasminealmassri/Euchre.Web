@@ -1,36 +1,33 @@
 import {
   Deck,
-  PlayingCardRanks,
-  PlayingCardSuits,
+  PlayingCardRank,
+  PlayingCardSuit,
 } from "./playing-card.interface";
 
-export type EuchreSuit =
-  | PlayingCardSuits.DIAMONDS
-  | PlayingCardSuits.CLUBS
-  | PlayingCardSuits.HEARTS
-  | PlayingCardSuits.SPADES;
+export type EuchreSuit = PlayingCardSuit;
+
 export type EuchreRank =
-  | PlayingCardRanks.NINE
-  | PlayingCardRanks.TEN
-  | PlayingCardRanks.JACK
-  | PlayingCardRanks.QUEEN
-  | PlayingCardRanks.KING
-  | PlayingCardRanks.ACE;
+  | PlayingCardRank.NINE
+  | PlayingCardRank.TEN
+  | PlayingCardRank.JACK
+  | PlayingCardRank.QUEEN
+  | PlayingCardRank.KING
+  | PlayingCardRank.ACE;
 
 export const ranks: EuchreRank[] = [
-  PlayingCardRanks.NINE,
-  PlayingCardRanks.TEN,
-  PlayingCardRanks.JACK,
-  PlayingCardRanks.QUEEN,
-  PlayingCardRanks.KING,
-  PlayingCardRanks.ACE,
+  PlayingCardRank.NINE,
+  PlayingCardRank.TEN,
+  PlayingCardRank.JACK,
+  PlayingCardRank.QUEEN,
+  PlayingCardRank.KING,
+  PlayingCardRank.ACE,
 ];
 
 export const suits: EuchreSuit[] = [
-  PlayingCardSuits.DIAMONDS,
-  PlayingCardSuits.CLUBS,
-  PlayingCardSuits.HEARTS,
-  PlayingCardSuits.SPADES,
+  PlayingCardSuit.DIAMONDS,
+  PlayingCardSuit.CLUBS,
+  PlayingCardSuit.HEARTS,
+  PlayingCardSuit.SPADES,
 ];
 
 export type EuchrePlayerState = {
