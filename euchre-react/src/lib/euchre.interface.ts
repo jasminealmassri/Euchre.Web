@@ -1,7 +1,10 @@
 import {
   Deck,
+  Pile,
   PlayingCardRank,
   PlayingCardSuit,
+  makeDeck,
+  shuffle,
 } from "./playing-card.interface";
 
 export type EuchreSuit = PlayingCardSuit;
@@ -27,10 +30,10 @@ export const ranks: EuchreRank[] = [
 export type EuchrePlayerState = {
   name: string;
   tricks: number;
-  hand: Deck<EuchreSuit, EuchreRank>;
+  hand: Pile<EuchreSuit, EuchreRank>;
 };
 
-export enum Phases {
+export enum Phase {
   DEALING = "dealing",
   BIDDING = "bidding",
   CALLING_TRUMP = "callingTrump",
@@ -39,18 +42,40 @@ export enum Phases {
   END_OF_GAME = "endOfGame",
 }
 
-interface EuchreGameState {
-  phase: Phases;
-  deck: Deck<EuchreSuit, EuchreRank>[];
+export interface EuchreGameState {
+  phase: Phase;
+  deck: Deck<EuchreSuit, EuchreRank>;
+  table: Pile<EuchreSuit, EuchreRank>;
+  players: EuchrePlayerState[];
 }
 
-export const gameState: EuchreGameState = {
-  phase: Phases.DEALING,
-  deck: [],
+export const player1State: EuchrePlayerState = {
+  name: "Player 1",
+  tricks: 0,
+  hand: [] as Pile<EuchreSuit, EuchreRank>,
 };
 
-export const playerState: EuchrePlayerState = {
-  name: "",
+export const player2State: EuchrePlayerState = {
+  name: "Player 2",
   tricks: 0,
-  hand: [],
+  hand: [] as Pile<EuchreSuit, EuchreRank>,
+};
+
+export const player3State: EuchrePlayerState = {
+  name: "Player 3",
+  tricks: 0,
+  hand: [] as Pile<EuchreSuit, EuchreRank>,
+};
+
+export const player4State: EuchrePlayerState = {
+  name: "Player 4",
+  tricks: 0,
+  hand: [] as Pile<EuchreSuit, EuchreRank>,
+};
+
+export const initialState: EuchreGameState = {
+  phase: Phase.DEALING,
+  deck: shuffle(makeDeck(suits, ranks)),
+  table: [] as Pile<EuchreSuit, EuchreRank>,
+  players: [player1State, player2State, player3State, player4State],
 };
