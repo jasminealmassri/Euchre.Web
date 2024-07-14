@@ -1,11 +1,11 @@
-export enum PlayingCardSuits {
+export enum PlayingCardSuit {
   DIAMONDS = "diamonds",
   SPADES = "spades",
   CLUBS = "clubs",
   HEARTS = "hearts",
 }
 
-export enum PlayingCardRanks {
+export enum PlayingCardRank {
   TWO = "2",
   THREE = "3",
   FOUR = "4",

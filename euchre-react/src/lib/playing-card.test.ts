@@ -1,40 +1,39 @@
 import { expect, test } from "vitest";
 
 import {
-  PlayingCardRanks,
-  PlayingCardSuits,
+  PlayingCardRank,
+  PlayingCardSuit,
   makeDeck,
   shuffle,
   take,
   takeTopCard,
 } from "./playing-card.interface";
 
-type Suit = PlayingCardSuits;
-
-type ExcludedRank = PlayingCardRanks.JOKER;
-type Rank = Exclude<PlayingCardRanks, ExcludedRank>;
+type Suit = PlayingCardSuit;
+type ExcludedRank = PlayingCardRank.JOKER;
+type Rank = Exclude<PlayingCardRank, ExcludedRank>;
 
 const suits: Suit[] = [
-  PlayingCardSuits.DIAMONDS,
-  PlayingCardSuits.CLUBS,
-  PlayingCardSuits.HEARTS,
-  PlayingCardSuits.SPADES,
+  PlayingCardSuit.DIAMONDS,
+  PlayingCardSuit.CLUBS,
+  PlayingCardSuit.HEARTS,
+  PlayingCardSuit.SPADES,
 ];
 
 const ranks: Rank[] = [
-  PlayingCardRanks.TWO,
-  PlayingCardRanks.THREE,
-  PlayingCardRanks.FOUR,
-  PlayingCardRanks.FIVE,
-  PlayingCardRanks.SIX,
-  PlayingCardRanks.SEVEN,
-  PlayingCardRanks.EIGHT,
-  PlayingCardRanks.NINE,
-  PlayingCardRanks.TEN,
-  PlayingCardRanks.JACK,
-  PlayingCardRanks.QUEEN,
-  PlayingCardRanks.KING,
-  PlayingCardRanks.ACE,
+  PlayingCardRank.TWO,
+  PlayingCardRank.THREE,
+  PlayingCardRank.FOUR,
+  PlayingCardRank.FIVE,
+  PlayingCardRank.SIX,
+  PlayingCardRank.SEVEN,
+  PlayingCardRank.EIGHT,
+  PlayingCardRank.NINE,
+  PlayingCardRank.TEN,
+  PlayingCardRank.JACK,
+  PlayingCardRank.QUEEN,
+  PlayingCardRank.KING,
+  PlayingCardRank.ACE,
 ];
 
 const standardDeck = makeDeck<Suit, Rank>(suits, ranks);
