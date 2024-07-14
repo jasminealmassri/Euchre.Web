@@ -27,20 +27,20 @@ export interface Card<T> {
   rank: T;
 }
 
-export type Deck<T> = Card<T>[];
+export type Pile<T> = Card<T>[];
+export type Deck<T> = Pile<T>;
 
 export const makeDeck = <R>(suits: Suits[], ranks: R[]): Deck<R> =>
   suits.reduce(
-    (deck: Deck<R>, suit: Suits) =>
-      ranks.reduce(
-        (deck: Deck<R>, rank: R) => deck.concat({ suit, rank } as Card<R>),
-        deck
-      ),
+    (deck: Deck<R>, suit: Suits) => [
+      ...deck,
+      ...ranks.map((rank: R) => ({ suit, rank })),
+    ],
     []
   );
 
-export const shuffle = <T>(deck: Card<T>[]): Card<T>[] =>
-  deck
+export const shuffle = <T>(pile: Pile<T>): Pile<T> =>
+  pile
     .map((value) => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
