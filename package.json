@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.6",
+    "react-redux": "^9.1.2"
+  },
+  "devDependencies": {
+    "vitest": "^2.0.2"
+  },
+  "scripts": {
+    "test": "vitest"
+  }
+}
