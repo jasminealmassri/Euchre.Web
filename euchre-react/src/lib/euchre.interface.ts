@@ -5,6 +5,7 @@ import {
 } from "./playing-card.interface";
 
 export type EuchreSuit = PlayingCardSuit;
+export const suits: EuchreSuit[] = Object.values(PlayingCardSuit);
 
 export type EuchreRank =
   | PlayingCardRank.NINE
@@ -21,13 +22,6 @@ export const ranks: EuchreRank[] = [
   PlayingCardRank.QUEEN,
   PlayingCardRank.KING,
   PlayingCardRank.ACE,
-];
-
-export const suits: EuchreSuit[] = [
-  PlayingCardSuit.DIAMONDS,
-  PlayingCardSuit.CLUBS,
-  PlayingCardSuit.HEARTS,
-  PlayingCardSuit.SPADES,
 ];
 
 export type EuchrePlayerState = {

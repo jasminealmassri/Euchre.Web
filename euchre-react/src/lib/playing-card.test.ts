@@ -13,28 +13,10 @@ type Suit = PlayingCardSuit;
 type ExcludedRank = PlayingCardRank.JOKER;
 type Rank = Exclude<PlayingCardRank, ExcludedRank>;
 
-const suits: Suit[] = [
-  PlayingCardSuit.DIAMONDS,
-  PlayingCardSuit.CLUBS,
-  PlayingCardSuit.HEARTS,
-  PlayingCardSuit.SPADES,
-];
-
-const ranks: Rank[] = [
-  PlayingCardRank.TWO,
-  PlayingCardRank.THREE,
-  PlayingCardRank.FOUR,
-  PlayingCardRank.FIVE,
-  PlayingCardRank.SIX,
-  PlayingCardRank.SEVEN,
-  PlayingCardRank.EIGHT,
-  PlayingCardRank.NINE,
-  PlayingCardRank.TEN,
-  PlayingCardRank.JACK,
-  PlayingCardRank.QUEEN,
-  PlayingCardRank.KING,
-  PlayingCardRank.ACE,
-];
+const suits: Suit[] = Object.values(PlayingCardSuit);
+const ranks: Rank[] = Object.values(PlayingCardRank).filter(
+  (rank) => rank !== PlayingCardRank.JOKER
+) as Rank[];
 
 const standardDeck = makeDeck<Suit, Rank>(suits, ranks);
 
