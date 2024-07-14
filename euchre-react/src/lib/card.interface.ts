@@ -27,11 +27,13 @@ export interface Card<T> {
   rank: T;
 }
 
-export const makeDeck = <R>(suits: Suits[], ranks: Array<R>): Card<R>[] =>
+export type Deck<T> = Card<T>[];
+
+export const makeDeck = <R>(suits: Suits[], ranks: R[]): Deck<R> =>
   suits.reduce(
-    (deck: Card<R>[], suit: Suits) =>
+    (deck: Deck<R>, suit: Suits) =>
       ranks.reduce(
-        (deck: Card<R>[], rank: R) => deck.concat({ suit, rank } as Card<R>),
+        (deck: Deck<R>, rank: R) => deck.concat({ suit, rank } as Card<R>),
         deck
       ),
     []
