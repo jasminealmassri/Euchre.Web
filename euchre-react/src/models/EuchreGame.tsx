@@ -51,7 +51,16 @@ export class EuchreGame {
       this.prompt2Handler = undefined;
       this.message = 'Welcome';
       this.userTurnToPlay = false;
+
+      this.dealCards = this.dealCards.bind(this);
+      this.startNewGame = this.startNewGame.bind(this);
+      this.firstRoundTrump = this.firstRoundTrump.bind(this);
+      this.UserReponseFirstRoundTrump = this.UserReponseFirstRoundTrump.bind(this);
+      this.secondRoundTrump = this.secondRoundTrump.bind(this);
+      this.UserReponseSecondRoundTrump = this.UserReponseSecondRoundTrump.bind(this);
     }
+
+    
 
     dealCards() {
       for (let player of this.playersArray) {
@@ -70,10 +79,11 @@ export class EuchreGame {
       this.trick.cards[rand] = this.deck.dealCard();
       this.phase = gamePhase.firstRoundTrump;
       this.updateGame({...this});
-      console.log("refactor game intialized", JSON.stringify(this));
+      console.log("Refactor game intialized", JSON.stringify(this));
     }
 
     async firstRoundTrump() : Promise<void> {
+      console.log(`first round trump began`)
 
       let currIndex = nextWrapIndex(this.dealer, 4);
       for (let i = 0; i < 4; i++) {
@@ -98,7 +108,7 @@ export class EuchreGame {
           }
           this.updateGame({...this});
 
-          await this.waitForUserReponse();
+          await this.UserReponseFirstRoundTrump();
           
           this.updateGame({...this});
         }
@@ -111,9 +121,13 @@ export class EuchreGame {
       }
 
       this.phase = gamePhase.secondRoundTrump;
+      console.log(`phase changed to ${this.phase}`)
+      this.updateGame({...this});
+      console.log(`first round trump ended`)
+      
     }
 
-    waitForUserReponse() : Promise<void> {
+    UserReponseFirstRoundTrump() : Promise<void> {
       return new Promise<void>(resolve => {
         this.prompt1Handler = () => {
           console.log('Prompt 1 was chosen');
@@ -126,7 +140,6 @@ export class EuchreGame {
           this.trump = this.trick.cards[this.dealer].suit;
           this.message = `Trump is ${this.trump}`;
           this.phase = gamePhase.round;
-          this.trick.cards = [];
           this.prompt1 = '';
           this.prompt2 = '';
           resolve();
@@ -135,5 +148,62 @@ export class EuchreGame {
         this.updateGame({...this});
       })
   }
+
+    async secondRoundTrump() : Promise<void> {
+
+      console.log(`secondRoundTrump() began`)
+      let currIndex = nextWrapIndex(this.dealer, 4);
+      for (let i = 0; i < 4; i++) {
+        if (this.phase != gamePhase.secondRoundTrump)
+        {
+          break;
+        }
+
+        if (currIndex == 0) {
+          this.message = 'Your turn';
+          this.prompt1 = 'Pass';
+          this.prompt2 = 'Choose trump?';
+          this.updateGame({...this});
+
+          await this.UserReponseSecondRoundTrump();
+          
+          this.updateGame({...this});
+        }
+        else {
+          this.message = `Player ${currIndex + 1} passed`;
+          this.updateGame({...this});
+          await new Promise(resolve => setTimeout(resolve, 800));
+        }
+        currIndex = nextWrapIndex(currIndex, 4);
+      }
+
+      this.phase = gamePhase.secondRoundTrump;
+      console.log(`secondRoundTrump() ended`)
+    }
+
+
+  UserReponseSecondRoundTrump() : Promise<void> {
+    return new Promise<void>(resolve => {
+      this.prompt1Handler = () => {
+        console.log('Prompt 1 was chosen');
+        this.prompt1 = '';
+        this.prompt2 = '';
+        resolve();
+      };
+      this.prompt2Handler = () => {
+        console.log('Prompt 2 was chosen');
+        this.trump = Suit.Spades; // THIS HAS TO BE CHANGED
+        this.message = `Trump is ${this.trump}`;
+        this.phase = gamePhase.round;
+        this.trick.cards = [];
+        this.prompt1 = '';
+        this.prompt2 = '';
+        resolve();
+      }
+  
+      this.updateGame({...this});
+    })
+
+}
 }
 
