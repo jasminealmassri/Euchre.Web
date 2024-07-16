@@ -26,8 +26,12 @@ export class EuchreGame {
     updateGame: any;
     prompt1: string;
     prompt2: string;
+    prompt3: string;
+    prompt4: string;
     prompt1Handler: any;
     prompt2Handler : any;
+    prompt3Handler : any;
+    prompt4Handler : any;
     message: string;
     userTurnToPlay: boolean;
 
@@ -47,8 +51,12 @@ export class EuchreGame {
       this.updateGame = undefined;
       this.prompt1 = '';
       this.prompt2 = '';
+      this.prompt3 = '';
+      this.prompt4 = '';
       this.prompt1Handler = undefined;
       this.prompt2Handler = undefined;
+      this.prompt3Handler = undefined;
+      this.prompt4Handler = undefined;
       this.message = 'Welcome';
       this.userTurnToPlay = false;
 
