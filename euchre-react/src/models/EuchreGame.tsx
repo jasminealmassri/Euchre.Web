@@ -120,8 +120,7 @@ export class EuchreGame {
         currIndex = nextWrapIndex(currIndex, 4);
       }
 
-      this.phase = gamePhase.secondRoundTrump;
-      console.log(`phase changed to ${this.phase}`)
+      
       this.updateGame({...this});
       console.log(`first round trump ended`)
       
@@ -133,6 +132,7 @@ export class EuchreGame {
           console.log('Prompt 1 was chosen');
           this.prompt1 = '';
           this.prompt2 = '';
+          this.phase = gamePhase.secondRoundTrump;
           resolve();
         };
         this.prompt2Handler = () => {
