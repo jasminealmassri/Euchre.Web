@@ -15,6 +15,12 @@ export const shuffle = <S, R>(pile: Pile<S, R>): Pile<S, R> =>
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value);
 
+export const turnCardOver = <S, R>(
+  card: PlayingCard<S, R> | undefined
+): PlayingCard<S, R> | undefined => {
+  return card ? { ...card, faceUp: !card.faceUp } : card;
+};
+
 export const takeFromTop = <S, R>(
   n: number,
   pile: Pile<S, R>

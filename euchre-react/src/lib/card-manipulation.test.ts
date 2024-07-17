@@ -13,6 +13,7 @@ import {
   takeFromIndex,
   takeFromTop,
   takeTopCard,
+  turnCardOver,
 } from "./card-manipulation";
 import { PlayingCardRank, PlayingCardSuit } from "./playing-card.interface";
 
@@ -35,6 +36,15 @@ test("shuffle deck", () => {
   const shuffledDeck = shuffle(standardDeck);
 
   expect(shuffledDeck).not.toEqual(standardDeck);
+});
+
+test("turn card over", () => {
+  const [card] = takeTopCard(standardDeck);
+  const faceUpCard = turnCardOver(card);
+
+  expect(card?.faceUp).toBe(false);
+  expect(faceUpCard?.faceUp).toBe(true);
+  expect(turnCardOver(faceUpCard)?.faceUp).toBe(false);
 });
 
 test("take top card", () => {
