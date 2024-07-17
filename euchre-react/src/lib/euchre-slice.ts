@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { initialState, Phase } from "./euchre.interface";
-import { placeCardOnTop, takeTopCard } from "./card-manipulation";
+import { placeCardOnTop, takeTopCard, turnCardOver } from "./card-manipulation";
 
 export const euchreSlice = createSlice({
   name: "euchre",
@@ -17,7 +17,7 @@ export const euchreSlice = createSlice({
       });
 
       const [tableCard, remainingDeck] = takeTopCard(state.deck);
-      state.table = placeCardOnTop([tableCard, state.table]);
+      state.talon = placeCardOnTop([turnCardOver(tableCard), state.talon]);
       state.deck = remainingDeck;
       state.phase = Phase.BIDDING;
     },
