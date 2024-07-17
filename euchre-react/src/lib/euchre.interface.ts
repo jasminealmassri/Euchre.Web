@@ -47,6 +47,7 @@ export interface EuchreGameState {
   deck: Deck<EuchreSuit, EuchreRank>;
   table: Pile<EuchreSuit, EuchreRank>;
   players: EuchrePlayerState[];
+  currentPlayer: number;
 }
 
 export const player1State: EuchrePlayerState = {
@@ -77,5 +78,6 @@ export const initialState: EuchreGameState = {
   phase: Phase.DEALING,
   deck: shuffle(makeDeck(suits, ranks)),
   table: [] as Pile<EuchreSuit, EuchreRank>,
+  currentPlayer: Math.floor(Math.random() * 4),
   players: [player1State, player2State, player3State, player4State],
 };
