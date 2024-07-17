@@ -25,6 +25,7 @@ export enum PlayingCardRank {
 export interface PlayingCard<S, R> {
   suit: S;
   rank: R;
+  faceUp: boolean;
 }
 
 export type Pile<S, R> = PlayingCard<S, R>[];
