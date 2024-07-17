@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { initialState, Phase } from "./euchre.interface";
-import { placeCardOnTop, takeTopCard } from "./playing-card.interface";
+import { placeCardOnTop, takeTopCard } from "./card-manipulation";
 
 export const euchreSlice = createSlice({
   name: "euchre",

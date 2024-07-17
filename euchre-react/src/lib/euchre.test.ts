@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 
 import { dealCards } from "./euchre-slice";
 import { Phase, ranks, suits } from "./euchre.interface";
-import { makeDeck, shuffle } from "./playing-card.interface";
+import { makeDeck, shuffle } from "./card-manipulation";
 import { store } from "./store";
 
 const euchreDeck = makeDeck(suits, ranks);

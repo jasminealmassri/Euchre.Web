@@ -1,10 +1,9 @@
+import { makeDeck, shuffle } from "./card-manipulation";
 import {
   Deck,
   Pile,
   PlayingCardRank,
   PlayingCardSuit,
-  makeDeck,
-  shuffle,
 } from "./playing-card.interface";
 
 export type EuchreSuit = PlayingCardSuit;

@@ -1,8 +1,6 @@
 import { expect, test } from "vitest";
 
 import {
-  PlayingCardRank,
-  PlayingCardSuit,
   insertCardAt,
   makeDeck,
   placeCardOnTop,
@@ -15,7 +13,8 @@ import {
   takeFromIndex,
   takeFromTop,
   takeTopCard,
-} from "./playing-card.interface";
+} from "./card-manipulation";
+import { PlayingCardRank, PlayingCardSuit } from "./playing-card.interface";
 
 type Suit = PlayingCardSuit;
 type ExcludedRank = PlayingCardRank.JOKER;
