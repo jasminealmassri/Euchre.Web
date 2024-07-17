@@ -4,9 +4,11 @@ import { Hand } from "./Hand";
 export class Player {
 
     hand: Hand;
+    score: number; 
 
-    constructor(hand : Hand = new Hand()) {
+    constructor(hand : Hand = new Hand(), score : number = 0) {
         this.hand = hand;
+        this.score = score;
     }
 
     playCard(index: number) : Card {

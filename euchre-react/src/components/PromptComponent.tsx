@@ -14,25 +14,37 @@ const PromptComponent = () => {
     }
     }, [game]);
   
-  if (game.prompt1 !== '' || game.prompt2 !== '') {
+
     return (
       <>
         <div className="prompt_container">
-          <button className="prompt_choice1" onClick={ () => game.prompt1Handler(game) }>{ game.prompt1 }</button>
-          <button className="prompt_choice2" onClick={ () => game.prompt2Handler(game) }>{ game.prompt2 }</button>
+          {
+            game.prompt1 && (
+              <button className="prompt_choice1" onClick={ () => game.prompt1Handler(game) }>{ game.prompt1 }</button>
+            )
+          }
+          {
+            game.prompt2 && (
+              <button className="prompt_choice2" onClick={ () => game.prompt2Handler(game) }>{ game.prompt2 }</button>
+            )
+          }
+          {
+            game.prompt3 && (
+              <button className="prompt_choice3" onClick={ () => game.prompt3Handler(game) }>{ game.prompt3 }</button>
+            )
+          }
+          {
+            game.prompt4 && (
+              <button className="prompt_choice4" onClick={ () => game.prompt4Handler(game) }>{ game.prompt4 }</button>
+            )
+          }
         </div>
         <div className={`${dealerCSSClass}`}>Dealer</div>
       </>
 
     )
-  }
-  else {
-    return (
-    <>
-       <div className={`${dealerCSSClass}`}>Dealer</div>
-    </>
-    )
-  }
+
+  
   
 
   

@@ -4,12 +4,12 @@ import ScoreComponent from './components/ScoreComponent'
 import EuchreComponent from './components/EuchreComponent';
 
 
+
 function App() {
 
  
   return (
     <>
-     
         <div className="game">
           <EuchreComponent>
             <ScoreComponent/>

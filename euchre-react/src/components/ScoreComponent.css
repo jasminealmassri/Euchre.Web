@@ -32,7 +32,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    .left_score, .middle_score, .right_score {
+    .left_score, .right_score {
         display: flex;
         flex-direction: column;
         gap: 2rem;
@@ -46,6 +46,19 @@
     }
     .right_score {
         border-left: 2px dashed rgb(156, 156, 156);
+    }
+
+    .middle_score {
+        gap: 0.3rem;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        padding: 0.3rem;
+        img { 
+            width: 1rem; 
+        }
     }
 }
   
