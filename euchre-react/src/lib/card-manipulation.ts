@@ -94,7 +94,7 @@ export const placeOnBottom = <S, R>([source, target]: [
 export const placeCardOnTop = <S, R>([card, pile]: [
   PlayingCard<S, R> | undefined,
   Pile<S, R>
-]) => {
+]): Pile<S, R> => {
   const insertionPile = card ? [card] : [];
   return placeOnTop([insertionPile, pile]);
 };
@@ -102,7 +102,7 @@ export const placeCardOnTop = <S, R>([card, pile]: [
 export const placeCardOnBottom = <S, R>([card, pile]: [
   PlayingCard<S, R> | undefined,
   Pile<S, R>
-]) => {
+]): Pile<S, R> => {
   const insertionPile = card ? [card] : [];
   return placeOnBottom([insertionPile, pile]);
 };
