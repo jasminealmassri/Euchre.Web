@@ -45,7 +45,15 @@ export const startHand = (): AppThunk => (dispatch) => {
 export const orderUp = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const dealer = selectDealer(state);
+  const players = selectPlayers(state);
 
+  dispatch(
+    moveCard({
+      source: EuchrePile.TALON,
+      target: players[dealer].hand,
+      faceUp: false,
+    })
+  );
   dispatch(setCurrentPlayer(dealer));
   dispatch(transitionToPhase(Phase.DISCARDING));
 };

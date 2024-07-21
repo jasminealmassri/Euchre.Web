@@ -5,6 +5,7 @@ import {
   pass,
   resetState,
   selectPile,
+  selectPlayers,
   startHand,
 } from "./euchre-slice";
 import { EuchrePile, Phase, ranks, suits } from "./euchre.interface";
@@ -54,6 +55,7 @@ test("start hand", () => {
 
 test("order up", () => {
   const initialState = store.getState().euchre;
+  const players = selectPlayers(initialState);
 
   store.dispatch(startHand());
   store.dispatch(orderUp());
@@ -62,6 +64,10 @@ test("order up", () => {
 
   expect(updatedState.phase).toBe(Phase.DISCARDING);
   expect(updatedState.currentPlayer).toBe(initialState.dealer);
+  expect(selectPile(updatedState, EuchrePile.TALON).length).toBe(0);
+  expect(
+    selectPile(updatedState, players[initialState.dealer].hand).length
+  ).toBe(6);
 });
 
 test("all players pass", () => {
