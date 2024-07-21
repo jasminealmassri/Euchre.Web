@@ -18,6 +18,8 @@ export const selectDealer = (state: EuchreGameState) => state.dealer;
 export const selectPile = (state: EuchreGameState, pile: string) =>
   state.piles[pile];
 export const selectPhase = (state: EuchreGameState) => state.phase;
+export const selectPlayerHand = (state: EuchreGameState, player: number) =>
+  state.players[player].hand;
 export const selectPlayers = (state: EuchreGameState) => state.players;
 
 export const startHand = (): AppThunk => (dispatch) => {
@@ -45,12 +47,12 @@ export const startHand = (): AppThunk => (dispatch) => {
 export const orderUp = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const dealer = selectDealer(state);
-  const players = selectPlayers(state);
+  const dealerHand = selectPlayerHand(state, dealer);
 
   dispatch(
     moveCard({
       source: EuchrePile.TALON,
-      target: players[dealer].hand,
+      target: dealerHand,
       faceUp: false,
     })
   );

@@ -5,7 +5,7 @@ import {
   pass,
   resetState,
   selectPile,
-  selectPlayers,
+  selectPlayerHand,
   startHand,
 } from "./euchre-slice";
 import { EuchrePile, Phase, ranks, suits } from "./euchre.interface";
@@ -55,7 +55,6 @@ test("start hand", () => {
 
 test("order up", () => {
   const initialState = store.getState().euchre;
-  const players = selectPlayers(initialState);
 
   store.dispatch(startHand());
   store.dispatch(orderUp());
@@ -66,7 +65,10 @@ test("order up", () => {
   expect(updatedState.currentPlayer).toBe(initialState.dealer);
   expect(selectPile(updatedState, EuchrePile.TALON).length).toBe(0);
   expect(
-    selectPile(updatedState, players[initialState.dealer].hand).length
+    selectPile(
+      updatedState,
+      selectPlayerHand(updatedState, initialState.dealer)
+    ).length
   ).toBe(6);
 });
 
@@ -81,7 +83,7 @@ test("all players pass", () => {
 
   expect(startingHandState.phase).toBe(Phase.BIDDING);
   expect(startingHandState.currentPlayer).toBe(
-    nextIndex(4, initialState.currentPlayer) // 1
+    nextIndex(4, initialState.currentPlayer)
   );
 
   store.dispatch(pass());
@@ -89,7 +91,7 @@ test("all players pass", () => {
 
   expect(firstPassState.phase).toBe(Phase.BIDDING);
   expect(firstPassState.currentPlayer).toBe(
-    nextIndex(4, startingHandState.currentPlayer) // 2
+    nextIndex(4, startingHandState.currentPlayer)
   );
 
   store.dispatch(pass());
@@ -97,7 +99,7 @@ test("all players pass", () => {
 
   expect(secondPassState.phase).toBe(Phase.BIDDING);
   expect(secondPassState.currentPlayer).toBe(
-    nextIndex(4, firstPassState.currentPlayer) // 3
+    nextIndex(4, firstPassState.currentPlayer)
   );
 
   store.dispatch(pass());
@@ -105,6 +107,6 @@ test("all players pass", () => {
 
   expect(thirdPassState.phase).toBe(Phase.CALLING_TRUMP);
   expect(thirdPassState.currentPlayer).toBe(
-    nextIndex(4, secondPassState.currentPlayer) // dealer
+    nextIndex(4, secondPassState.currentPlayer)
   );
 });
