@@ -10,6 +10,10 @@ export const circularArray = <T>(items: T[], startingIndex = 0) => {
   };
 };
 
+export const nextIndex = (size: number, currIndex: number): number => {
+  return (currIndex + 1) % size;
+};
+
 export const range = (length: number, start: number = 0): number[] => {
   return Array.from({ length }, (_, i) => i + start);
 };

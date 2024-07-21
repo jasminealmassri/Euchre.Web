@@ -27,7 +27,13 @@ export const startHand = (): AppThunk => (dispatch) => {
     });
   });
 
-  dispatch(moveCard({ source: EuchrePile.DECK, target: EuchrePile.TALON }));
+  dispatch(
+    moveCard({
+      source: EuchrePile.DECK,
+      target: EuchrePile.TALON,
+      faceUp: true,
+    })
+  );
   dispatch(transitionToNextPhase());
   dispatch(nextPlayer());
 };
@@ -46,12 +52,19 @@ export const euchreSlice = createSlice({
     // pile actions
     moveCard: (
       state,
-      action: PayloadAction<{ source: string; target: string }>
+      action: PayloadAction<{
+        source: string;
+        target: string;
+        faceUp?: boolean;
+      }>
     ) => {
       const { source, target } = action.payload;
       const [card, ...remainingSource] = state.piles[source];
 
-      state.piles[target] = [card, ...state.piles[target]];
+      state.piles[target] = [
+        { ...card, faceUp: !!action.payload.faceUp },
+        ...state.piles[target],
+      ];
       state.piles[source] = remainingSource;
     },
     shuffle: (state, action: PayloadAction<{ pile: string }>) => {

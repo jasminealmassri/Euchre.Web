@@ -4,6 +4,7 @@ import { selectPile, startHand } from "./euchre-slice";
 import { EuchrePile, Phase, ranks, suits } from "./euchre.interface";
 import { makeDeck, shuffle } from "./card-manipulation";
 import { store } from "./store";
+import { nextIndex } from "./utils";
 
 const euchreDeck = makeDeck(suits, ranks);
 
@@ -21,6 +22,7 @@ test("shuffle deck", () => {
 
 test("start hand", () => {
   const startingState = store.getState().euchre;
+  const numberOfPlayers = startingState.players.length;
   const startingPlayer = startingState.currentPlayer;
 
   store.dispatch(startHand());
@@ -36,5 +38,6 @@ test("start hand", () => {
   expect(piles.player3.length).toBe(5);
   expect(piles.player4.length).toBe(5);
   expect(piles.talon.length).toBe(1);
-  expect(currentPlayer).toBe(startingPlayer + 1);
+  expect(piles.talon[0].faceUp).toBe(true);
+  expect(currentPlayer).toBe(nextIndex(numberOfPlayers, startingPlayer));
 });
