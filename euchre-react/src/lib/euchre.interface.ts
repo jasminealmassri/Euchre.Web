@@ -5,7 +5,6 @@ import {
   PlayingCardRank,
   PlayingCardSuit,
 } from "./playing-card.interface";
-import { circularArray, range } from "./utils";
 
 export type EuchreSuit = PlayingCardSuit;
 export const suits: EuchreSuit[] = Object.values(PlayingCardSuit);
@@ -90,10 +89,11 @@ export const handParameters: HandParameters = {
 };
 
 export interface EuchreGameState {
-  phase: Phase;
-  players: EuchrePlayerState[];
   currentPlayer: number;
+  dealer: number;
+  phase: Phase;
   piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
+  players: EuchrePlayerState[];
 }
 
 export const player1State: EuchrePlayerState = {
@@ -120,12 +120,12 @@ export const player4State: EuchrePlayerState = {
   hand: "player4",
 };
 
-export const playerIndices = circularArray<number>(range(4));
+const dealer = Math.floor(Math.random() * 4);
 
 export const initialState: EuchreGameState = {
+  currentPlayer: dealer,
+  dealer,
   phase: Phase.DEALING,
-  currentPlayer: Math.floor(Math.random() * 4),
-  players: [player1State, player2State, player3State, player4State],
   piles: {
     deck: makeDeck(suits, ranks),
     talon: [],
@@ -135,4 +135,5 @@ export const initialState: EuchreGameState = {
     player3: [],
     player4: [],
   },
+  players: [player1State, player2State, player3State, player4State],
 };
