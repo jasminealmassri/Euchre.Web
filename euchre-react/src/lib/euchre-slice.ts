@@ -1,28 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { initialState, Phase } from "./euchre.interface";
-import { placeCardOnTop, takeTopCard, turnCardOver } from "./card-manipulation";
+import {
+  EuchreGameState,
+  EuchrePile,
+  handParameters,
+  initialState,
+  nextPhase,
+} from "./euchre.interface";
+import { AppThunk } from "./store";
+import { range } from "./utils";
+
+// selectors
+export const selectPile = (state: EuchreGameState, pile: string) =>
+  state.piles[pile];
+export const selectPhase = (state: EuchreGameState) => state.phase;
+export const selectPlayers = (state: EuchreGameState) => state.players;
+
+export const startHand = (): AppThunk => (dispatch) => {
+  dispatch(shuffle({ pile: EuchrePile.DECK }));
+
+  handParameters.dealPattern.forEach(([player, numberOfCards]) => {
+    range(numberOfCards).forEach(() => {
+      dispatch(
+        moveCard({ source: EuchrePile.DECK, target: `player${player}` })
+      );
+    });
+  });
+
+  dispatch(moveCard({ source: EuchrePile.DECK, target: EuchrePile.TALON }));
+  dispatch(transitionToNextPhase());
+  dispatch(nextPlayer());
+};
 
 export const euchreSlice = createSlice({
   name: "euchre",
   initialState,
   reducers: {
-    dealCards: (state) => {
-      Array.from({ length: 5 }).forEach(() => {
-        state.players.forEach((player) => {
-          const [playerCard, remainingDeck] = takeTopCard(state.deck);
-          player.hand = placeCardOnTop([playerCard, player.hand]);
-          state.deck = remainingDeck;
-        });
-      });
+    // game actions
+    nextPlayer(state) {
+      state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
+    },
+    transitionToNextPhase: (state) => {
+      state.phase = nextPhase(state.phase);
+    },
+    // pile actions
+    moveCard: (
+      state,
+      action: PayloadAction<{ source: string; target: string }>
+    ) => {
+      const { source, target } = action.payload;
+      const [card, ...remainingSource] = state.piles[source];
 
-      const [tableCard, remainingDeck] = takeTopCard(state.deck);
-      state.talon = placeCardOnTop([turnCardOver(tableCard), state.talon]);
-      state.deck = remainingDeck;
-      state.phase = Phase.BIDDING;
+      state.piles[target] = [card, ...state.piles[target]];
+      state.piles[source] = remainingSource;
+    },
+    shuffle: (state, action: PayloadAction<{ pile: string }>) => {
+      const { pile } = action.payload;
+      const cards = selectPile(state, pile);
+
+      state.piles[pile] = cards
+        .map((value) => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
     },
   },
 });
 
-export const { dealCards } = euchreSlice.actions;
+export const { moveCard, nextPlayer, shuffle, transitionToNextPhase } =
+  euchreSlice.actions;
 export default euchreSlice.reducer;

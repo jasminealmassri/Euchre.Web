@@ -1,10 +1,11 @@
-import { makeDeck, shuffle } from "./card-manipulation";
+import { makeDeck } from "./card-manipulation";
 import {
   Deck,
   Pile,
   PlayingCardRank,
   PlayingCardSuit,
 } from "./playing-card.interface";
+import { circularArray, range } from "./utils";
 
 export type EuchreSuit = PlayingCardSuit;
 export const suits: EuchreSuit[] = Object.values(PlayingCardSuit);
@@ -16,6 +17,8 @@ export type EuchreRank =
   | PlayingCardRank.QUEEN
   | PlayingCardRank.KING
   | PlayingCardRank.ACE;
+
+export type EuchreDeck = Deck<EuchreSuit, EuchreRank>;
 
 export const ranks: EuchreRank[] = [
   PlayingCardRank.NINE,
@@ -29,7 +32,7 @@ export const ranks: EuchreRank[] = [
 export type EuchrePlayerState = {
   name: string;
   tricks: number;
-  hand: Pile<EuchreSuit, EuchreRank>;
+  hand: string;
 };
 
 export enum Phase {
@@ -41,42 +44,95 @@ export enum Phase {
   END_OF_GAME = "endOfGame",
 }
 
+export enum EuchrePile {
+  DECK = "deck",
+  DISCARD_PILE = "discardPile",
+  PLAYER_1 = "player1",
+  PLAYER_2 = "player2",
+  PLAYER_3 = "player3",
+  PLAYER_4 = "player4",
+  TALON = "talon",
+}
+
+const phaseOrder = () => {
+  return Object.values(Phase);
+};
+
+const nextPhaseIndex = (currentPhase: Phase) => {
+  return phaseOrder().indexOf(currentPhase) + 1;
+};
+
+export const nextPhase = (currentPhase: Phase) => {
+  return phaseOrder()[nextPhaseIndex(currentPhase)];
+};
+
+interface HandParameters {
+  initialHandSize: number;
+  maxHandSize: number;
+  minHandSize: number;
+  dealPattern: Array<[number, number]>;
+}
+
+export const handParameters: HandParameters = {
+  initialHandSize: 5,
+  maxHandSize: 6,
+  minHandSize: 0,
+  dealPattern: [
+    [1, 3],
+    [2, 2],
+    [3, 3],
+    [4, 2],
+    [1, 2],
+    [2, 3],
+    [3, 2],
+    [4, 3],
+  ],
+};
+
 export interface EuchreGameState {
   phase: Phase;
-  deck: Deck<EuchreSuit, EuchreRank>;
-  talon: Pile<EuchreSuit, EuchreRank>;
   players: EuchrePlayerState[];
   currentPlayer: number;
+  piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
 }
 
 export const player1State: EuchrePlayerState = {
   name: "Player 1",
   tricks: 0,
-  hand: [] as Pile<EuchreSuit, EuchreRank>,
+  hand: "player1",
 };
 
 export const player2State: EuchrePlayerState = {
   name: "Player 2",
   tricks: 0,
-  hand: [] as Pile<EuchreSuit, EuchreRank>,
+  hand: "player2",
 };
 
 export const player3State: EuchrePlayerState = {
   name: "Player 3",
   tricks: 0,
-  hand: [] as Pile<EuchreSuit, EuchreRank>,
+  hand: "player3",
 };
 
 export const player4State: EuchrePlayerState = {
   name: "Player 4",
   tricks: 0,
-  hand: [] as Pile<EuchreSuit, EuchreRank>,
+  hand: "player4",
 };
+
+export const playerIndices = circularArray<number>(range(4));
 
 export const initialState: EuchreGameState = {
   phase: Phase.DEALING,
-  deck: shuffle(makeDeck(suits, ranks)),
-  talon: [] as Pile<EuchreSuit, EuchreRank>,
   currentPlayer: Math.floor(Math.random() * 4),
   players: [player1State, player2State, player3State, player4State],
+  piles: {
+    deck: makeDeck(suits, ranks),
+    talon: [],
+    table: [],
+    player1: [],
+    player2: [],
+    player3: [],
+    player4: [],
+  },
 };
