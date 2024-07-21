@@ -10,6 +10,13 @@ export const circularArray = <T>(items: T[], startingIndex = 0) => {
   };
 };
 
+export const getLastTurnIndex = (
+  startingIndex: number,
+  playerCount: number
+): number => {
+  return (startingIndex - 1 + playerCount) % playerCount;
+};
+
 export const nextIndex = (size: number, currIndex: number): number => {
   return (currIndex + 1) % size;
 };

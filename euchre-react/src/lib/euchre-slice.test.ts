@@ -1,12 +1,22 @@
-import { expect, test } from "vitest";
+import { beforeEach, expect, test } from "vitest";
 
-import { selectPile, startHand } from "./euchre-slice";
+import {
+  orderUp,
+  pass,
+  resetState,
+  selectPile,
+  startHand,
+} from "./euchre-slice";
 import { EuchrePile, Phase, ranks, suits } from "./euchre.interface";
 import { makeDeck, shuffle } from "./card-manipulation";
 import { store } from "./store";
 import { nextIndex } from "./utils";
 
 const euchreDeck = makeDeck(suits, ranks);
+
+beforeEach(() => {
+  store.dispatch(resetState());
+});
 
 test("make euchre deck", () => {
   const euchreDeck = selectPile(store.getState().euchre, EuchrePile.DECK);
@@ -21,9 +31,9 @@ test("shuffle deck", () => {
 });
 
 test("start hand", () => {
-  const startingState = store.getState().euchre;
-  const numberOfPlayers = startingState.players.length;
-  const startingPlayer = startingState.currentPlayer;
+  const initialState = store.getState().euchre;
+  const numberOfPlayers = initialState.players.length;
+  const startingPlayer = initialState.currentPlayer;
 
   store.dispatch(startHand());
 
@@ -40,4 +50,55 @@ test("start hand", () => {
   expect(piles.talon.length).toBe(1);
   expect(piles.talon[0].faceUp).toBe(true);
   expect(currentPlayer).toBe(nextIndex(numberOfPlayers, startingPlayer));
+});
+
+test("order up", () => {
+  const initialState = store.getState().euchre;
+
+  store.dispatch(startHand());
+  store.dispatch(orderUp());
+
+  const updatedState = store.getState().euchre;
+
+  expect(updatedState.phase).toBe(Phase.DISCARDING);
+  expect(updatedState.currentPlayer).toBe(initialState.dealer);
+});
+
+test("all players pass", () => {
+  const initialState = store.getState().euchre;
+
+  expect(initialState.phase).toBe(Phase.DEALING);
+  expect(initialState.currentPlayer).toBe(initialState.dealer);
+
+  store.dispatch(startHand());
+  const startingHandState = store.getState().euchre;
+
+  expect(startingHandState.phase).toBe(Phase.BIDDING);
+  expect(startingHandState.currentPlayer).toBe(
+    nextIndex(4, initialState.currentPlayer) // 1
+  );
+
+  store.dispatch(pass());
+  const firstPassState = store.getState().euchre;
+
+  expect(firstPassState.phase).toBe(Phase.BIDDING);
+  expect(firstPassState.currentPlayer).toBe(
+    nextIndex(4, startingHandState.currentPlayer) // 2
+  );
+
+  store.dispatch(pass());
+  const secondPassState = store.getState().euchre;
+
+  expect(secondPassState.phase).toBe(Phase.BIDDING);
+  expect(secondPassState.currentPlayer).toBe(
+    nextIndex(4, firstPassState.currentPlayer) // 3
+  );
+
+  store.dispatch(pass());
+  const thirdPassState = store.getState().euchre;
+
+  expect(thirdPassState.phase).toBe(Phase.CALLING_TRUMP);
+  expect(thirdPassState.currentPlayer).toBe(
+    nextIndex(4, secondPassState.currentPlayer) // dealer
+  );
 });

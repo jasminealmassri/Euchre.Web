@@ -37,6 +37,7 @@ export type EuchrePlayerState = {
 export enum Phase {
   DEALING = "dealing",
   BIDDING = "bidding",
+  DISCARDING = "discarding",
   CALLING_TRUMP = "callingTrump",
   PLAYING_TRICKS = "playingTricks",
   ROUND_SCORING = "roundScoring",
@@ -120,7 +121,7 @@ export const player4State: EuchrePlayerState = {
   hand: "player4",
 };
 
-const dealer = Math.floor(Math.random() * 4);
+const dealer = 0; // Math.floor(Math.random() * 4);
 
 export const initialState: EuchreGameState = {
   currentPlayer: dealer,

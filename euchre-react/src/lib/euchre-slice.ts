@@ -6,11 +6,15 @@ import {
   handParameters,
   initialState,
   nextPhase,
+  Phase,
 } from "./euchre.interface";
 import { AppThunk } from "./store";
-import { range } from "./utils";
+import { getLastTurnIndex, range } from "./utils";
 
 // selectors
+export const selectCurrentPlayer = (state: EuchreGameState) =>
+  state.currentPlayer;
+export const selectDealer = (state: EuchreGameState) => state.dealer;
 export const selectPile = (state: EuchreGameState, pile: string) =>
   state.piles[pile];
 export const selectPhase = (state: EuchreGameState) => state.phase;
@@ -38,14 +42,43 @@ export const startHand = (): AppThunk => (dispatch) => {
   dispatch(nextPlayer());
 };
 
+export const orderUp = (): AppThunk => (dispatch, getState) => {
+  const state = getState().euchre;
+  const dealer = selectDealer(state);
+
+  dispatch(setCurrentPlayer(dealer));
+  dispatch(transitionToPhase(Phase.DISCARDING));
+};
+
+export const pass = (): AppThunk => (dispatch, getState) => {
+  const state = getState().euchre;
+  const currentPlayer = selectCurrentPlayer(state);
+  const dealer = selectDealer(state);
+  const players = selectPlayers(state);
+  const lastTurnIndex = getLastTurnIndex(dealer, players.length);
+
+  if (currentPlayer === lastTurnIndex) {
+    dispatch(transitionToPhase(Phase.CALLING_TRUMP));
+  }
+
+  dispatch(nextPlayer());
+};
+
 export const euchreSlice = createSlice({
   name: "euchre",
   initialState,
   reducers: {
     // game actions
+    transitionToPhase: (state, action: PayloadAction<Phase>) => {
+      state.phase = action.payload;
+    },
     nextPlayer(state) {
       state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
     },
+    setCurrentPlayer: (state, action: PayloadAction<number>) => {
+      state.currentPlayer = action.payload;
+    },
+    resetState: () => initialState,
     transitionToNextPhase: (state) => {
       state.phase = nextPhase(state.phase);
     },
@@ -79,6 +112,13 @@ export const euchreSlice = createSlice({
   },
 });
 
-export const { moveCard, nextPlayer, shuffle, transitionToNextPhase } =
-  euchreSlice.actions;
+export const {
+  moveCard,
+  nextPlayer,
+  resetState,
+  setCurrentPlayer,
+  shuffle,
+  transitionToPhase,
+  transitionToNextPhase,
+} = euchreSlice.actions;
 export default euchreSlice.reducer;
