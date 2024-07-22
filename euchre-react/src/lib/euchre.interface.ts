@@ -121,7 +121,7 @@ export const player4State: EuchrePlayerState = {
   hand: "player4",
 };
 
-const dealer = 0; // Math.floor(Math.random() * 4);
+const dealer = Math.floor(Math.random() * 4);
 
 export const initialState: EuchreGameState = {
   currentPlayer: dealer,
