@@ -23,6 +23,12 @@ export const selectPlayerHand = (player: number) => (state: EuchreGameState) =>
 export const selectPlayers = (state: EuchreGameState) => state.players;
 export const selectPlayer = (player: number) => (state: EuchreGameState) =>
   state.players[player];
+export const selectCanBid = (player: number) => (state: EuchreGameState) =>
+  state.currentPlayer === player && state.phase === Phase.BIDDING;
+export const selectCanDeal = (player: number) => (state: EuchreGameState) =>
+  state.currentPlayer === player && state.phase === Phase.DEALING;
+export const selectMustDiscard = (player: number) => (state: EuchreGameState) =>
+  state.currentPlayer === player && state.phase === Phase.DISCARDING;
 
 export const startHand = (): AppThunk => (dispatch) => {
   dispatch(shuffle({ pile: EuchrePile.DECK }));
