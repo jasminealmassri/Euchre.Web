@@ -9,18 +9,20 @@ import {
   Phase,
 } from "./euchre.interface";
 import { AppThunk } from "./store";
-import { getLastTurnIndex, range } from "./utils";
+import { getLastTurnIndex, nextIndex, range } from "./utils";
 
 // selectors
 export const selectCurrentPlayer = (state: EuchreGameState) =>
   state.currentPlayer;
 export const selectDealer = (state: EuchreGameState) => state.dealer;
-export const selectPile = (state: EuchreGameState, pile: string) =>
+export const selectPile = (pile: string) => (state: EuchreGameState) =>
   state.piles[pile];
 export const selectPhase = (state: EuchreGameState) => state.phase;
-export const selectPlayerHand = (state: EuchreGameState, player: number) =>
+export const selectPlayerHand = (player: number) => (state: EuchreGameState) =>
   state.players[player].hand;
 export const selectPlayers = (state: EuchreGameState) => state.players;
+export const selectPlayer = (player: number) => (state: EuchreGameState) =>
+  state.players[player];
 
 export const startHand = (): AppThunk => (dispatch) => {
   dispatch(shuffle({ pile: EuchrePile.DECK }));
@@ -47,7 +49,7 @@ export const startHand = (): AppThunk => (dispatch) => {
 export const orderUp = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const dealer = selectDealer(state);
-  const dealerHand = selectPlayerHand(state, dealer);
+  const dealerHand = selectPlayerHand(dealer)(state);
 
   dispatch(
     moveCard({
@@ -67,11 +69,11 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   const players = selectPlayers(state);
   const lastTurnIndex = getLastTurnIndex(dealer, players.length);
 
-  if (currentPlayer === lastTurnIndex) {
+  dispatch(nextPlayer());
+
+  if (currentPlayer === nextIndex(players.length, lastTurnIndex)) {
     dispatch(transitionToPhase(Phase.CALLING_TRUMP));
   }
-
-  dispatch(nextPlayer());
 };
 
 export const euchreSlice = createSlice({
@@ -112,7 +114,7 @@ export const euchreSlice = createSlice({
     },
     shuffle: (state, action: PayloadAction<{ pile: string }>) => {
       const { pile } = action.payload;
-      const cards = selectPile(state, pile);
+      const cards = selectPile(pile)(state);
 
       state.piles[pile] = cards
         .map((value) => ({ value, sort: Math.random() }))

@@ -20,7 +20,7 @@ beforeEach(() => {
 });
 
 test("make euchre deck", () => {
-  const euchreDeck = selectPile(store.getState().euchre, EuchrePile.DECK);
+  const euchreDeck = selectPile(EuchrePile.DECK)(store.getState().euchre);
 
   expect(euchreDeck.length).toBe(24);
 });
@@ -63,11 +63,10 @@ test("order up", () => {
 
   expect(updatedState.phase).toBe(Phase.DISCARDING);
   expect(updatedState.currentPlayer).toBe(initialState.dealer);
-  expect(selectPile(updatedState, EuchrePile.TALON).length).toBe(0);
+  expect(selectPile(EuchrePile.TALON)(updatedState).length).toBe(0);
   expect(
-    selectPile(
-      updatedState,
-      selectPlayerHand(updatedState, initialState.dealer)
+    selectPile(selectPlayerHand(initialState.dealer)(updatedState))(
+      updatedState
     ).length
   ).toBe(6);
 });
@@ -105,8 +104,16 @@ test("all players pass", () => {
   store.dispatch(pass());
   const thirdPassState = store.getState().euchre;
 
-  expect(thirdPassState.phase).toBe(Phase.CALLING_TRUMP);
+  expect(thirdPassState.phase).toBe(Phase.BIDDING);
   expect(thirdPassState.currentPlayer).toBe(
     nextIndex(4, secondPassState.currentPlayer)
+  );
+
+  store.dispatch(pass());
+  const fourthPassState = store.getState().euchre;
+
+  expect(fourthPassState.phase).toBe(Phase.CALLING_TRUMP);
+  expect(fourthPassState.currentPlayer).toBe(
+    nextIndex(4, thirdPassState.currentPlayer)
   );
 });
