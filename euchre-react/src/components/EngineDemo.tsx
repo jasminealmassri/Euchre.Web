@@ -16,12 +16,14 @@ const EngineDemo = () => {
   const dealerPointer = useEuchreSelector(selectDealer);
   const dealer = useEuchreSelector(selectPlayer(dealerPointer));
   const talon = useEuchreSelector((state) => state.piles.talon);
+  const trump = useEuchreSelector((state) => state.trump);
 
   return (
     <div>
       <ul>
         <li>Phase: {phase}</li>
         <li>Dealer: {dealer.name}</li>
+        <li>Trump: {trump}</li>
       </ul>
       {talon.length > 0 && (
         <Card suit={talon[0].suit} rank={talon[0].rank} index={0} />

@@ -4,6 +4,7 @@ import { takeCardAt } from "./card-manipulation";
 import {
   EuchreGameState,
   EuchrePile,
+  EuchreSuit,
   handParameters,
   initialState,
   nextPhase,
@@ -69,6 +70,7 @@ export const orderUp = (): AppThunk => (dispatch, getState) => {
   const dealer = selectDealer(state);
   const dealerHand = selectPlayerHand(dealer)(state);
 
+  dispatch(setTrump(state.piles.talon[0].suit));
   dispatch(
     moveCard({
       source: EuchrePile.TALON,
@@ -109,6 +111,9 @@ export const euchreSlice = createSlice({
       state.currentPlayer = action.payload;
     },
     resetState: () => initialState,
+    setTrump: (state, action: PayloadAction<EuchreSuit>) => {
+      state.trump = action.payload;
+    },
     transitionToNextPhase: (state) => {
       state.phase = nextPhase(state.phase);
     },
@@ -148,7 +153,6 @@ export const euchreSlice = createSlice({
       const [card, remainingPile] = takeCardAt(index, state.piles[pile]);
 
       state.piles[pile] = remainingPile;
-
       card
         ? (state.piles[EuchrePile.DISCARD_PILE] = [
             card,
@@ -164,6 +168,7 @@ export const {
   nextPlayer,
   resetState,
   setCurrentPlayer,
+  setTrump,
   shuffle,
   takeCardFrom,
   transitionToPhase,

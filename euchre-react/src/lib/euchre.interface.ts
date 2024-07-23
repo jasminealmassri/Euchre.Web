@@ -91,6 +91,7 @@ export const handParameters: HandParameters = {
 
 export interface EuchreGameState {
   currentPlayer: number;
+  trump: EuchreSuit | null;
   dealer: number;
   phase: Phase;
   piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
@@ -126,6 +127,7 @@ const dealer = Math.floor(Math.random() * 4);
 export const initialState: EuchreGameState = {
   currentPlayer: dealer,
   dealer,
+  trump: null,
   phase: Phase.DEALING,
   piles: {
     deck: makeDeck(suits, ranks),
