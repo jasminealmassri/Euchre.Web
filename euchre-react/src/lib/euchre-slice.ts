@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+import { takeCardAt } from "./card-manipulation";
 import {
   EuchreGameState,
   EuchrePile,
@@ -27,8 +28,19 @@ export const selectCanBid = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.BIDDING;
 export const selectCanDeal = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.DEALING;
+export const selectCanPlay = (player: number) => (state: EuchreGameState) =>
+  state.currentPlayer === player && state.phase === Phase.PLAYING_TRICKS;
 export const selectMustDiscard = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.DISCARDING;
+
+// discard thunk
+export const discard =
+  (cardIndex: number, player: string): AppThunk =>
+  (dispatch) => {
+    dispatch(takeCardFrom({ index: cardIndex, pile: player }));
+    dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
+    dispatch(nextPlayer());
+  };
 
 export const startHand = (): AppThunk => (dispatch) => {
   dispatch(shuffle({ pile: EuchrePile.DECK }));
@@ -127,6 +139,23 @@ export const euchreSlice = createSlice({
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
     },
+    takeCardFrom: (
+      state,
+      action: PayloadAction<{ index: number; pile: string }>
+    ) => {
+      const { index, pile } = action.payload;
+
+      const [card, remainingPile] = takeCardAt(index, state.piles[pile]);
+
+      state.piles[pile] = remainingPile;
+
+      card
+        ? (state.piles[EuchrePile.DISCARD_PILE] = [
+            card,
+            ...state.piles[EuchrePile.DISCARD_PILE],
+          ])
+        : null;
+    },
   },
 });
 
@@ -136,6 +165,7 @@ export const {
   resetState,
   setCurrentPlayer,
   shuffle,
+  takeCardFrom,
   transitionToPhase,
   transitionToNextPhase,
 } = euchreSlice.actions;

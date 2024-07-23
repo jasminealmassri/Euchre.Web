@@ -46,7 +46,7 @@ export enum Phase {
 
 export enum EuchrePile {
   DECK = "deck",
-  DISCARD_PILE = "discardPile",
+  DISCARD_PILE = "discard",
   PLAYER_1 = "player1",
   PLAYER_2 = "player2",
   PLAYER_3 = "player3",
@@ -129,6 +129,7 @@ export const initialState: EuchreGameState = {
   phase: Phase.DEALING,
   piles: {
     deck: makeDeck(suits, ranks),
+    discard: [],
     talon: [],
     table: [],
     player1: [],

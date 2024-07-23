@@ -1,3 +1,4 @@
+import React from "react";
 import { useEuchreSelector } from "../hooks";
 import {
   selectDealer,
@@ -5,6 +6,7 @@ import {
   selectPlayer,
   selectPlayers,
 } from "../lib/euchre-slice";
+import Card from "./Card";
 
 import Player from "./Player";
 
@@ -13,6 +15,7 @@ const EngineDemo = () => {
   const players = useEuchreSelector(selectPlayers);
   const dealerPointer = useEuchreSelector(selectDealer);
   const dealer = useEuchreSelector(selectPlayer(dealerPointer));
+  const talon = useEuchreSelector((state) => state.piles.talon);
 
   return (
     <div>
@@ -20,10 +23,16 @@ const EngineDemo = () => {
         <li>Phase: {phase}</li>
         <li>Dealer: {dealer.name}</li>
       </ul>
+      {talon.length > 0 && (
+        <Card suit={talon[0].suit} rank={talon[0].rank} index={0} />
+      )}
       {players.map((player, i) => (
-        <div key={player.name}>
-          <Player playerPointer={i} />
-        </div>
+        <React.Fragment key={player.name}>
+          <div>
+            <Player playerPointer={i} />
+          </div>
+          <hr />
+        </React.Fragment>
       ))}
     </div>
   );
