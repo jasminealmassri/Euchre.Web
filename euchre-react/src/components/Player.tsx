@@ -27,7 +27,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const hand = useEuchreSelector(selectPile(player.hand));
 
   const handleCardClick = (index: number) => {
-    // can't discard index 0 when must discard because that
+    // can't discard index 0 while discarding because that
     // was the talon card
     if (!mustDiscard) {
       return;
