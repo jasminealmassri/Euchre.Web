@@ -44,9 +44,9 @@ export const takeFromIndex = <S, R>(
   pile: Pile<S, R>
 ): [Pile<S, R>, Pile<S, R>] => {
   const [top, middle, bottom] = [
-    pile.slice(0, index - 1),
+    pile.slice(0, index),
     pile.slice(index, index + n),
-    pile.slice(index + n - 1, pile.length),
+    pile.slice(index + n),
   ];
 
   return [middle, [...top, ...bottom]];
