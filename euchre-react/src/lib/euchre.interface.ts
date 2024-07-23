@@ -92,6 +92,7 @@ export const handParameters: HandParameters = {
 export interface EuchreGameState {
   currentPlayer: number;
   trump: EuchreSuit | null;
+  leadingSuit: EuchreSuit | null;
   dealer: number;
   phase: Phase;
   piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
@@ -128,6 +129,7 @@ export const initialState: EuchreGameState = {
   currentPlayer: dealer,
   dealer,
   trump: null,
+  leadingSuit: null,
   phase: Phase.DEALING,
   piles: {
     deck: makeDeck(suits, ranks),

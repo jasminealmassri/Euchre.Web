@@ -92,6 +92,9 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   dispatch(nextPlayer());
 
   if (currentPlayer === nextIndex(players.length, lastTurnIndex)) {
+    dispatch(
+      moveCard({ source: EuchrePile.TALON, target: EuchrePile.DISCARD_PILE })
+    );
     dispatch(transitionToPhase(Phase.CALLING_TRUMP));
   }
 };
