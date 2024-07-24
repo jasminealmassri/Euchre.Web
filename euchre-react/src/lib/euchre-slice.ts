@@ -12,6 +12,7 @@ import {
 } from "./euchre.interface";
 import { AppThunk } from "./store";
 import { getLastTurnIndex, nextIndex, range } from "./utils";
+import { PlayingCardSuit } from "./playing-card.interface";
 
 // selectors
 export const selectCurrentPlayer = (state: EuchreGameState) =>
@@ -92,6 +93,7 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   dispatch(nextPlayer());
 
   if (currentPlayer === nextIndex(players.length, lastTurnIndex)) {
+    dispatch(removeCandidate(state.piles[EuchrePile.TALON][0].suit));
     dispatch(
       moveCard({ source: EuchrePile.TALON, target: EuchrePile.DISCARD_PILE })
     );
@@ -138,6 +140,12 @@ export const euchreSlice = createSlice({
       ];
       state.piles[source] = remainingSource;
     },
+    removeCandidate: (state, action: PayloadAction<PlayingCardSuit>) => {
+      const remaining = state.trumpCandidates.filter(
+        (suit) => suit !== action.payload
+      );
+      state.trumpCandidates = remaining;
+    },
     shuffle: (state, action: PayloadAction<{ pile: string }>) => {
       const { pile } = action.payload;
       const cards = selectPile(pile)(state);
@@ -169,6 +177,7 @@ export const euchreSlice = createSlice({
 export const {
   moveCard,
   nextPlayer,
+  removeCandidate,
   resetState,
   setCurrentPlayer,
   setTrump,
