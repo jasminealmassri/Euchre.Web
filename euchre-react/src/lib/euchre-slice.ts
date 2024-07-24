@@ -34,6 +34,12 @@ export const selectCanPlay = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.PLAYING_TRICKS;
 export const selectMustDiscard = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.DISCARDING;
+export const selectCanCallTrump =
+  (player: number) => (state: EuchreGameState) =>
+    state.currentPlayer === player && state.phase === Phase.CALLING_TRUMP;
+export const selectMustCallTrump =
+  (player: number) => (state: EuchreGameState) =>
+    state.dealer === player && state.phase === Phase.CALLING_TRUMP;
 
 // discard thunk
 export const discard =
@@ -83,6 +89,19 @@ export const orderUp = (): AppThunk => (dispatch, getState) => {
   dispatch(transitionToPhase(Phase.DISCARDING));
 };
 
+export const callTrump =
+  (trump: PlayingCardSuit): AppThunk =>
+  (dispatch, getState) => {
+    const dealer = selectDealer(getState().euchre);
+    dispatch(setTrump(trump));
+    dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
+    dispatch(setCurrentPlayer(dealer));
+    dispatch(nextPlayer());
+  };
+
+export const passOnTrump = (): AppThunk => (dispatch) => {
+  dispatch(nextPlayer());
+};
 export const pass = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const currentPlayer = selectCurrentPlayer(state);

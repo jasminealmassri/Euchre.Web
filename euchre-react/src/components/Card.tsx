@@ -1,5 +1,5 @@
 import { EuchreRank, EuchreSuit } from "../lib/euchre.interface";
-import { PlayingCardSuit } from "../lib/playing-card.interface";
+import { PlayingCardSuit, suitToColor } from "../lib/playing-card.interface";
 
 interface CardProps {
   suit: EuchreSuit;
@@ -19,19 +19,6 @@ const Card = ({ suit, rank, index, onClick }: CardProps) => {
         return "♥";
       case PlayingCardSuit.SPADES:
         return "♠";
-    }
-  };
-
-  const suitToColor = (suit: EuchreSuit) => {
-    switch (suit) {
-      case PlayingCardSuit.CLUBS:
-        return "black";
-      case PlayingCardSuit.DIAMONDS:
-        return "red";
-      case PlayingCardSuit.HEARTS:
-        return "red";
-      case PlayingCardSuit.SPADES:
-        return "black";
     }
   };
 

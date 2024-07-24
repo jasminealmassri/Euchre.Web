@@ -22,6 +22,19 @@ export enum PlayingCardRank {
   JOKER = "Joker",
 }
 
+export const suitToColor = (suit: PlayingCardSuit) => {
+  switch (suit) {
+    case PlayingCardSuit.CLUBS:
+      return "black";
+    case PlayingCardSuit.DIAMONDS:
+      return "red";
+    case PlayingCardSuit.HEARTS:
+      return "red";
+    case PlayingCardSuit.SPADES:
+      return "black";
+  }
+};
+
 export interface PlayingCard<S, R> {
   suit: S;
   rank: R;

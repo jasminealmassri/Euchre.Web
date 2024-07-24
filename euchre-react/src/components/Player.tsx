@@ -1,17 +1,23 @@
 import { useAppDispatch, useEuchreSelector } from "../hooks";
 import {
+  callTrump,
   discard,
   orderUp,
   pass,
+  passOnTrump,
   selectCanBid,
+  selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
+  selectMustCallTrump,
   selectMustDiscard,
   selectPile,
   selectPlayer,
   startHand,
 } from "../lib/euchre-slice";
+import { PlayingCardSuit } from "../lib/playing-card.interface";
 import Card from "./Card";
+import TrumpSelector from "./TrumpSelector";
 
 interface PlayerProps {
   playerPointer: number;
@@ -22,6 +28,8 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const canBid = useEuchreSelector(selectCanBid(playerPointer));
   const canDeal = useEuchreSelector(selectCanDeal(playerPointer));
   const canPlay = useEuchreSelector(selectCanPlay(playerPointer));
+  const canCallTrump = useEuchreSelector(selectCanCallTrump(playerPointer));
+  const mustCallTrump = useEuchreSelector(selectMustCallTrump(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const hand = useEuchreSelector(selectPile(player.hand));
@@ -38,6 +46,10 @@ const Player = ({ playerPointer }: PlayerProps) => {
     }
 
     dispatch(discard(index, player.hand));
+  };
+
+  const handleTrumpClick = (trump: PlayingCardSuit) => {
+    dispatch(callTrump(trump));
   };
 
   return (
@@ -69,6 +81,10 @@ const Player = ({ playerPointer }: PlayerProps) => {
 
         {canDeal && <button onClick={() => dispatch(startHand())}>Deal</button>}
         {mustDiscard && <button>Discard</button>}
+        {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
+        {canCallTrump && !mustCallTrump && (
+          <button onClick={() => dispatch(passOnTrump())}>Pass</button>
+        )}
       </div>
     </div>
   );
