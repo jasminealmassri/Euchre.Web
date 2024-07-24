@@ -2,6 +2,7 @@ import { makeDeck } from "./card-manipulation";
 import {
   Deck,
   Pile,
+  PlayingCard,
   PlayingCardRank,
   PlayingCardSuit,
 } from "./playing-card.interface";
@@ -28,6 +29,8 @@ export const ranks: EuchreRank[] = [
   PlayingCardRank.ACE,
 ];
 
+export type EuchreCard = PlayingCard<EuchreSuit, EuchreRank>;
+
 export type EuchrePlayerState = {
   name: string;
   tricks: number;
@@ -52,6 +55,7 @@ export enum EuchrePile {
   PLAYER_3 = "player3",
   PLAYER_4 = "player4",
   TALON = "talon",
+  TABLE = "table",
 }
 
 const phaseOrder = () => {

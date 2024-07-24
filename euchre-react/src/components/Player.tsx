@@ -5,16 +5,19 @@ import {
   orderUp,
   pass,
   passOnTrump,
+  playCard,
   selectCanBid,
   selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
   selectMustCallTrump,
   selectMustDiscard,
+  selectPhase,
   selectPile,
   selectPlayer,
   startHand,
 } from "../lib/euchre-slice";
+import { Phase } from "../lib/euchre.interface";
 import { PlayingCardSuit } from "../lib/playing-card.interface";
 import Card from "./Card";
 import TrumpSelector from "./TrumpSelector";
@@ -33,10 +36,30 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const hand = useEuchreSelector(selectPile(player.hand));
+  const phase = useEuchreSelector(selectPhase);
 
   const handleCardClick = (index: number) => {
-    // can't discard index 0 while discarding because that
-    // was the talon card
+    switch (phase) {
+      case Phase.DISCARDING:
+        handleDiscardClick(index);
+        break;
+      case Phase.PLAYING_TRICKS:
+        handlePlayClick(index);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handlePlayClick = (index: number) => {
+    if (!canPlay) {
+      return;
+    }
+
+    dispatch(playCard(playerPointer, index));
+  };
+
+  const handleDiscardClick = (index: number) => {
     if (!mustDiscard) {
       return;
     }
@@ -80,7 +103,6 @@ const Player = ({ playerPointer }: PlayerProps) => {
         )}
 
         {canDeal && <button onClick={() => dispatch(startHand())}>Deal</button>}
-        {mustDiscard && <button>Discard</button>}
         {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
         {canCallTrump && !mustCallTrump && (
           <button onClick={() => dispatch(passOnTrump())}>Pass</button>

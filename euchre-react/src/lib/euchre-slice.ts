@@ -41,11 +41,18 @@ export const selectMustCallTrump =
   (player: number) => (state: EuchreGameState) =>
     state.dealer === player && state.phase === Phase.CALLING_TRUMP;
 
-// discard thunk
+// actions
 export const discard =
   (cardIndex: number, player: string): AppThunk =>
   (dispatch) => {
-    dispatch(takeCardFrom({ index: cardIndex, pile: player }));
+    dispatch(
+      playCardByIndex({
+        index: cardIndex,
+        source: player,
+        target: EuchrePile.DISCARD_PILE,
+        faceUp: false,
+      })
+    );
     dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
     dispatch(nextPlayer());
   };
@@ -102,6 +109,7 @@ export const callTrump =
 export const passOnTrump = (): AppThunk => (dispatch) => {
   dispatch(nextPlayer());
 };
+
 export const pass = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const currentPlayer = selectCurrentPlayer(state);
@@ -120,6 +128,34 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   }
 };
 
+export const playCard =
+  (player: number, card: number): AppThunk =>
+  (dispatch, getState) => {
+    const state = getState().euchre;
+    const playerHandPointer = selectPlayerHand(player)(state);
+    const playerHand = state.piles[playerHandPointer];
+    const desiredCard = playerHand[card];
+    const leadingSuit = state.leadingSuit ?? desiredCard.suit;
+
+    const hasLeadingSuit = playerHand.find((card) => card.suit === leadingSuit);
+
+    if (desiredCard.suit !== leadingSuit && hasLeadingSuit) {
+      return;
+    }
+
+    dispatch(setLeadingSuit(desiredCard.suit));
+
+    dispatch(
+      playCardByIndex({
+        index: card,
+        source: playerHandPointer,
+        target: EuchrePile.TABLE,
+        faceUp: true,
+      })
+    );
+    dispatch(nextPlayer());
+  };
+
 export const euchreSlice = createSlice({
   name: "euchre",
   initialState,
@@ -135,6 +171,9 @@ export const euchreSlice = createSlice({
       state.currentPlayer = action.payload;
     },
     resetState: () => initialState,
+    setLeadingSuit: (state, action: PayloadAction<PlayingCardSuit>) => {
+      state.leadingSuit = action.payload;
+    },
     setTrump: (state, action: PayloadAction<EuchreSuit>) => {
       state.trump = action.payload;
     },
@@ -174,21 +213,24 @@ export const euchreSlice = createSlice({
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
     },
-    takeCardFrom: (
+    playCardByIndex: (
       state,
-      action: PayloadAction<{ index: number; pile: string }>
+      action: PayloadAction<{
+        index: number;
+        source: string;
+        target: string;
+        faceUp?: boolean;
+      }>
     ) => {
-      const { index, pile } = action.payload;
+      const { index, source, target } = action.payload;
+      const [card, remainingPile] = takeCardAt(index, state.piles[source]);
 
-      const [card, remainingPile] = takeCardAt(index, state.piles[pile]);
+      if (card) {
+        const faceUp = action.payload.faceUp ?? card.faceUp;
+        state.piles[source] = remainingPile;
 
-      state.piles[pile] = remainingPile;
-      card
-        ? (state.piles[EuchrePile.DISCARD_PILE] = [
-            card,
-            ...state.piles[EuchrePile.DISCARD_PILE],
-          ])
-        : null;
+        state.piles[target] = [{ ...card, faceUp }, ...state.piles[target]];
+      }
     },
   },
 });
@@ -196,13 +238,14 @@ export const euchreSlice = createSlice({
 export const {
   moveCard,
   nextPlayer,
+  playCardByIndex,
   removeCandidate,
   resetState,
   setCurrentPlayer,
+  setLeadingSuit,
   setTrump,
   shuffle,
-  takeCardFrom,
-  transitionToPhase,
   transitionToNextPhase,
+  transitionToPhase,
 } = euchreSlice.actions;
 export default euchreSlice.reducer;
