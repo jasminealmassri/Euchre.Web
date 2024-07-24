@@ -29,7 +29,7 @@ const EngineDemo = () => {
         <li>Leading Suit: {leadingSuit}</li>
       </ul>
       {talon.length > 0 && <Pile pile={talon} />}
-      {table.length > 0 && <Pile pile={table} />}
+      {table.length > 0 && <Pile showHighestCard={true} pile={table} />}
       {players.map((player, i) => (
         <React.Fragment key={player.name}>
           <div>

@@ -2,8 +2,10 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { takeCardAt } from "./card-manipulation";
 import {
+  compareEuchreCards,
   EuchreGameState,
   EuchrePile,
+  EuchreRank,
   EuchreSuit,
   handParameters,
   initialState,
@@ -12,7 +14,7 @@ import {
 } from "./euchre.interface";
 import { AppThunk } from "./store";
 import { getLastTurnIndex, nextIndex, range } from "./utils";
-import { PlayingCardSuit } from "./playing-card.interface";
+import { Pile, PlayingCardSuit } from "./playing-card.interface";
 
 // selectors
 export const selectCurrentPlayer = (state: EuchreGameState) =>
@@ -40,6 +42,16 @@ export const selectCanCallTrump =
 export const selectMustCallTrump =
   (player: number) => (state: EuchreGameState) =>
     state.dealer === player && state.phase === Phase.CALLING_TRUMP;
+export const selectHighestCard =
+  (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
+    const trump = state.trump as PlayingCardSuit;
+
+    return pile.reduce((highestIndex, currentCard, currentIndex) => {
+      return compareEuchreCards(currentCard, pile[highestIndex], trump) > 0
+        ? currentIndex
+        : highestIndex;
+    }, 0);
+  };
 
 // actions
 export const discard =
