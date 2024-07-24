@@ -19,7 +19,7 @@ import {
 } from "../lib/euchre-slice";
 import { Phase } from "../lib/euchre.interface";
 import { PlayingCardSuit } from "../lib/playing-card.interface";
-import Card from "./Card";
+import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 
 interface PlayerProps {
@@ -85,15 +85,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
       </ul>
       <div>
         <div style={{ display: "flex", gap: "0.25em" }}>
-          {hand.map((card, i) => (
-            <Card
-              key={i}
-              suit={card.suit}
-              rank={card.rank}
-              index={i}
-              onClick={handleCardClick}
-            />
-          ))}
+          <PileViewer onClick={handleCardClick} pile={hand} />
         </div>
         {canBid && (
           <>

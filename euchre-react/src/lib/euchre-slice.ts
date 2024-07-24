@@ -229,7 +229,7 @@ export const euchreSlice = createSlice({
         const faceUp = action.payload.faceUp ?? card.faceUp;
         state.piles[source] = remainingPile;
 
-        state.piles[target] = [{ ...card, faceUp }, ...state.piles[target]];
+        state.piles[target] = [...state.piles[target], { ...card, faceUp }];
       }
     },
   },
