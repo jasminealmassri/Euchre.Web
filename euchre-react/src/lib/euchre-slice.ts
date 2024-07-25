@@ -81,7 +81,11 @@ export const discard =
     dispatch(nextPlayer());
   };
 
-export const startHand = (): AppThunk => (dispatch) => {
+export const startHand = (): AppThunk => (dispatch, getState) => {
+  const state = getState().euchre;
+  if (state.piles[EuchrePile.TABLE].length === 4) {
+    dispatch(cleanUp());
+  }
   dispatch(shuffle({ pile: EuchrePile.DECK }));
 
   handParameters.dealPattern.forEach(([player, numberOfCards]) => {
@@ -181,7 +185,8 @@ export const playCard =
 
     if (player === state.dealer) {
       dispatch(incrementPlayerTrick());
-      dispatch(transitionToPhase(Phase.END_OF_TRICK));
+      dispatch(setNextDealer());
+      dispatch(transitionToPhase(Phase.DEALING));
     }
   };
 
@@ -190,6 +195,26 @@ export const euchreSlice = createSlice({
   initialState,
   reducers: {
     // game actions
+    cleanUp: (state) => {
+      state.piles[EuchrePile.DECK] = [
+        ...state.piles[EuchrePile.TABLE],
+        ...state.piles[EuchrePile.DISCARD_PILE],
+        ...state.piles[EuchrePile.PLAYER_1],
+        ...state.piles[EuchrePile.PLAYER_2],
+        ...state.piles[EuchrePile.PLAYER_3],
+        ...state.piles[EuchrePile.PLAYER_4],
+      ];
+
+      state.piles[EuchrePile.TABLE] = [];
+      state.piles[EuchrePile.DISCARD_PILE] = [];
+      state.piles[EuchrePile.PLAYER_1] = [];
+      state.piles[EuchrePile.PLAYER_2] = [];
+      state.piles[EuchrePile.PLAYER_3] = [];
+      state.piles[EuchrePile.PLAYER_4] = [];
+
+      state.leadingSuit = null;
+      state.trump = null;
+    },
     incrementPlayerTrick: (state) => {
       const winningCardIndex = selectHighestCard(state.piles[EuchrePile.TABLE])(
         state
@@ -211,6 +236,9 @@ export const euchreSlice = createSlice({
     resetState: () => initialState,
     setLeadingSuit: (state, action: PayloadAction<EuchreSuit>) => {
       state.leadingSuit = action.payload;
+    },
+    setNextDealer: (state) => {
+      state.dealer = (state.dealer + 1) % state.players.length;
     },
     setTrump: (state, action: PayloadAction<EuchreSuit>) => {
       state.trump = action.payload;
@@ -274,6 +302,7 @@ export const euchreSlice = createSlice({
 });
 
 export const {
+  cleanUp,
   incrementPlayerTrick,
   moveCard,
   nextPlayer,
@@ -282,6 +311,7 @@ export const {
   resetState,
   setCurrentPlayer,
   setLeadingSuit,
+  setNextDealer,
   setTrump,
   shuffle,
   transitionToNextPhase,
