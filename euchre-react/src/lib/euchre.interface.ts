@@ -45,6 +45,7 @@ export enum Phase {
   PLAYING_TRICKS = "playingTricks",
   ROUND_SCORING = "roundScoring",
   END_OF_GAME = "endOfGame",
+  END_OF_TRICK = "endOfTrick",
 }
 
 export enum EuchrePile {

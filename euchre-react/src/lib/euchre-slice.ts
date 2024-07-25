@@ -178,6 +178,11 @@ export const playCard =
       })
     );
     dispatch(nextPlayer());
+
+    if (player === state.dealer) {
+      dispatch(incrementPlayerTrick());
+      dispatch(transitionToPhase(Phase.END_OF_TRICK));
+    }
   };
 
 export const euchreSlice = createSlice({
@@ -185,6 +190,15 @@ export const euchreSlice = createSlice({
   initialState,
   reducers: {
     // game actions
+    incrementPlayerTrick: (state) => {
+      const winningCardIndex = selectHighestCard(state.piles[EuchrePile.TABLE])(
+        state
+      );
+      const firstPlayerIndex = (state.dealer + 1) % state.players.length;
+      const winningPlayerIndex =
+        (firstPlayerIndex + winningCardIndex) % state.players.length;
+      state.players[winningPlayerIndex].tricks += 1;
+    },
     transitionToPhase: (state, action: PayloadAction<Phase>) => {
       state.phase = action.payload;
     },
@@ -260,6 +274,7 @@ export const euchreSlice = createSlice({
 });
 
 export const {
+  incrementPlayerTrick,
   moveCard,
   nextPlayer,
   playCardByIndex,
