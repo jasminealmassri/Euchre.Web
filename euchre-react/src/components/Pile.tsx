@@ -23,6 +23,7 @@ const PileViewer = ({ onClick, pile, showHighestCard }: Props) => {
     <div style={style}>
       {pile.map((card, index) => (
         <div
+          key={index}
           style={{
             background: highestCard === index && showHighestCard ? "gold" : "",
           }}
