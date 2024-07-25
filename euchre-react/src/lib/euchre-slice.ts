@@ -159,15 +159,17 @@ export const playCard =
     const playerHandPointer = selectPlayerHand(player)(state);
     const playerHand = state.piles[playerHandPointer];
     const desiredCard = playerHand[card];
-    const leadingSuit = state.leadingSuit ?? selectSuit(desiredCard)(state);
-    const hasLeadingSuit = playerHand.find((card) => card.suit === leadingSuit);
-    const leftBower = isLeftBower(desiredCard, state.trump as PlayingCardSuit);
+    const actualSuit = selectSuit(desiredCard)(state);
+    const leadingSuit = state.leadingSuit ?? actualSuit;
+    const hasLeadingSuit = playerHand.find(
+      (card) => selectSuit(card)(state) === leadingSuit
+    );
 
-    if (desiredCard.suit !== leadingSuit && hasLeadingSuit && !leftBower) {
+    if (actualSuit !== leadingSuit && hasLeadingSuit) {
       return;
     }
 
-    dispatch(setLeadingSuit(leadingSuit as EuchreSuit));
+    if (!state.leadingSuit) dispatch(setLeadingSuit(leadingSuit as EuchreSuit));
 
     dispatch(
       playCardByIndex({
