@@ -16,7 +16,7 @@ import {
   Phase,
 } from "./euchre.interface";
 import { AppThunk } from "./store";
-import { getLastTurnIndex, nextIndex, range } from "./utils";
+import { range } from "./utils";
 import { Pile, PlayingCardSuit } from "./playing-card.interface";
 
 // selectors
@@ -138,12 +138,10 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const currentPlayer = selectCurrentPlayer(state);
   const dealer = selectDealer(state);
-  const players = selectPlayers(state);
-  const lastTurnIndex = getLastTurnIndex(dealer, players.length);
 
   dispatch(nextPlayer());
 
-  if (currentPlayer === nextIndex(players.length, lastTurnIndex)) {
+  if (currentPlayer === dealer) {
     dispatch(removeCandidate(state.piles[EuchrePile.TALON][0].suit));
     dispatch(
       moveCard({ source: EuchrePile.TALON, target: EuchrePile.DISCARD_PILE })
