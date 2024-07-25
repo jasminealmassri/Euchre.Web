@@ -3,12 +3,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { takeCardAt } from "./card-manipulation";
 import {
   compareEuchreCards,
+  EuchreCard,
   EuchreGameState,
   EuchrePile,
   EuchreRank,
   EuchreSuit,
+  getLeftBowerSuit,
   handParameters,
   initialState,
+  isLeftBower,
   nextPhase,
   Phase,
 } from "./euchre.interface";
@@ -42,6 +45,15 @@ export const selectCanCallTrump =
 export const selectMustCallTrump =
   (player: number) => (state: EuchreGameState) =>
     state.dealer === player && state.phase === Phase.CALLING_TRUMP;
+export const selectLeftBower = (state: EuchreGameState) => {
+  return getLeftBowerSuit(state.trump as PlayingCardSuit);
+};
+export const selectSuit = (card: EuchreCard) => (state: EuchreGameState) => {
+  return isLeftBower(card, state.trump as PlayingCardSuit)
+    ? state.trump
+    : card.suit;
+};
+
 export const selectHighestCard =
   (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
     const trump = state.trump as PlayingCardSuit;
@@ -147,15 +159,15 @@ export const playCard =
     const playerHandPointer = selectPlayerHand(player)(state);
     const playerHand = state.piles[playerHandPointer];
     const desiredCard = playerHand[card];
-    const leadingSuit = state.leadingSuit ?? desiredCard.suit;
-
+    const leadingSuit = state.leadingSuit ?? selectSuit(desiredCard)(state);
     const hasLeadingSuit = playerHand.find((card) => card.suit === leadingSuit);
+    const leftBower = isLeftBower(desiredCard, state.trump as PlayingCardSuit);
 
-    if (desiredCard.suit !== leadingSuit && hasLeadingSuit) {
+    if (desiredCard.suit !== leadingSuit && hasLeadingSuit && !leftBower) {
       return;
     }
 
-    dispatch(setLeadingSuit(desiredCard.suit));
+    dispatch(setLeadingSuit(leadingSuit as EuchreSuit));
 
     dispatch(
       playCardByIndex({
@@ -183,7 +195,7 @@ export const euchreSlice = createSlice({
       state.currentPlayer = action.payload;
     },
     resetState: () => initialState,
-    setLeadingSuit: (state, action: PayloadAction<PlayingCardSuit>) => {
+    setLeadingSuit: (state, action: PayloadAction<EuchreSuit>) => {
       state.leadingSuit = action.payload;
     },
     setTrump: (state, action: PayloadAction<EuchreSuit>) => {

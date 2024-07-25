@@ -106,6 +106,20 @@ export function getLeftBowerSuit(trump: PlayingCardSuit): PlayingCardSuit {
   }
 }
 
+export const isRightBower = (
+  card: PlayingCard<PlayingCardSuit, EuchreRank>,
+  trumpSuit: PlayingCardSuit
+): boolean => {
+  return card.suit === trumpSuit && card.rank === "J";
+};
+
+export const isLeftBower = (
+  card: PlayingCard<PlayingCardSuit, EuchreRank>,
+  trumpSuit: PlayingCardSuit
+) => {
+  return card.suit === getLeftBowerSuit(trumpSuit) && card.rank === "J";
+};
+
 export function compareEuchreCards(
   card1: PlayingCard<PlayingCardSuit, EuchreRank>,
   card2: PlayingCard<PlayingCardSuit, EuchreRank>,
