@@ -1,6 +1,6 @@
 import { expect, test } from "vitest";
 
-import { getLastTurnIndex } from "./utils";
+import { getLastTurnIndex } from ".";
 
 const numberOfPlayers = 4;
 

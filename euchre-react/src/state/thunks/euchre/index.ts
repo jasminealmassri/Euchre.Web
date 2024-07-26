@@ -6,7 +6,7 @@ import {
   handParameters,
 } from "../../../lib/euchre";
 import { AppThunk } from "../../store";
-import { range } from "../../../lib/utils";
+import { range } from "../../../lib/util";
 import {
   cleanUp,
   discardTrick,

@@ -17,7 +17,7 @@ import {
 } from "./euchre.interface-old";
 import { Pile, PlayingCardSuit } from "./playing-card/playing-card.interface";
 import { AppThunk } from "../state/store";
-import { range } from "./utils";
+import { range } from "./util";
 
 // selectors
 export const selectCurrentPlayer = (state: EuchreGameState) =>

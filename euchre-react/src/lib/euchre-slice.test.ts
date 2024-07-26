@@ -11,7 +11,7 @@ import {
 import { EuchrePile, Phase, ranks, suits } from "./euchre.interface-old";
 import { makeDeck, shuffle } from "./card-manipulation";
 import { store } from "../state/store";
-import { nextIndex } from "./utils";
+import { nextIndex } from "./util";
 
 const euchreDeck = makeDeck(suits, ranks);
 
