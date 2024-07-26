@@ -6,6 +6,7 @@ import {
   selectPhase,
   selectPlayer,
   selectPlayers,
+  selectTeamScores,
 } from "../lib/euchre-slice";
 import Pile from "./Pile";
 import Player from "./Player";
@@ -19,6 +20,7 @@ const EngineDemo = () => {
   const table = useEuchreSelector((state) => state.piles.table);
   const trump = useEuchreSelector((state) => state.trump);
   const leadingSuit = useEuchreSelector((state) => state.leadingSuit);
+  const teamScores = useEuchreSelector(selectTeamScores);
 
   return (
     <div>
@@ -27,6 +29,8 @@ const EngineDemo = () => {
         <li>Dealer: {dealer.name}</li>
         <li>Trump: {trump}</li>
         <li>Leading Suit: {leadingSuit}</li>
+        <li>Team 1 Score: {teamScores[0]}</li>
+        <li>Team 2 Score: {teamScores[1]}</li>
       </ul>
       {talon.length > 0 && <Pile pile={talon} />}
       {table.length > 0 && <Pile showHighestCard={true} pile={table} />}

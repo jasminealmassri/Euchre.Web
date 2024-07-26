@@ -53,6 +53,15 @@ export const selectSuit = (card: EuchreCard) => (state: EuchreGameState) => {
     ? state.trump
     : card.suit;
 };
+export const selectTeamScores = (state: EuchreGameState) => {
+  const team1 = [state.players[0], state.players[2]];
+  const team2 = [state.players[1], state.players[3]];
+
+  return [
+    team1.reduce((total, player) => total + player.tricks, 0),
+    team2.reduce((total, player) => total + player.tricks, 0),
+  ];
+};
 
 export const selectHighestCard =
   (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
