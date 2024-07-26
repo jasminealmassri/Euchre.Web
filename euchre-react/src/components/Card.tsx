@@ -1,5 +1,8 @@
 import { EuchreRank, EuchreSuit } from "../lib/euchre.interface";
-import { PlayingCardSuit, suitToColor } from "../lib/playing-card.interface";
+import {
+  PlayingCardSuit,
+  suitToColor,
+} from "../lib/playing-card/playing-card.interface";
 
 interface CardProps {
   suit: EuchreSuit;

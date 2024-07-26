@@ -1,14 +1,12 @@
 import React from "react";
 
-import { useEuchreSelector } from "../hooks";
+import { useEuchreSelector } from "../state/hooks";
 import {
   selectDealer,
   selectPhase,
   selectPlayer,
   selectPlayers,
-  selectTeam1Score,
-  selectTeam2Score,
-} from "../lib/euchre-slice";
+} from "../state/selectors/euchre";
 import Pile from "./Pile";
 import Player from "./Player";
 

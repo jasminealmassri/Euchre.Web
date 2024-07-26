@@ -15,7 +15,10 @@ import {
   takeTopCard,
   turnCardOver,
 } from "./card-manipulation";
-import { PlayingCardRank, PlayingCardSuit } from "./playing-card.interface";
+import {
+  PlayingCardRank,
+  PlayingCardSuit,
+} from "./playing-card/playing-card.interface";
 
 type Suit = PlayingCardSuit;
 type ExcludedRank = PlayingCardRank.JOKER;

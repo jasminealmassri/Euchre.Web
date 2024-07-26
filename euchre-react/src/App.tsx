@@ -5,7 +5,7 @@ import EuchreComponent from "./components/EuchreComponent";
 import EngineDemo from "./components/EngineDemo";
 
 import { Provider } from "react-redux";
-import { store } from "./lib/store";
+import { store } from "./state/store";
 
 function App() {
   return (

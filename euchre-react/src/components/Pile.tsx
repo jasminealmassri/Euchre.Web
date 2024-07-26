@@ -1,7 +1,6 @@
-import { useEuchreSelector } from "../hooks";
-import { selectHighestCard } from "../lib/euchre-slice";
-import { EuchreRank } from "../lib/euchre.interface";
-import { Pile, PlayingCardSuit } from "../lib/playing-card.interface";
+import { useEuchreSelector } from "../state/hooks";
+import { selectHighestCard } from "../state/selectors/euchre";
+import { EuchreRank, Pile, PlayingCardSuit } from "../lib/euchre";
 import Card from "./Card";
 
 interface Props {

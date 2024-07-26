@@ -1,5 +1,8 @@
-import { useEuchreSelector } from "../hooks";
-import { PlayingCardSuit, suitToColor } from "../lib/playing-card.interface";
+import { useEuchreSelector } from "../state/hooks";
+import {
+  PlayingCardSuit,
+  suitToColor,
+} from "../lib/playing-card/playing-card.interface";
 
 interface Props {
   onClick?: (suit: PlayingCardSuit) => void;

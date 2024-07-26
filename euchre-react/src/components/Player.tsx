@@ -1,11 +1,5 @@
-import { useAppDispatch, useEuchreSelector } from "../hooks";
+import { useAppDispatch, useEuchreSelector } from "../state/hooks";
 import {
-  callTrump,
-  discard,
-  orderUp,
-  pass,
-  passOnTrump,
-  playCard,
   selectCanBid,
   selectCanCallTrump,
   selectCanDeal,
@@ -15,10 +9,17 @@ import {
   selectPhase,
   selectPile,
   selectPlayer,
+} from "../state/selectors/euchre";
+import {
+  callTrump,
+  discard,
+  orderUp,
+  pass,
+  passOnTrump,
+  playCard,
   startHand,
-} from "../lib/euchre-slice";
-import { Phase } from "../lib/euchre.interface";
-import { PlayingCardSuit } from "../lib/playing-card.interface";
+} from "../state/thunks/euchre";
+import { Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 

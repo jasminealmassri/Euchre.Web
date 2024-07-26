@@ -14,9 +14,9 @@ import {
   isLeftBower,
   nextPhase,
   Phase,
-} from "./euchre.interface";
-import { Pile, PlayingCardSuit } from "./playing-card.interface";
-import { AppThunk } from "./store";
+} from "./euchre.interface-old";
+import { Pile, PlayingCardSuit } from "./playing-card/playing-card.interface";
+import { AppThunk } from "../state/store";
 import { range } from "./utils";
 
 // selectors

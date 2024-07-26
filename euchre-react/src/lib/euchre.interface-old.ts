@@ -5,7 +5,7 @@ import {
   PlayingCard,
   PlayingCardRank,
   PlayingCardSuit,
-} from "./playing-card.interface";
+} from "./playing-card/playing-card.interface";
 
 export type EuchreSuit = PlayingCardSuit;
 export const suits: EuchreSuit[] = Object.values(PlayingCardSuit);

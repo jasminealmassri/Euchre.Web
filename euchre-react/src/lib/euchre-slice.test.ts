@@ -7,10 +7,10 @@ import {
   selectPile,
   selectPlayerHand,
   startHand,
-} from "./euchre-slice";
-import { EuchrePile, Phase, ranks, suits } from "./euchre.interface";
+} from "./euchre-slice-old";
+import { EuchrePile, Phase, ranks, suits } from "./euchre.interface-old";
 import { makeDeck, shuffle } from "./card-manipulation";
-import { store } from "./store";
+import { store } from "../state/store";
 import { nextIndex } from "./utils";
 
 const euchreDeck = makeDeck(suits, ranks);
