@@ -211,7 +211,7 @@ const dealer = Math.floor(Math.random() * 4);
 export const initialState: EuchreGameState = {
   currentPlayer: dealer,
   dealer,
-  leadingPlayer: dealer + (1 % 4),
+  leadingPlayer: (dealer + 1) % 4,
   trump: null,
   trumpCandidates: suits,
   leadingSuit: null,

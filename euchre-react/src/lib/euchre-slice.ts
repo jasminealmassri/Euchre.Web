@@ -235,7 +235,7 @@ export const euchreSlice = createSlice({
       const winningCardIndex = selectHighestCard(state.piles[EuchrePile.TABLE])(
         state
       );
-      // const firstPlayerIndex = (state.dealer + 1) % state.players.length;
+
       const winningPlayerIndex =
         (state.leadingPlayer + winningCardIndex) % state.players.length;
 
