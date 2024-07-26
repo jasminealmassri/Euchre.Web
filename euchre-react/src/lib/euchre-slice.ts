@@ -53,15 +53,11 @@ export const selectSuit = (card: EuchreCard) => (state: EuchreGameState) => {
     ? state.trump
     : card.suit;
 };
-export const selectTeamScores = (state: EuchreGameState) => {
-  const team1 = [state.players[0], state.players[2]];
-  const team2 = [state.players[1], state.players[3]];
+export const selectTeam1Score = (state: EuchreGameState) =>
+  state.players[0].tricks + state.players[2].tricks;
 
-  return [
-    team1.reduce((total, player) => total + player.tricks, 0),
-    team2.reduce((total, player) => total + player.tricks, 0),
-  ];
-};
+export const selectTeam2Score = (state: EuchreGameState) =>
+  state.players[1].tricks + state.players[3].tricks;
 
 export const selectHighestCard =
   (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
@@ -201,12 +197,16 @@ export const playCard =
     dispatch(nextPlayer());
 
     if (player === lastPlayer) {
-      dispatch(transitionToPhase(Phase.TRICK_SCORING));
-      dispatch(incrementPlayerTrick());
-      setTimeout(() => {
-        dispatch(discardTrick());
-        dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
-      }, 2000); // Delay of 2000ms (2 seconds)
+      if (playerHand.length === 0) {
+        console.log("Deal new hand");
+      } else {
+        dispatch(transitionToPhase(Phase.TRICK_SCORING));
+        dispatch(incrementPlayerTrick());
+        setTimeout(() => {
+          dispatch(discardTrick());
+          dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
+        }, 2000); // Delay of 2000ms (2 seconds)
+      }
     }
   };
 
