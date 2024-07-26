@@ -6,7 +6,7 @@ import {
   PlayingCardSuit,
   initialState,
   nextPhase,
-} from "../../../lib/euchre";
+} from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
 import { takeCardAt } from "../../../lib/card-manipulation";
 

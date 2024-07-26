@@ -2,24 +2,5 @@ body {
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   display: flex;
-  align-items: center;
-  height: 36rem;
-  margin: 1rem;
-  background-color: rgb(205, 204, 204);
-  justify-content: center;
-}
-
-.game {
-  background-color: rgb(10, 45, 10);
-  width: 40rem;
-  height: 36rem;
-  border: 3px solid rgb(12, 12, 12);
-  border-radius: 25px;
-  box-shadow: -15px -15px 3px rgb(238, 238, 238), 15px 15px 3px rgb(80, 80, 80);
-  position: relative;
-  margin-bottom: 4em;
-}
-
-p {
-  margin: 0;
+  margin: 2rem;
 }
