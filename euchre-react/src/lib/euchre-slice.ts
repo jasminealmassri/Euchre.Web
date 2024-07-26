@@ -163,6 +163,8 @@ export const playCard =
     const desiredCard = playerHand[card];
     const actualSuit = selectSuit(desiredCard)(state);
     const leadingSuit = state.leadingSuit ?? actualSuit;
+    const lastPlayer =
+      (state.leadingPlayer - 1 + state.players.length) % state.players.length;
     const hasLeadingSuit = playerHand.find(
       (card) => selectSuit(card)(state) === leadingSuit
     );
@@ -183,10 +185,13 @@ export const playCard =
     );
     dispatch(nextPlayer());
 
-    if (player === state.dealer) {
+    if (player === lastPlayer) {
+      dispatch(transitionToPhase(Phase.TRICK_SCORING));
       dispatch(incrementPlayerTrick());
-      dispatch(setNextDealer());
-      dispatch(transitionToPhase(Phase.DEALING));
+      setTimeout(() => {
+        dispatch(discardTrick());
+        dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
+      }, 2000); // Delay of 2000ms (2 seconds)
     }
   };
 
@@ -215,14 +220,28 @@ export const euchreSlice = createSlice({
       state.leadingSuit = null;
       state.trump = null;
     },
+    discardTrick: (state) => {
+      state.piles[EuchrePile.DISCARD_PILE] = [
+        ...state.piles[EuchrePile.TABLE],
+        ...state.piles[EuchrePile.DISCARD_PILE],
+      ];
+
+      state.piles[EuchrePile.TABLE] = [];
+      // might be best to have a separate action for this
+      // instead of hiding it here
+      state.leadingSuit = null;
+    },
     incrementPlayerTrick: (state) => {
       const winningCardIndex = selectHighestCard(state.piles[EuchrePile.TABLE])(
         state
       );
-      const firstPlayerIndex = (state.dealer + 1) % state.players.length;
+      // const firstPlayerIndex = (state.dealer + 1) % state.players.length;
       const winningPlayerIndex =
-        (firstPlayerIndex + winningCardIndex) % state.players.length;
+        (state.leadingPlayer + winningCardIndex) % state.players.length;
+
       state.players[winningPlayerIndex].tricks += 1;
+      state.leadingPlayer = winningPlayerIndex;
+      state.currentPlayer = winningPlayerIndex;
     },
     transitionToPhase: (state, action: PayloadAction<Phase>) => {
       state.phase = action.payload;
@@ -303,6 +322,7 @@ export const euchreSlice = createSlice({
 
 export const {
   cleanUp,
+  discardTrick,
   incrementPlayerTrick,
   moveCard,
   nextPlayer,

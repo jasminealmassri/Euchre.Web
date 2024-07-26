@@ -45,6 +45,7 @@ export enum Phase {
   PLAYING_TRICKS = "playingTricks",
   ROUND_SCORING = "roundScoring",
   END_OF_GAME = "endOfGame",
+  TRICK_SCORING = "trickScoring",
 }
 
 export enum EuchrePile {
@@ -171,6 +172,7 @@ export function compareEuchreCards(
 
 export interface EuchreGameState {
   currentPlayer: number;
+  leadingPlayer: number;
   trump: EuchreSuit | null;
   trumpCandidates: EuchreSuit[];
   leadingSuit: EuchreSuit | null;
@@ -209,6 +211,7 @@ const dealer = Math.floor(Math.random() * 4);
 export const initialState: EuchreGameState = {
   currentPlayer: dealer,
   dealer,
+  leadingPlayer: dealer + (1 % 4),
   trump: null,
   trumpCandidates: suits,
   leadingSuit: null,
