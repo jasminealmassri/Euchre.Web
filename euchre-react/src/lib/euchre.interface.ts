@@ -201,6 +201,8 @@ export function compareEuchreCards(
 export interface EuchreGameState {
   currentPlayer: number;
   leadingPlayer: number;
+  team1Score: number;
+  team2Score: number;
   trump: EuchreSuit | null;
   trumpCandidates: EuchreSuit[];
   leadingSuit: EuchreSuit | null;
@@ -234,12 +236,14 @@ export const player4State: EuchrePlayerState = {
   hand: "player4",
 };
 
-const dealer = Math.floor(Math.random() * 4);
+const firstDealer = Math.floor(Math.random() * 4);
 
-export const initialState: EuchreGameState = {
+export const initialState = (dealer = firstDealer): EuchreGameState => ({
   currentPlayer: dealer,
   dealer,
   leadingPlayer: (dealer + 1) % 4,
+  team1Score: 0,
+  team2Score: 0,
   trump: null,
   trumpCandidates: suits,
   leadingSuit: null,
@@ -255,4 +259,4 @@ export const initialState: EuchreGameState = {
     player4: [],
   },
   players: [player1State, player2State, player3State, player4State],
-};
+});

@@ -197,43 +197,36 @@ export const playCard =
     dispatch(nextPlayer());
 
     if (player === lastPlayer) {
-      if (playerHand.length === 0) {
-        console.log("Deal new hand");
+      dispatch(transitionToPhase(Phase.TRICK_SCORING));
+      dispatch(incrementPlayerTrick());
+
+      if (playerHand.length === 1) {
+        setTimeout(() => {
+          dispatch(scoreRound());
+          dispatch(cleanUp());
+          dispatch(transitionToPhase(Phase.DEALING));
+        }, 2000);
       } else {
-        dispatch(transitionToPhase(Phase.TRICK_SCORING));
-        dispatch(incrementPlayerTrick());
         setTimeout(() => {
           dispatch(discardTrick());
           dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
-        }, 2000); // Delay of 2000ms (2 seconds)
+        }, 2000);
       }
     }
   };
 
 export const euchreSlice = createSlice({
   name: "euchre",
-  initialState,
+  initialState: initialState(),
   reducers: {
     // game actions
     cleanUp: (state) => {
-      state.piles[EuchrePile.DECK] = [
-        ...state.piles[EuchrePile.TABLE],
-        ...state.piles[EuchrePile.DISCARD_PILE],
-        ...state.piles[EuchrePile.PLAYER_1],
-        ...state.piles[EuchrePile.PLAYER_2],
-        ...state.piles[EuchrePile.PLAYER_3],
-        ...state.piles[EuchrePile.PLAYER_4],
-      ];
-
-      state.piles[EuchrePile.TABLE] = [];
-      state.piles[EuchrePile.DISCARD_PILE] = [];
-      state.piles[EuchrePile.PLAYER_1] = [];
-      state.piles[EuchrePile.PLAYER_2] = [];
-      state.piles[EuchrePile.PLAYER_3] = [];
-      state.piles[EuchrePile.PLAYER_4] = [];
-
-      state.leadingSuit = null;
-      state.trump = null;
+      const { dealer, team1Score, team2Score } = state;
+      return {
+        ...initialState((dealer + 1) % state.players.length),
+        team1Score,
+        team2Score,
+      };
     },
     discardTrick: (state) => {
       state.piles[EuchrePile.DISCARD_PILE] = [
@@ -242,8 +235,6 @@ export const euchreSlice = createSlice({
       ];
 
       state.piles[EuchrePile.TABLE] = [];
-      // might be best to have a separate action for this
-      // instead of hiding it here
       state.leadingSuit = null;
     },
     incrementPlayerTrick: (state) => {
@@ -258,6 +249,14 @@ export const euchreSlice = createSlice({
       state.leadingPlayer = winningPlayerIndex;
       state.currentPlayer = winningPlayerIndex;
     },
+    scoreRound: (state) => {
+      const team1Score = state.players[0].tricks + state.players[2].tricks;
+      const team2Score = state.players[1].tricks + state.players[3].tricks;
+
+      team1Score > team2Score
+        ? (state.team1Score += 1)
+        : (state.team2Score += 1);
+    },
     transitionToPhase: (state, action: PayloadAction<Phase>) => {
       state.phase = action.payload;
     },
@@ -267,7 +266,7 @@ export const euchreSlice = createSlice({
     setCurrentPlayer: (state, action: PayloadAction<number>) => {
       state.currentPlayer = action.payload;
     },
-    resetState: () => initialState,
+    resetState: () => initialState(),
     setLeadingSuit: (state, action: PayloadAction<EuchreSuit>) => {
       state.leadingSuit = action.payload;
     },
@@ -344,6 +343,7 @@ export const {
   playCardByIndex,
   removeCandidate,
   resetState,
+  scoreRound,
   setCurrentPlayer,
   setLeadingSuit,
   setNextDealer,

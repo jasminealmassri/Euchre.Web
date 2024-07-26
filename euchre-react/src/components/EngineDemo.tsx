@@ -21,8 +21,8 @@ const EngineDemo = () => {
   const table = useEuchreSelector((state) => state.piles.table);
   const trump = useEuchreSelector((state) => state.trump);
   const leadingSuit = useEuchreSelector((state) => state.leadingSuit);
-  const team1Score = useEuchreSelector(selectTeam1Score);
-  const team2Score = useEuchreSelector(selectTeam2Score);
+  const team1Score = useEuchreSelector((state) => state.team1Score);
+  const team2Score = useEuchreSelector((state) => state.team2Score);
 
   return (
     <div>
