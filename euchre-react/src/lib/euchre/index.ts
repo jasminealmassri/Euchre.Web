@@ -167,55 +167,6 @@ export const getEuchreCardValue = (
   return rankValues[card.rank]; // Other cards
 };
 
-export function compareEuchreCards(
-  card1: PlayingCard<PlayingCardSuit, EuchreRank>,
-  card2: PlayingCard<PlayingCardSuit, EuchreRank>,
-  trump: PlayingCardSuit
-): number {
-  const leftBowerSuit = getLeftBowerSuit(trump);
-
-  const cardRank = (card: PlayingCard<PlayingCardSuit, EuchreRank>): number => {
-    if (card.suit === trump) {
-      if (card.rank === "J") return 10; // Right Bower
-      switch (card.rank) {
-        case "A":
-          return 8;
-        case "K":
-          return 7;
-        case "Q":
-          return 6;
-        case "10":
-          return 5;
-        case "9":
-          return 4;
-      }
-    }
-    if (card.suit === leftBowerSuit && card.rank === "J") {
-      return 9; // Left Bower
-    }
-    switch (card.rank) {
-      case "A":
-        return 3;
-      case "K":
-        return 2;
-      case "Q":
-        return 1;
-      case "J":
-        return 0;
-      case "10":
-        return -1;
-      case "9":
-        return -2;
-    }
-    return -3; // This should not happen
-  };
-
-  const rank1 = cardRank(card1);
-  const rank2 = cardRank(card2);
-
-  return rank1 - rank2;
-}
-
 export interface EuchreGameState {
   currentPlayer: number;
   leadingPlayer: number;
