@@ -1,4 +1,8 @@
-import { Deck, Pile, PlayingCard } from "./playing-card/playing-card.interface";
+import {
+  Deck,
+  Pile,
+  PlayingCard,
+} from "../playing-card/playing-card.interface";
 
 export const makeDeck = <S, R>(suits: S[], ranks: R[]): Deck<S, R> =>
   suits.reduce(

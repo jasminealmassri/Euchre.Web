@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import {
   EuchrePile,
   EuchreSuit,
@@ -6,9 +7,9 @@ import {
   PlayingCardSuit,
   initialState,
   nextPhase,
+  takeCardAt,
 } from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
-import { takeCardAt } from "../../../lib/card-manipulation";
 
 export const euchreSlice = createSlice({
   name: "euchre",
