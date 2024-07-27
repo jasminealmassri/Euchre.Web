@@ -73,7 +73,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
   };
 
   const handleTrumpClick = (trump: PlayingCardSuit) => {
-    dispatch(callTrump(trump));
+    dispatch(callTrump(playerPointer, trump));
   };
 
   return (
@@ -82,6 +82,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
         <li>
           Name: {player.name} {canPlay && "*"}
         </li>
+        <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
       </ul>
       <div>
@@ -91,7 +92,9 @@ const Player = ({ playerPointer }: PlayerProps) => {
         {canBid && (
           <>
             <button onClick={() => dispatch(pass())}>Pass</button>
-            <button onClick={() => dispatch(orderUp())}>Order Up</button>
+            <button onClick={() => dispatch(orderUp(playerPointer))}>
+              Order Up
+            </button>
           </>
         )}
 

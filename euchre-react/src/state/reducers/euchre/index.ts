@@ -47,6 +47,31 @@ export const euchreSlice = createSlice({
       state.currentPlayer = winningPlayerIndex;
     },
 
+    setRole: (state, action: PayloadAction<{ makerPointer: number }>) => {
+      const { makerPointer } = action.payload;
+      const teamMatePointer = (makerPointer + 2) % 4;
+
+      state.players = state.players.map((player, index) => {
+        switch (index) {
+          case makerPointer:
+            return {
+              ...player,
+              role: "M",
+            };
+          case teamMatePointer:
+            return {
+              ...player,
+              role: "m",
+            };
+          default:
+            return {
+              ...player,
+              role: "d",
+            };
+        }
+      });
+    },
+
     nextPlayer(state) {
       state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
     },
@@ -157,6 +182,7 @@ export const {
   setCurrentPlayer,
   setLeadingSuit,
   setNextDealer,
+  setRole,
   setTrump,
   shuffle,
   transitionToNextPhase,
