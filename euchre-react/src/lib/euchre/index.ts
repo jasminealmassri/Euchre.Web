@@ -124,8 +124,7 @@ export const isLeftBower = (
 export function compareEuchreCards(
   card1: PlayingCard<PlayingCardSuit, EuchreRank>,
   card2: PlayingCard<PlayingCardSuit, EuchreRank>,
-  trump: PlayingCardSuit,
-  leadingSuit: PlayingCardSuit
+  trump: PlayingCardSuit
 ): number {
   const leftBowerSuit = getLeftBowerSuit(trump);
 
@@ -168,33 +167,6 @@ export function compareEuchreCards(
   const rank1 = cardRank(card1);
   const rank2 = cardRank(card2);
 
-  // If both cards are trump, compare their ranks
-  if (card1.suit === trump && card2.suit === trump) {
-    return rank1 - rank2;
-  }
-
-  // If one card is trump and the other is not, the trump card wins
-  if (card1.suit === trump) {
-    return 1; // card1 is trump and wins
-  }
-  if (card2.suit === trump) {
-    return -1; // card2 is trump and wins
-  }
-
-  // If both cards are of the leading suit, compare their ranks
-  if (card1.suit === leadingSuit && card2.suit === leadingSuit) {
-    return rank1 - rank2;
-  }
-
-  // If one card is of the leading suit and the other is not, the leading suit card wins
-  if (card1.suit === leadingSuit) {
-    return 1; // card1 is leading suit and wins
-  }
-  if (card2.suit === leadingSuit) {
-    return -1; // card2 is leading suit and wins
-  }
-
-  // If neither card is trump or leading suit, compare their ranks
   return rank1 - rank2;
 }
 

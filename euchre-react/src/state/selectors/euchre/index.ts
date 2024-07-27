@@ -61,15 +61,9 @@ export const selectSuit = (card: EuchreCard) => (state: EuchreGameState) => {
 export const selectHighestCard =
   (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
     const trump = state.trump as PlayingCardSuit;
-    const leadingSuit = state.leadingSuit as PlayingCardSuit;
 
     return pile.reduce((highestIndex, currentCard, currentIndex) => {
-      return compareEuchreCards(
-        currentCard,
-        pile[highestIndex],
-        trump,
-        leadingSuit
-      ) > 0
+      return compareEuchreCards(currentCard, pile[highestIndex], trump) > 0
         ? currentIndex
         : highestIndex;
     }, 0);
