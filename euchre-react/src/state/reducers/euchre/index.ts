@@ -34,7 +34,7 @@ export const euchreSlice = createSlice({
       state.leadingSuit = null;
     },
 
-    incrementPlayerTrick: (state) => {
+    scoreTrick: (state) => {
       const winningCardIndex = selectHighestCard(state.piles[EuchrePile.TABLE])(
         state
       );
@@ -147,7 +147,7 @@ export const euchreSlice = createSlice({
 export const {
   cleanUp,
   discardTrick,
-  incrementPlayerTrick,
+  scoreTrick,
   moveCard,
   nextPlayer,
   playCardByIndex,

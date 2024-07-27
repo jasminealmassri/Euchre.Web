@@ -10,7 +10,7 @@ import { range } from "../../../lib/util";
 import {
   cleanUp,
   discardTrick,
-  incrementPlayerTrick,
+  scoreTrick,
   moveCard,
   nextPlayer,
   playCardByIndex,
@@ -151,7 +151,7 @@ export const playCard =
 
     if (player === lastPlayer) {
       dispatch(transitionToPhase(Phase.TRICK_SCORING));
-      dispatch(incrementPlayerTrick());
+      dispatch(scoreTrick());
 
       if (playerHand.length === 1) {
         setTimeout(() => {
