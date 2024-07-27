@@ -4,7 +4,7 @@ import {
   Phase,
   PlayingCardSuit,
   handParameters,
-} from "../../../lib/euchre";
+} from "../../";
 import { AppThunk } from "../../store";
 import { range } from "../../../lib/util";
 import {

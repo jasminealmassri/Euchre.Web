@@ -121,6 +121,52 @@ export const isLeftBower = (
   return card.suit === getLeftBowerSuit(trumpSuit) && card.rank === "J";
 };
 
+export const getEuchreCardValue = (
+  card: PlayingCard<PlayingCardSuit, EuchreRank>,
+  trumpSuit: PlayingCardSuit,
+  leadingSuit: PlayingCardSuit
+): number => {
+  const rankValues: Record<EuchreRank, number> = {
+    "9": 1,
+    "10": 2,
+    J: 3,
+    Q: 4,
+    K: 5,
+    A: 6,
+  };
+
+  const sameColorSuit = (suit: PlayingCardSuit): PlayingCardSuit => {
+    switch (suit) {
+      case PlayingCardSuit.HEARTS:
+        return PlayingCardSuit.DIAMONDS;
+      case PlayingCardSuit.DIAMONDS:
+        return PlayingCardSuit.HEARTS;
+      case PlayingCardSuit.CLUBS:
+        return PlayingCardSuit.SPADES;
+      case PlayingCardSuit.SPADES:
+        return PlayingCardSuit.CLUBS;
+    }
+  };
+
+  if (card.rank === "J" && card.suit === trumpSuit) {
+    return 200; // Right bower
+  }
+
+  if (card.rank === "J" && card.suit === sameColorSuit(trumpSuit)) {
+    return 150; // Left bower
+  }
+
+  if (card.suit === trumpSuit) {
+    return 100 + rankValues[card.rank]; // Other trump cards
+  }
+
+  if (card.suit === leadingSuit) {
+    return 50 + rankValues[card.rank]; // Leading suit cards
+  }
+
+  return rankValues[card.rank]; // Other cards
+};
+
 export function compareEuchreCards(
   card1: PlayingCard<PlayingCardSuit, EuchreRank>,
   card2: PlayingCard<PlayingCardSuit, EuchreRank>,

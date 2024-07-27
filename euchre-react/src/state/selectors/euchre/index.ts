@@ -5,10 +5,10 @@ import {
   Phase,
   Pile,
   PlayingCardSuit,
-  compareEuchreCards,
+  getEuchreCardValue,
   getLeftBowerSuit,
   isLeftBower,
-} from "../../../lib/euchre";
+} from "../../";
 
 export const selectCurrentPlayer = (state: EuchreGameState) =>
   state.currentPlayer;
@@ -61,10 +61,20 @@ export const selectSuit = (card: EuchreCard) => (state: EuchreGameState) => {
 export const selectHighestCard =
   (pile: Pile<PlayingCardSuit, EuchreRank>) => (state: EuchreGameState) => {
     const trump = state.trump as PlayingCardSuit;
+    const leadingSuit = state.leadingSuit as PlayingCardSuit;
 
-    return pile.reduce((highestIndex, currentCard, currentIndex) => {
-      return compareEuchreCards(currentCard, pile[highestIndex], trump) > 0
-        ? currentIndex
-        : highestIndex;
-    }, 0);
+    const highestValueAndIndex: { value: number; index: number } = pile.reduce<{
+      value: number;
+      index: number;
+    }>(
+      (highestRanked, currentCard, currentIndex) => {
+        const value = getEuchreCardValue(currentCard, trump, leadingSuit);
+        return value > highestRanked.value
+          ? { value, index: currentIndex }
+          : highestRanked;
+      },
+      { value: 0, index: 0 }
+    );
+
+    return highestValueAndIndex.index;
   };
