@@ -52,7 +52,11 @@ export const euchreSlice = createSlice({
       state.benchedPlayers = state.players.map((player) => {
         return player.role === "m" ? player : null;
       });
-      state.players = state.players.filter((player) => player.role !== "m");
+      const filteredPlayers = state.players.filter(
+        (player) => player.role !== "m"
+      );
+
+      state.players = filteredPlayers;
     },
 
     setRole: (state, action: PayloadAction<{ makerPointer: number }>) => {

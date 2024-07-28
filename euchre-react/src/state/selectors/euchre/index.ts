@@ -26,7 +26,10 @@ export const selectPlayerHand = (player: number) => (state: EuchreGameState) =>
 
 export const selectPlayers = (state: EuchreGameState) => state.players;
 
-export const selectPlayer =
+export const selectPlayer = (player: number) => (state: EuchreGameState) =>
+  state.players[player];
+
+export const findPlayer =
   (player: number) =>
   (state: EuchreGameState): EuchrePlayerState => {
     const isPlayerBenched = state.benchedPlayers[player] !== null;
