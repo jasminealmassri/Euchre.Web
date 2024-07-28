@@ -17,8 +17,9 @@ export const euchreSlice = createSlice({
   reducers: {
     cleanUp: (state) => {
       const { dealer, team1Score, team2Score } = state;
+
       return {
-        ...initialState((dealer + 1) % state.players.length),
+        ...initialState((dealer + 1) % state.benchedPlayers.length),
         team1Score,
         team2Score,
       };
@@ -47,9 +48,16 @@ export const euchreSlice = createSlice({
       state.currentPlayer = winningPlayerIndex;
     },
 
+    benchPlayer: (state) => {
+      state.benchedPlayers = state.players.map((player) => {
+        return player.role === "m" ? player : null;
+      });
+      state.players = state.players.filter((player) => player.role !== "m");
+    },
+
     setRole: (state, action: PayloadAction<{ makerPointer: number }>) => {
       const { makerPointer } = action.payload;
-      const teamMatePointer = (makerPointer + 2) % 4;
+      const teamMatePointer = (makerPointer + 2) % state.players.length;
 
       state.players = state.players.map((player, index) => {
         switch (index) {
@@ -86,8 +94,10 @@ export const euchreSlice = createSlice({
     resetState: () => initialState(),
 
     scoreRound: (state) => {
-      const team1Score = state.players[0].tricks + state.players[2].tricks;
-      const team2Score = state.players[1].tricks + state.players[3].tricks;
+      const team1Score =
+        state.players[0]?.tricks ?? 0 + state.players[2]?.tricks ?? 0;
+      const team2Score =
+        state.players[1]?.tricks ?? 0 + state.players[3]?.tricks ?? 0;
 
       team1Score > team2Score
         ? (state.team1Score += 1)
@@ -170,6 +180,7 @@ export const euchreSlice = createSlice({
 });
 
 export const {
+  benchPlayer,
   cleanUp,
   discardTrick,
   scoreTrick,

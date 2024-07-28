@@ -41,6 +41,7 @@ export type EuchrePlayerState = {
 export enum Phase {
   DEALING = "dealing",
   BIDDING = "bidding",
+  DECLARING = "declaring",
   DISCARDING = "discarding",
   CALLING_TRUMP = "callingTrump",
   PLAYING_TRICKS = "playingTricks",
@@ -174,12 +175,13 @@ export interface EuchreGameState {
   team1Score: number;
   team2Score: number;
   trump: EuchreSuit | null;
-  trumpCandidates: EuchreSuit[];
+  trumpCandidates: Array<EuchreSuit>;
   leadingSuit: EuchreSuit | null;
   dealer: number;
   phase: Phase;
   piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
-  players: EuchrePlayerState[];
+  players: Array<EuchrePlayerState>;
+  benchedPlayers: Array<EuchrePlayerState | null>;
 }
 
 export const player1State: EuchrePlayerState = {
@@ -233,6 +235,7 @@ export const initialState = (dealer = firstDealer): EuchreGameState => ({
     player4: [],
   },
   players: [player1State, player2State, player3State, player4State],
+  benchedPlayers: [null, null, null, null],
 });
 
 export type { Pile } from "../playing-card/playing-card.interface";

@@ -1,4 +1,5 @@
 export { callTrump } from "./call-trump";
+export { declare } from "./declare";
 export { discard } from "./discard";
 export { orderUp } from "./order-up";
 export { pass } from "./pass";

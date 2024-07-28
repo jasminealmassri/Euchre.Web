@@ -2,7 +2,7 @@ import React from "react";
 
 import { useEuchreSelector } from "../state/hooks";
 import {
-  selectDealer,
+  selectDealerPointer,
   selectPhase,
   selectPlayer,
   selectPlayers,
@@ -13,7 +13,7 @@ import Player from "./Player";
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
   const players = useEuchreSelector(selectPlayers);
-  const dealerPointer = useEuchreSelector(selectDealer);
+  const dealerPointer = useEuchreSelector(selectDealerPointer);
   const dealer = useEuchreSelector(selectPlayer(dealerPointer));
   const talon = useEuchreSelector((state) => state.piles.talon);
   const table = useEuchreSelector((state) => state.piles.table);
@@ -26,7 +26,7 @@ const EngineDemo = () => {
     <div>
       <ul>
         <li>Phase: {phase}</li>
-        <li>Dealer: {dealer.name}</li>
+        <li>Dealer: {dealer?.name}</li>
         <li>Trump: {trump}</li>
         <li>Leading Suit: {leadingSuit}</li>
         <li>Team 1 Score: {team1Score}</li>

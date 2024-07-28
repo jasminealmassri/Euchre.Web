@@ -5,13 +5,16 @@ import {
   removeCandidate,
   transitionToPhase,
 } from "../../reducers/euchre";
-import { selectCurrentPlayer, selectDealer } from "../../selectors/euchre";
+import {
+  selectCurrentPlayer,
+  selectDealerPointer,
+} from "../../selectors/euchre";
 import { AppThunk } from "../../store";
 
 export const pass = (): AppThunk => (dispatch, getState) => {
   const state = getState().euchre;
   const currentPlayer = selectCurrentPlayer(state);
-  const dealer = selectDealer(state);
+  const dealer = selectDealerPointer(state);
 
   dispatch(nextPlayer());
 

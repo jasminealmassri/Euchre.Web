@@ -17,6 +17,6 @@ export const discard =
         faceUp: false,
       })
     );
-    dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
     dispatch(nextPlayer());
+    dispatch(transitionToPhase(Phase.DECLARING));
   };

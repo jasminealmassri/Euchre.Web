@@ -5,6 +5,7 @@ import {
   selectCanDeal,
   selectCanPlay,
   selectMustCallTrump,
+  selectMustDeclare,
   selectMustDiscard,
   selectPhase,
   selectPile,
@@ -22,6 +23,7 @@ import {
 import { Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
+import { declare } from "../state/thunks/euchre";
 
 interface PlayerProps {
   playerPointer: number;
@@ -34,6 +36,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const canPlay = useEuchreSelector(selectCanPlay(playerPointer));
   const canCallTrump = useEuchreSelector(selectCanCallTrump(playerPointer));
   const mustCallTrump = useEuchreSelector(selectMustCallTrump(playerPointer));
+  const mustDeclare = useEuchreSelector(selectMustDeclare(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const hand = useEuchreSelector(selectPile(player.hand));
@@ -97,7 +100,16 @@ const Player = ({ playerPointer }: PlayerProps) => {
             </button>
           </>
         )}
-
+        {mustDeclare && (
+          <>
+            <button onClick={() => dispatch(declare("alone"))}>
+              Play Alone
+            </button>
+            <button onClick={() => dispatch(declare())}>
+              Play With Partner
+            </button>
+          </>
+        )}
         {canDeal && <button onClick={() => dispatch(startHand())}>Deal</button>}
         {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
         {canCallTrump && !mustCallTrump && (

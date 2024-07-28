@@ -1,6 +1,7 @@
 import {
   EuchreCard,
   EuchreGameState,
+  EuchrePlayerState,
   EuchreRank,
   Phase,
   Pile,
@@ -13,7 +14,7 @@ import {
 export const selectCurrentPlayer = (state: EuchreGameState) =>
   state.currentPlayer;
 
-export const selectDealer = (state: EuchreGameState) => state.dealer;
+export const selectDealerPointer = (state: EuchreGameState) => state.dealer;
 
 export const selectPile = (pile: string) => (state: EuchreGameState) =>
   state.piles[pile];
@@ -25,8 +26,15 @@ export const selectPlayerHand = (player: number) => (state: EuchreGameState) =>
 
 export const selectPlayers = (state: EuchreGameState) => state.players;
 
-export const selectPlayer = (player: number) => (state: EuchreGameState) =>
-  state.players[player];
+export const selectPlayer =
+  (player: number) =>
+  (state: EuchreGameState): EuchrePlayerState => {
+    const isPlayerBenched = state.benchedPlayers[player] !== null;
+
+    return isPlayerBenched
+      ? (state.benchedPlayers[player] as EuchrePlayerState)
+      : state.players[player];
+  };
 
 export const selectCanBid = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.BIDDING;
@@ -36,6 +44,13 @@ export const selectCanDeal = (player: number) => (state: EuchreGameState) =>
 
 export const selectCanPlay = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.PLAYING_TRICKS;
+
+export const selectMustDeclare =
+  (player: number) => (state: EuchreGameState) => {
+    const makerIndex = state.players.findIndex((p) => p.role === "M");
+
+    return makerIndex === player && state.phase === Phase.DECLARING;
+  };
 
 export const selectMustDiscard = (player: number) => (state: EuchreGameState) =>
   state.currentPlayer === player && state.phase === Phase.DISCARDING;
