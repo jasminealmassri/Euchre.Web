@@ -10,7 +10,7 @@ Collaboration effort to re-factor the Euchre game engine to use redux, current t
 <img style="width:55%" src="./euchre-react/project_progress_images/june15snapshot.png">
 
 ### Learned skills so far:
-
+- Redux and Redux Toolkit
 - Learning React and TypeScript
 - React hooks: useState, useContext, useRef, useEffect
 - Encapsulating my game logic so that this project can be more easily re-factored in the future to include a variety of similar trick-based card games
