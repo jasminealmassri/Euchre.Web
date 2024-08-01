@@ -2,6 +2,9 @@
 
 <p>I am making a web version of my favourite card game Euchre using React TS + Vite. ♥️♠️♦️♣️</p>
 
+### July 31st update
+Collaboration effort to re-factor the Euchre game engine to use redux, current todo is integrating the new game engine into the current user interface, and completing the remaining todos to finish the game as a single player game with 3 computer players.
+
 ### June 15 snapshot
 
 <img style="width:55%" src="./euchre-react/project_progress_images/june15snapshot.png">
