@@ -1,5 +1,5 @@
 import React from 'react';
-import back from '../assets/images/Cards/back.png';
+
 
 import { Card } from '../models/Card';
 
@@ -57,6 +57,7 @@ import clubs10 from '../assets/images/Cards/clubs10.png';
 import clubsJ from '../assets/images/Cards/clubsJ.png';
 import clubsQ from '../assets/images/Cards/clubsQ.png';
 import clubsK from '../assets/images/Cards/clubsK.png';
+import back from '../assets/images/Cards/back.png';
 
 
 const cardImages : any = {
@@ -112,6 +113,7 @@ const cardImages : any = {
     'clubsJ': clubsJ,
     'clubsQ': clubsQ,
     'clubsK': clubsK,
+    'back': back,
 }
 
 interface  CardComponentProps {

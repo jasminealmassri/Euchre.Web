@@ -2,6 +2,7 @@ import { useEuchreSelector } from "../state/hooks";
 import { selectHighestCard } from "../state/selectors/euchre";
 import { EuchreRank, Pile, PlayingCardSuit } from "../lib/euchre";
 import Card from "./Card";
+import CardComponent from "./CardComponent";
 
 interface Props {
   pile: Pile<PlayingCardSuit, EuchreRank>;
