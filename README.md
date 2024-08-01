@@ -19,7 +19,6 @@ Collaboration effort to re-factor the Euchre game engine to use redux, current t
 - Organizing my project: Models, interfaces, components and functions are in their separate locations
 
 ### Getting started
-
-1. `npm install`
-
-2. `npm run dev`
+1. Navigate to the 'euchre-react' directory
+2. `npm install`
+3. `npm run dev`
