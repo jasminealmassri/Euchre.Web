@@ -10,7 +10,6 @@ import {
 import Pile from "./Pile";
 import Player from "./Player";
 import './TableComponent.css';
-import EuchreComponent from "./EuchreComponent";
 import ScoreComponent from "./ScoreComponent";
 import TableComponent from "./TableComponent";
 
@@ -41,8 +40,10 @@ const EngineDemo = () => {
         <li>Team 1 Score: {team1Score}</li>
         <li>Team 2 Score: {team2Score}</li>
       </ul>
-      {talon.length > 0 && <Pile pile={talon} />}
+      <div className={'trick'}>
+      {talon.length > 0 && <Pile pile={talon} className={`player-${dealerPointer}-card`} />}
       {table.length > 0 && <Pile showHighestCard={true} pile={table} />}
+      </div>
       {players.map((player, i) => (
         <React.Fragment key={player.name}>
           <div>

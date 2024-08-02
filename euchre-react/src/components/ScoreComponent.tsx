@@ -7,7 +7,6 @@ import Spades from '../assets/images/Suits/Outline/Spades2.png'
 import Hearts from '../assets/images/Suits/Outline/Hearts2.png'
 import Diamonds from '../assets/images/Suits/Outline/Diamonds2.png'
 
-import { Suit } from '../models/Suit';
 import { useEuchreSelector } from '../state/hooks';
 import { PlayingCardSuit } from '../lib/euchre';
 import { selectPlayer } from '../state/selectors/euchre';
@@ -21,20 +20,6 @@ const ScoreComponent = () => {
   const player3 = useEuchreSelector(selectPlayer(2));
   const player4 = useEuchreSelector(selectPlayer(3));
 
-  const game = useContext(GameContext);
-  //let tricks_won = 0;
-  //let tricks_lost = 0;
-
-  // const changeScore = (num : number) => {
-  //   game.updateGame(prevGame => {
-  //     if (prevGame) {
-  //       return {
-  //         ...prevGame,
-  //         player1: {...prevGame.player1, score: prevGame.player1.score + num}
-  //       }
-  //     }
-  //   })
-  // }
   const getTrumpIcon = (trump : PlayingCardSuit | null) => {
     switch (trump) {
       case PlayingCardSuit.CLUBS: 
@@ -68,7 +53,6 @@ const ScoreComponent = () => {
           <p>Tricks lost: { player2.tricks + player4.tricks } </p>
         </div>
       </div>
-      {/* <button onClick={() => changeScore(1)}>Change score</button> */}
     </>
   )
 }
