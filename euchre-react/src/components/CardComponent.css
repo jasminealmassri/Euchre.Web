@@ -54,6 +54,10 @@
         position: absolute;
         top: 40%;
     }
+    .card:nth-child(6) {
+        position: absolute;
+        top: 50%;
+    }
 }
 
 .player-4-hand {
@@ -76,6 +80,10 @@
     .card:nth-child(5) {
         position: absolute;
         top: 40%;
+    }
+    .card:nth-child(6) {
+        position: absolute;
+        top: 50%;
     }
 }
 

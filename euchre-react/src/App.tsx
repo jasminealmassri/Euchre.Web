@@ -16,7 +16,7 @@ function App() {
           <TableComponent />
         </EuchreComponent>
       </div>
-      <div>
+      <div className="game">
         <EngineDemo />
       </div>
     </Provider>

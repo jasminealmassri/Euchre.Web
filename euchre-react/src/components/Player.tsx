@@ -24,6 +24,7 @@ import { Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
+import './TableComponent.css';
 
 interface PlayerProps {
   playerPointer: number;
@@ -41,6 +42,8 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
+
+  const playerCSSClasses : string[] = ['player-1-hand', 'player-2-hand', 'player-3-hand', 'player-4-hand'];
 
   const handleCardClick = (index: number) => {
     switch (phase) {
@@ -90,7 +93,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
       </ul>
       <div>
         <div style={{ display: "flex", gap: "0.25em" }}>
-          <PileViewer onClick={handleCardClick} pile={hand} />
+          <PileViewer onClick={handleCardClick} pile={hand} className={playerCSSClasses[playerPointer]} />
         </div>
         {canBid && (
           <>
