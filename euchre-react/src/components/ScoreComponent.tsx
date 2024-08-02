@@ -44,13 +44,13 @@ const ScoreComponent = () => {
       </div>
       <div className="scoreboard">
         <div className="left_score">
-          <p>Tricks won: { player1.tricks + player3.tricks}</p>
+          <p>Tricks won: { (player1?.tricks ?? 0) + (player3?.tricks ?? 0) }</p>
         </div>
         <div className="middle_score">
           <p>Current trump:</p><img src={getTrumpIcon(trump)}></img>
         </div>
         <div className="right_score">
-          <p>Tricks lost: { player2.tricks + player4.tricks } </p>
+          <p>Tricks lost: { (player2?.tricks ?? 0) + (player4?.tricks ?? 0) } </p>
         </div>
       </div>
     </>
