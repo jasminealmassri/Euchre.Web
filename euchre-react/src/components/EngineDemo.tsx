@@ -9,6 +9,10 @@ import {
 } from "../state/selectors/euchre";
 import Pile from "./Pile";
 import Player from "./Player";
+import './TableComponent.css';
+import EuchreComponent from "./EuchreComponent";
+import ScoreComponent from "./ScoreComponent";
+import TableComponent from "./TableComponent";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
@@ -23,6 +27,11 @@ const EngineDemo = () => {
   const team2Score = useEuchreSelector((state) => state.team2Score);
 
   return (
+    <>
+    <div className="game">
+      <ScoreComponent />
+      <TableComponent />
+    </div>
     <div>
       <ul>
         <li>Phase: {phase}</li>
@@ -43,6 +52,7 @@ const EngineDemo = () => {
         </React.Fragment>
       ))}
     </div>
+    </>
   );
 };
 export default EngineDemo;
