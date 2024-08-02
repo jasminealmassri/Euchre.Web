@@ -11,14 +11,13 @@ function App() {
   return (
     <Provider store={store}>
        <div className="game">
-        {/* <EuchreComponent>
+        <EuchreComponent>
           <ScoreComponent />
           <TableComponent />
-        </EuchreComponent> */}
-        <EngineDemo />
+        </EuchreComponent>
       </div>
       <div>
-       
+        <EngineDemo />
       </div>
     </Provider>
   );

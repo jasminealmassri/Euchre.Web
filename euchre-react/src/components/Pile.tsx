@@ -3,17 +3,15 @@ import { selectHighestCard } from "../state/selectors/euchre";
 import { EuchreRank, Pile, PlayingCardSuit } from "../lib/euchre";
 import Card from "./Card";
 import CardComponent from "./CardComponent";
-import React from "react";
 
 interface Props {
   pile: Pile<PlayingCardSuit, EuchreRank>;
   showHighestCard?: boolean;
   stacked?: boolean;
   onClick?: (index: number) => void;
-  className: string;
 }
 
-const PileViewer = ({ onClick, pile, showHighestCard, className }: Props) => {
+const PileViewer = ({ onClick, pile, showHighestCard }: Props) => {
   const highestCard = useEuchreSelector(selectHighestCard(pile));
 
   const style = {
@@ -22,16 +20,16 @@ const PileViewer = ({ onClick, pile, showHighestCard, className }: Props) => {
   };
 
   return (
-    <div className={className}>
+    <div style={style}>
       {pile.map((card, index) => (
-        <React.Fragment
+        <div
           key={index}
-          // style={{
-          //   background: highestCard === index && showHighestCard ? "gold" : "",
-          // }}
+          style={{
+            background: highestCard === index && showHighestCard ? "gold" : "",
+          }}
         >
           {Card({ suit: card.suit, rank: card.rank, index, onClick })}
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );
