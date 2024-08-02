@@ -9,12 +9,16 @@ interface Props {
   stacked?: boolean;
   onClick?: (index: number) => void;
   className?: string;
+  isTablePile?: boolean;
 }
 
-const PileViewer = ({ onClick, pile, className }: Props) => {
+const PileViewer = ({ onClick, pile, className, isTablePile = false }: Props) => {
 
+  const tablePileClasses : string[] = ['player-1-card', 'player-2-card', 'player-3-card', 'player-4-card'];
+  
   return (
-    <div className={className}>
+    <>
+    {!isTablePile && <div className={className}>
       {pile.map((card, index) => (
         <React.Fragment
           key={index}
@@ -22,7 +26,17 @@ const PileViewer = ({ onClick, pile, className }: Props) => {
           {Card({ suit: card.suit, rank: card.rank, index, onClick })}
         </React.Fragment>
       ))}
-    </div>
+    </div> }
+    {isTablePile && <div className={className}>
+      {pile.map((card, index) => (
+        <div className={tablePileClasses[index]}
+          key={index}
+        >
+          {Card({ suit: card.suit, rank: card.rank, index, onClick })}
+        </div>
+      ))}
+    </div> }
+    </>
   );
 };
 

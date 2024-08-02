@@ -41,8 +41,8 @@ const EngineDemo = () => {
         <li>Team 2 Score: {team2Score}</li>
       </ul>
       <div className={'trick'}>
-      {talon.length > 0 && <Pile pile={talon} className={`player-${dealerPointer}-card`} />}
-      {table.length > 0 && <Pile showHighestCard={true} pile={table} />}
+      {talon.length > 0 && <Pile pile={talon} className={`player-${dealerPointer + 1}-card`} />}
+      {table.length > 0 && <Pile showHighestCard={true} pile={table} isTablePile={true} />}
       </div>
       {players.map((player, i) => (
         <React.Fragment key={player.name}>
