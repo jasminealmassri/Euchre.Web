@@ -27,9 +27,10 @@ import { declare } from "../state/thunks/euchre";
 
 interface PlayerProps {
   playerPointer: number;
+  className: string;
 }
 
-const Player = ({ playerPointer }: PlayerProps) => {
+const Player = ({ playerPointer, className }: PlayerProps) => {
   const dispatch = useAppDispatch();
   const canBid = useEuchreSelector(selectCanBid(playerPointer));
   const canDeal = useEuchreSelector(selectCanDeal(playerPointer));
@@ -80,7 +81,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
   };
 
   return (
-    <div>
+    <div >
       <ul>
         <li>
           Name: {player.name} {canPlay && "*"}
@@ -89,9 +90,10 @@ const Player = ({ playerPointer }: PlayerProps) => {
         <li>Tricks: {player.tricks}</li>
       </ul>
       <div>
-        <div style={{ display: "flex", gap: "0.25em" }}>
-          <PileViewer onClick={handleCardClick} pile={hand} />
-        </div>
+      <PileViewer onClick={handleCardClick} pile={hand} className={className} />
+        {/* <div style={{ display: "flex", gap: "0.25em" }}>
+         
+        </div> */}
         {canBid && (
           <>
             <button onClick={() => dispatch(pass())}>Pass</button>

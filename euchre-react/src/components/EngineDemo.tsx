@@ -9,6 +9,7 @@ import {
 } from "../state/selectors/euchre";
 import Pile from "./Pile";
 import Player from "./Player";
+import './TableComponent.css';
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
@@ -22,6 +23,8 @@ const EngineDemo = () => {
   const team1Score = useEuchreSelector((state) => state.team1Score);
   const team2Score = useEuchreSelector((state) => state.team2Score);
 
+  const playerClasses = ['player-1-hand', 'player-2-hand', 'player-3-hand', 'player-4-hand'];
+  
   return (
     <div>
       <ul>
@@ -32,12 +35,16 @@ const EngineDemo = () => {
         <li>Team 1 Score: {team1Score}</li>
         <li>Team 2 Score: {team2Score}</li>
       </ul>
+        <p id="player-1-label">You</p>
+        <p id="player-2-label">Player 2</p>
+        <p id="player-3-label">Player 3</p>
+        <p id="player-4-label">Player 4</p>
       {talon.length > 0 && <Pile pile={talon} />}
       {table.length > 0 && <Pile showHighestCard={true} pile={table} />}
       {players.map((player, i) => (
         <React.Fragment key={player.name}>
           <div>
-            <Player playerPointer={i} />
+            <Player playerPointer={i} className={playerClasses[i]} />
           </div>
           <hr />
         </React.Fragment>
