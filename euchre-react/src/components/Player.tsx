@@ -24,12 +24,19 @@ import { Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
-import './TableComponent.css';
-import './Player.css'
+import "./TableComponent.css";
+import "./Player.css";
 
 interface PlayerProps {
   playerPointer: number;
 }
+
+const dealerClasses: string[] = [
+  "player_1_is_dealer",
+  "player_2_is_dealer",
+  "player_3_is_dealer",
+  "player_4_is_dealer",
+];
 
 const Player = ({ playerPointer }: PlayerProps) => {
   const dispatch = useAppDispatch();
@@ -43,8 +50,21 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
+  const dealer = useEuchreSelector((state) => state.dealer);
 
-  const playerCSSClasses : string[] = ['player-1-hand', 'player-2-hand', 'player-3-hand', 'player-4-hand'];
+  const playerCSSClasses: string[] = [
+    "player-1-hand",
+    "player-2-hand",
+    "player-3-hand",
+    "player-4-hand",
+  ];
+
+  const dealerClasses: string[] = [
+    "player_1_is_dealer",
+    "player_2_is_dealer",
+    "player_3_is_dealer",
+    "player_4_is_dealer",
+  ];
 
   const handleCardClick = (index: number) => {
     switch (phase) {
@@ -92,39 +112,49 @@ const Player = ({ playerPointer }: PlayerProps) => {
         <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
       </ul>
-      <div >
+      <div>
         <div>
-          <PileViewer onClick={handleCardClick} pile={hand} className={playerCSSClasses[player.tablePosition]} />
+          <PileViewer
+            onClick={handleCardClick}
+            pile={hand}
+            className={playerCSSClasses[player.tablePosition]}
+          />
         </div>
-        <div className={`player-${playerPointer + 1}-prompt`} >
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}>
-        {canBid && (
-          <>
-            <button onClick={() => dispatch(pass())}>Pass</button>
-            <button onClick={() => dispatch(orderUp(playerPointer))}>
-              Order Up
-            </button>
-          </>
-          
-        )}
-        {mustDeclare && (
-          <>
-            <button onClick={() => dispatch(declare("alone"))}>
-              Play Alone
-            </button>
-            <button onClick={() => dispatch(declare())}>
-              Play With Partner
-            </button>
-          </>
-        )}
-        {canDeal && <button onClick={() => dispatch(startHand())}>Deal</button>}
-        {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
-        {canCallTrump && !mustCallTrump && (
-          <button onClick={() => dispatch(passOnTrump())}>Pass</button>
-        )}
-        </div>
+        <div className={`player-${playerPointer + 1}-prompt`}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
+          >
+            {canBid && (
+              <>
+                <button onClick={() => dispatch(pass())}>Pass</button>
+                <button onClick={() => dispatch(orderUp(playerPointer))}>
+                  Order Up
+                </button>
+              </>
+            )}
+            {mustDeclare && (
+              <>
+                <button onClick={() => dispatch(declare("alone"))}>
+                  Play Alone
+                </button>
+                <button onClick={() => dispatch(declare())}>
+                  Play With Partner
+                </button>
+              </>
+            )}
+            {canDeal && (
+              <button onClick={() => dispatch(startHand())}>Deal</button>
+            )}
+            {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
+            {canCallTrump && !mustCallTrump && (
+              <button onClick={() => dispatch(passOnTrump())}>Pass</button>
+            )}
+          </div>
         </div>
       </div>
+      {playerPointer === dealer && (
+        <div className={`${dealerClasses[playerPointer]}`}>Dealer</div>
+      )}
     </div>
   );
 };

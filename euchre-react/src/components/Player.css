@@ -1,23 +1,60 @@
 .player-1-prompt {
-    position: absolute;
-    top: 92%;
-    left: 80%;
+  position: absolute;
+  top: 92%;
+  left: 80%;
 }
 
 .player-2-prompt {
-    position: absolute;
-    top: 50%;
-    left: -3%;
+  position: absolute;
+  top: 50%;
+  left: -3%;
 }
 
 .player-3-prompt {
-    position: absolute;
-    top: 15%;
-    left: 23%;
+  position: absolute;
+  top: 15%;
+  left: 23%;
 }
 
 .player-4-prompt {
-    position: absolute;
-    top: 50%;
-    left: 88%;
+  position: absolute;
+  top: 50%;
+  left: 88%;
+}
+
+.player_1_is_dealer,
+.player_2_is_dealer,
+.player_3_is_dealer,
+.player_4_is_dealer {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  position: absolute;
+  width: 4rem;
+  padding: 1%;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
+}
+
+.player_1_is_dealer {
+  top: 80%;
+  left: 78%;
+}
+
+.player_2_is_dealer {
+  top: 28%;
+  left: 9%;
+}
+
+.player_3_is_dealer {
+  top: 16%;
+  left: 23%;
+}
+
+.player_4_is_dealer {
+  top: 28%;
+  left: 78%;
 }

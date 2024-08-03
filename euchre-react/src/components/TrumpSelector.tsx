@@ -13,7 +13,7 @@ const TrumpSelector = ({ onClick }: Props) => {
   const candidates = useEuchreSelector((state) => state.trumpCandidates);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div style={{ display: "flex", backgroundColor: "white" }}>
       {candidates.map((suit) => (
         <div
           key={suit}
