@@ -14,6 +14,9 @@ import {
 export const selectCurrentPlayer = (state: EuchreGameState) =>
   state.currentPlayer;
 
+export const selectLeadingPlayer = (state: EuchreGameState) =>
+  state.leadingPlayer;
+
 export const selectDealerPointer = (state: EuchreGameState) => state.dealer;
 
 export const selectPile = (pile: string) => (state: EuchreGameState) =>
@@ -32,11 +35,7 @@ export const selectPlayer = (player: number) => (state: EuchreGameState) =>
 export const findPlayer =
   (player: number) =>
   (state: EuchreGameState): EuchrePlayerState => {
-    const isPlayerBenched = state.benchedPlayers[player] !== null;
-
-    return isPlayerBenched
-      ? (state.benchedPlayers[player] as EuchrePlayerState)
-      : state.players[player];
+    return state.players[player];
   };
 
 export const selectCanBid = (player: number) => (state: EuchreGameState) =>
@@ -65,6 +64,11 @@ export const selectCanCallTrump =
 export const selectMustCallTrump =
   (player: number) => (state: EuchreGameState) =>
     state.dealer === player && state.phase === Phase.CALLING_TRUMP;
+
+export const selectSittingOut =
+  (player: number) => (state: EuchreGameState) => {
+    return state.players[player].sittingOut;
+  };
 
 export const selectLeftBower = (state: EuchreGameState) => {
   return getLeftBowerSuit(state.trump as PlayingCardSuit);

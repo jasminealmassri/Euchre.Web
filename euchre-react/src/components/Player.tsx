@@ -4,6 +4,7 @@ import {
   selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
+  selectLeadingPlayer,
   selectMustCallTrump,
   selectMustDeclare,
   selectMustDiscard,
@@ -39,6 +40,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const mustDeclare = useEuchreSelector(selectMustDeclare(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
+  const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
 
@@ -85,8 +87,12 @@ const Player = ({ playerPointer }: PlayerProps) => {
         <li>
           Name: {player.name} {canPlay && "*"}
         </li>
+        <li>
+          Leading Player: {playerPointer === leadingPlayer ? "Yes" : "No"}
+        </li>
         <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
+        <li>Sitting Out: {player.sittingOut ? "Yes" : "No"}</li>
       </ul>
       <div>
         <div style={{ display: "flex", gap: "0.25em" }}>

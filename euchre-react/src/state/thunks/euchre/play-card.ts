@@ -1,4 +1,4 @@
-import { EuchrePile, EuchreSuit, Phase } from "../../";
+import { EuchrePile, EuchreSuit, Phase, getLastPlayer } from "../../";
 import {
   cleanUp,
   discardTrick,
@@ -21,8 +21,7 @@ export const playCard =
     const desiredCard = playerHand[card];
     const actualSuit = selectSuit(desiredCard)(state);
     const leadingSuit = state.leadingSuit ?? actualSuit;
-    const lastPlayer =
-      (state.leadingPlayer - 1 + state.players.length) % state.players.length;
+    const lastPlayer = getLastPlayer(state);
     const hasLeadingSuit = playerHand.find(
       (card) => selectSuit(card)(state) === leadingSuit
     );

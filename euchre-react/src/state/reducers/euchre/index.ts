@@ -5,6 +5,9 @@ import {
   EuchreSuit,
   Phase,
   PlayingCardSuit,
+  getNextDealer,
+  getNextPlayer,
+  getWinningPlayer,
   initialState,
   nextPhase,
   takeCardAt,
@@ -16,10 +19,10 @@ export const euchreSlice = createSlice({
   initialState: initialState(),
   reducers: {
     cleanUp: (state) => {
-      const { dealer, team1Score, team2Score } = state;
+      const { team1Score, team2Score } = state;
 
       return {
-        ...initialState((dealer + 1) % state.benchedPlayers.length),
+        ...initialState(getNextDealer(state)),
         team1Score,
         team2Score,
       };
@@ -40,8 +43,14 @@ export const euchreSlice = createSlice({
         state
       );
 
-      const winningPlayerIndex =
-        (state.leadingPlayer + winningCardIndex) % state.players.length;
+      const winningPlayerIndex = getWinningPlayer(state, winningCardIndex);
+
+      if (state.players[winningPlayerIndex].sittingOut) {
+        console.log(
+          "this player is sitting out",
+          state.players[winningCardIndex]
+        );
+      }
 
       state.players[winningPlayerIndex].tricks += 1;
       state.leadingPlayer = winningPlayerIndex;
@@ -49,14 +58,22 @@ export const euchreSlice = createSlice({
     },
 
     benchPlayer: (state) => {
-      state.benchedPlayers = state.players.map((player) => {
-        return player.role === "m" ? player : null;
-      });
-      const filteredPlayers = state.players.filter(
-        (player) => player.role !== "m"
+      const { currentPlayer, players } = state;
+      const benchedPlayerPointer = state.players.findIndex(
+        (player) => player.role === "m"
       );
 
-      state.players = filteredPlayers;
+      // move to next player if current player is benched
+      state.currentPlayer =
+        benchedPlayerPointer === currentPlayer
+          ? getNextPlayer(state)
+          : currentPlayer;
+
+      state.players = players.map((player, index) => {
+        return benchedPlayerPointer === index
+          ? { ...player, sittingOut: true }
+          : player;
+      });
     },
 
     setRole: (state, action: PayloadAction<{ makerPointer: number }>) => {
@@ -85,7 +102,7 @@ export const euchreSlice = createSlice({
     },
 
     nextPlayer(state) {
-      state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
+      state.currentPlayer = getNextPlayer(state);
     },
 
     removeCandidate: (state, action: PayloadAction<PlayingCardSuit>) => {
@@ -117,7 +134,7 @@ export const euchreSlice = createSlice({
     },
 
     setNextDealer: (state) => {
-      state.dealer = (state.dealer + 1) % state.players.length;
+      state.dealer = getNextDealer(state);
     },
 
     setTrump: (state, action: PayloadAction<EuchreSuit>) => {
