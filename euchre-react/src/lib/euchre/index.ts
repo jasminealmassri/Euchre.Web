@@ -62,6 +62,81 @@ export enum EuchrePile {
   TABLE = "table",
 }
 
+export interface EuchreGameState {
+  currentPlayer: number;
+  leadingPlayer: number;
+  trickLeader: number;
+  team1Score: number;
+  team2Score: number;
+  trump: EuchreSuit | null;
+  trumpCandidates: Array<EuchreSuit>;
+  leadingSuit: EuchreSuit | null;
+  dealer: number;
+  phase: Phase;
+  piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
+  players: Array<EuchrePlayerState>;
+  benchedPlayers: Array<EuchrePlayerState | null>;
+}
+
+export const player1State: EuchrePlayerState = {
+  hand: "player1",
+  name: "Player 1",
+  tablePosition: 0,
+  role: null,
+  tricks: 0,
+};
+
+export const player2State: EuchrePlayerState = {
+  hand: "player2",
+  name: "Player 2",
+  tablePosition: 1,
+  role: null,
+  tricks: 0,
+};
+
+export const player3State: EuchrePlayerState = {
+  hand: "player3",
+  name: "Player 3",
+  tablePosition: 2,
+  role: null,
+  tricks: 0,
+};
+
+export const player4State: EuchrePlayerState = {
+  hand: "player4",
+  name: "Player 4",
+  tablePosition: 3,
+  role: null,
+  tricks: 0,
+};
+
+const firstDealer = Math.floor(Math.random() * 4);
+
+export const initialState = (dealer = firstDealer): EuchreGameState => ({
+  currentPlayer: dealer,
+  dealer,
+  trickLeader: (dealer + 1) % 4,
+  leadingPlayer: (dealer + 1) % 4,
+  team1Score: 0,
+  team2Score: 0,
+  trump: null,
+  trumpCandidates: suits,
+  leadingSuit: null,
+  phase: Phase.DEALING,
+  piles: {
+    deck: makeDeck(suits, ranks),
+    discard: [],
+    talon: [],
+    table: [],
+    player1: [],
+    player2: [],
+    player3: [],
+    player4: [],
+  },
+  players: [player1State, player2State, player3State, player4State],
+  benchedPlayers: [null, null, null, null],
+});
+
 const phaseOrder = () => {
   return Object.values(Phase);
 };
@@ -169,81 +244,6 @@ export const getEuchreCardValue = (
 
   return rankValues[card.rank]; // Other cards
 };
-
-export interface EuchreGameState {
-  currentPlayer: number;
-  leadingPlayer: number;
-  trickLeader: number;
-  team1Score: number;
-  team2Score: number;
-  trump: EuchreSuit | null;
-  trumpCandidates: Array<EuchreSuit>;
-  leadingSuit: EuchreSuit | null;
-  dealer: number;
-  phase: Phase;
-  piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
-  players: Array<EuchrePlayerState>;
-  benchedPlayers: Array<EuchrePlayerState | null>;
-}
-
-export const player1State: EuchrePlayerState = {
-  hand: "player1",
-  name: "Player 1",
-  tablePosition: 0,
-  role: null,
-  tricks: 0,
-};
-
-export const player2State: EuchrePlayerState = {
-  hand: "player2",
-  name: "Player 2",
-  tablePosition: 1,
-  role: null,
-  tricks: 0,
-};
-
-export const player3State: EuchrePlayerState = {
-  hand: "player3",
-  name: "Player 3",
-  tablePosition: 2,
-  role: null,
-  tricks: 0,
-};
-
-export const player4State: EuchrePlayerState = {
-  hand: "player4",
-  name: "Player 4",
-  tablePosition: 3,
-  role: null,
-  tricks: 0,
-};
-
-const firstDealer = Math.floor(Math.random() * 4);
-
-export const initialState = (dealer = firstDealer): EuchreGameState => ({
-  currentPlayer: dealer,
-  dealer,
-  trickLeader: (dealer + 1) % 4,
-  leadingPlayer: (dealer + 1) % 4,
-  team1Score: 0,
-  team2Score: 0,
-  trump: null,
-  trumpCandidates: suits,
-  leadingSuit: null,
-  phase: Phase.DEALING,
-  piles: {
-    deck: makeDeck(suits, ranks),
-    discard: [],
-    talon: [],
-    table: [],
-    player1: [],
-    player2: [],
-    player3: [],
-    player4: [],
-  },
-  players: [player1State, player2State, player3State, player4State],
-  benchedPlayers: [null, null, null, null],
-});
 
 export type { Pile } from "../playing-card/playing-card.interface";
 export { PlayingCardSuit } from "../playing-card/playing-card.interface";
