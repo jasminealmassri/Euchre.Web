@@ -45,13 +45,6 @@ export const euchreSlice = createSlice({
 
       const winningPlayerIndex = getWinningPlayer(state, winningCardIndex);
 
-      if (state.players[winningPlayerIndex].sittingOut) {
-        console.log(
-          "this player is sitting out",
-          state.players[winningCardIndex]
-        );
-      }
-
       state.players[winningPlayerIndex].tricks += 1;
       state.leadingPlayer = winningPlayerIndex;
       state.currentPlayer = winningPlayerIndex;
