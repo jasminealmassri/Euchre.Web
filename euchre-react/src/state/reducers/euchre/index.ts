@@ -62,15 +62,15 @@ export const euchreSlice = createSlice({
       const benchedPlayerPointer = state.players.findIndex(
         (player) => player.role === "m"
       );
-      const benchedPlayerStringPointer = `player${benchedPlayerPointer + 1}`;
+      const benchedPlayerHashPointer = `player${benchedPlayerPointer + 1}`;
 
       state.piles[EuchrePile.DISCARD_PILE] = [
-        ...piles[benchedPlayerStringPointer],
+        ...piles[benchedPlayerHashPointer],
         ...piles[EuchrePile.DISCARD_PILE],
       ];
 
       // discard benched player's hand
-      state.piles[benchedPlayerStringPointer] = [];
+      state.piles[benchedPlayerHashPointer] = [];
 
       // move to next player if current player is benched
       state.currentPlayer =
