@@ -1,0 +1,23 @@
+.player-1-prompt {
+    position: absolute;
+    top: 92%;
+    left: 80%;
+}
+
+.player-2-prompt {
+    position: absolute;
+    top: 50%;
+    left: -3%;
+}
+
+.player-3-prompt {
+    position: absolute;
+    top: 15%;
+    left: 23%;
+}
+
+.player-4-prompt {
+    position: absolute;
+    top: 50%;
+    left: 95%;
+}

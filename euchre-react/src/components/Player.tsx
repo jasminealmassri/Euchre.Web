@@ -25,6 +25,7 @@ import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
 import './TableComponent.css';
+import './Player.css'
 
 interface PlayerProps {
   playerPointer: number;
@@ -91,10 +92,12 @@ const Player = ({ playerPointer }: PlayerProps) => {
         <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
       </ul>
-      <div>
-        <div style={{ display: "flex", gap: "0.25em" }}>
+      <div >
+        <div>
           <PileViewer onClick={handleCardClick} pile={hand} className={playerCSSClasses[player.tablePosition]} />
         </div>
+        <div className={`player-${playerPointer + 1}-prompt`} >
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}>
         {canBid && (
           <>
             <button onClick={() => dispatch(pass())}>Pass</button>
@@ -102,6 +105,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
               Order Up
             </button>
           </>
+          
         )}
         {mustDeclare && (
           <>
@@ -118,6 +122,8 @@ const Player = ({ playerPointer }: PlayerProps) => {
         {canCallTrump && !mustCallTrump && (
           <button onClick={() => dispatch(passOnTrump())}>Pass</button>
         )}
+        </div>
+        </div>
       </div>
     </div>
   );
