@@ -10,12 +10,12 @@ import TableComponent from "./components/TableComponent";
 function App() {
   return (
     <Provider store={store}>
-       <div className="game">
+       {/* <div className="game">
         <EuchreComponent>
           <ScoreComponent />
           <TableComponent />
         </EuchreComponent>
-      </div>
+      </div> */}
       <div className="game">
         <EngineDemo />
       </div>
