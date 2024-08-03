@@ -33,6 +33,7 @@ export const euchreSlice = createSlice({
 
       state.piles[EuchrePile.TABLE] = [];
       state.leadingSuit = null;
+      state.trickLeader = state.currentPlayer;
     },
 
     scoreTrick: (state) => {

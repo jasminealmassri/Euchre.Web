@@ -93,7 +93,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
       </ul>
       <div>
         <div style={{ display: "flex", gap: "0.25em" }}>
-          <PileViewer onClick={handleCardClick} pile={hand} className={playerCSSClasses[playerPointer]} />
+          <PileViewer onClick={handleCardClick} pile={hand} className={playerCSSClasses[player.tablePosition]} />
         </div>
         {canBid && (
           <>

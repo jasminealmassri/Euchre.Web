@@ -34,6 +34,7 @@ export type EuchreCard = PlayingCard<EuchreSuit, EuchreRank>;
 export type EuchrePlayerState = {
   hand: string;
   name: string;
+  tablePosition: number;
   role: "M" | "m" | "d" | null;
   tricks: number;
 };
@@ -172,6 +173,7 @@ export const getEuchreCardValue = (
 export interface EuchreGameState {
   currentPlayer: number;
   leadingPlayer: number;
+  trickLeader: number;
   team1Score: number;
   team2Score: number;
   trump: EuchreSuit | null;
@@ -187,6 +189,7 @@ export interface EuchreGameState {
 export const player1State: EuchrePlayerState = {
   hand: "player1",
   name: "Player 1",
+  tablePosition: 0,
   role: null,
   tricks: 0,
 };
@@ -194,6 +197,7 @@ export const player1State: EuchrePlayerState = {
 export const player2State: EuchrePlayerState = {
   hand: "player2",
   name: "Player 2",
+  tablePosition: 1,
   role: null,
   tricks: 0,
 };
@@ -201,6 +205,7 @@ export const player2State: EuchrePlayerState = {
 export const player3State: EuchrePlayerState = {
   hand: "player3",
   name: "Player 3",
+  tablePosition: 2,
   role: null,
   tricks: 0,
 };
@@ -208,6 +213,7 @@ export const player3State: EuchrePlayerState = {
 export const player4State: EuchrePlayerState = {
   hand: "player4",
   name: "Player 4",
+  tablePosition: 3,
   role: null,
   tricks: 0,
 };
@@ -217,6 +223,7 @@ const firstDealer = Math.floor(Math.random() * 4);
 export const initialState = (dealer = firstDealer): EuchreGameState => ({
   currentPlayer: dealer,
   dealer,
+  trickLeader: (dealer + 1) % 4,
   leadingPlayer: (dealer + 1) % 4,
   team1Score: 0,
   team2Score: 0,
