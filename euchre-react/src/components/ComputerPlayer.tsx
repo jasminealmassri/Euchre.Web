@@ -32,7 +32,7 @@ interface PlayerProps {
   playerPointer: number;
 }
 
-const Computer = ({ playerPointer }: PlayerProps) => {
+const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const dispatch = useAppDispatch();
   const canBid = useEuchreSelector(selectCanBid(playerPointer));
   const canDeal = useEuchreSelector(selectCanDeal(playerPointer));
@@ -162,4 +162,4 @@ const Computer = ({ playerPointer }: PlayerProps) => {
     </div>
   );
 };
-export default Computer;
+export default ComputerPlayer;

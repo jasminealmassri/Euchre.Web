@@ -155,6 +155,7 @@ export const testState: EuchreGameState = {
       role: "d",
       sittingOut: false,
       tablePosition: 1,
+      type: "human",
       tricks: 0,
     },
     {
@@ -163,6 +164,7 @@ export const testState: EuchreGameState = {
       role: "M",
       sittingOut: false,
       tablePosition: 2,
+      type: "computer",
       tricks: 0,
     },
     {
@@ -171,6 +173,7 @@ export const testState: EuchreGameState = {
       role: "d",
       sittingOut: false,
       tablePosition: 3,
+      type: "computer",
       tricks: 0,
     },
     {
@@ -179,6 +182,7 @@ export const testState: EuchreGameState = {
       role: "m",
       sittingOut: false,
       tablePosition: 4,
+      type: "computer",
       tricks: 0,
     },
   ],

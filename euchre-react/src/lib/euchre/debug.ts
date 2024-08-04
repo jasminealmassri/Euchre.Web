@@ -155,6 +155,7 @@ export const debugState: EuchreGameState = {
       hand: "player1",
       sittingOut: false,
       tablePosition: 1,
+      type: "human",
     },
     {
       name: "Player 2",
@@ -163,6 +164,7 @@ export const debugState: EuchreGameState = {
       hand: "player2",
       sittingOut: false,
       tablePosition: 2,
+      type: "computer",
     },
     {
       name: "Player 3",
@@ -171,6 +173,7 @@ export const debugState: EuchreGameState = {
       hand: "player3",
       sittingOut: true,
       tablePosition: 3,
+      type: "computer",
     },
     {
       name: "Player 4",
@@ -179,6 +182,7 @@ export const debugState: EuchreGameState = {
       hand: "player4",
       sittingOut: false,
       tablePosition: 4,
+      type: "computer",
     },
   ],
   tablePositionsPlaying: [],

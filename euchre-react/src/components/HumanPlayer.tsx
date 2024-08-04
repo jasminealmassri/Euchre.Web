@@ -32,7 +32,7 @@ interface PlayerProps {
   playerPointer: number;
 }
 
-const Player = ({ playerPointer }: PlayerProps) => {
+const HumanPlayer = ({ playerPointer }: PlayerProps) => {
   const dispatch = useAppDispatch();
   const canBid = useEuchreSelector(selectCanBid(playerPointer));
   const canDeal = useEuchreSelector(selectCanDeal(playerPointer));
@@ -162,4 +162,4 @@ const Player = ({ playerPointer }: PlayerProps) => {
     </div>
   );
 };
-export default Player;
+export default HumanPlayer;

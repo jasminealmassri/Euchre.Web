@@ -34,6 +34,7 @@ export type EuchreCard = PlayingCard<EuchreSuit, EuchreRank>;
 export type EuchrePlayerState = {
   hand: string;
   name: string;
+  type: "human" | "computer";
   tablePosition: number;
   role: "M" | "m" | "d" | null;
   tricks: number;
@@ -84,6 +85,7 @@ export const player1State: EuchrePlayerState = {
   hand: "player1",
   name: "Player 1",
   tablePosition: 0,
+  type: "human",
   sittingOut: false,
   role: null,
   tricks: 0,
@@ -93,6 +95,7 @@ export const player2State: EuchrePlayerState = {
   hand: "player2",
   name: "Player 2",
   tablePosition: 1,
+  type: "computer",
   role: null,
   sittingOut: false,
   tricks: 0,
@@ -102,6 +105,7 @@ export const player3State: EuchrePlayerState = {
   hand: "player3",
   name: "Player 3",
   tablePosition: 2,
+  type: "computer",
   role: null,
   sittingOut: false,
   tricks: 0,
@@ -111,6 +115,7 @@ export const player4State: EuchrePlayerState = {
   hand: "player4",
   name: "Player 4",
   tablePosition: 3,
+  type: "computer",
   role: null,
   sittingOut: false,
   tricks: 0,

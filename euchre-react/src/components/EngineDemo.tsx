@@ -8,11 +8,11 @@ import {
   selectPlayers,
 } from "../state/selectors/euchre";
 import Pile from "./Pile";
-import Player from "./Player";
+import HumanPlayer from "./HumanPlayer";
 import "./TableComponent.css";
 import ScoreComponent from "./ScoreComponent";
 import MessageComponent from "./MessageComponent";
-import Computer from "./Computer";
+import ComputerPlayer from "./ComputerPlayer";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
@@ -72,10 +72,10 @@ const EngineDemo = () => {
         {players.map((player, i) => (
           <React.Fragment key={player.name}>
             <div>
-              {i === 0 ? (
-                <Player playerPointer={i} />
+              {player.type === "human" ? (
+                <HumanPlayer playerPointer={i} />
               ) : (
-                <Computer playerPointer={i} />
+                <ComputerPlayer playerPointer={i} />
               )}
             </div>
             <hr />
