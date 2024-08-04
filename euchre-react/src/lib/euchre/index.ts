@@ -37,6 +37,7 @@ export type EuchrePlayerState = {
   tablePosition: number;
   role: "M" | "m" | "d" | null;
   tricks: number;
+  sittingOut: boolean;
 };
 
 export enum Phase {
@@ -75,13 +76,15 @@ export interface EuchreGameState {
   phase: Phase;
   piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
   players: Array<EuchrePlayerState>;
-  benchedPlayers: Array<EuchrePlayerState | null>;
+  // benchedPlayers: Array<EuchrePlayerState | null>;
+  tablePositionsPlaying: number[];
 }
 
 export const player1State: EuchrePlayerState = {
   hand: "player1",
   name: "Player 1",
   tablePosition: 0,
+  sittingOut: false,
   role: null,
   tricks: 0,
 };
@@ -91,6 +94,7 @@ export const player2State: EuchrePlayerState = {
   name: "Player 2",
   tablePosition: 1,
   role: null,
+  sittingOut: false,
   tricks: 0,
 };
 
@@ -99,6 +103,7 @@ export const player3State: EuchrePlayerState = {
   name: "Player 3",
   tablePosition: 2,
   role: null,
+  sittingOut: false,
   tricks: 0,
 };
 
@@ -107,6 +112,7 @@ export const player4State: EuchrePlayerState = {
   name: "Player 4",
   tablePosition: 3,
   role: null,
+  sittingOut: false,
   tricks: 0,
 };
 
@@ -134,20 +140,13 @@ export const initialState = (dealer = firstDealer): EuchreGameState => ({
     player4: [],
   },
   players: [player1State, player2State, player3State, player4State],
-  benchedPlayers: [null, null, null, null],
+  tablePositionsPlaying: [
+    (dealer + 1) % 4,
+    (dealer + 2) % 4,
+    (dealer + 3) % 4,
+    (dealer + 4) % 4,
+  ],
 });
-
-const phaseOrder = () => {
-  return Object.values(Phase);
-};
-
-const nextPhaseIndex = (currentPhase: Phase) => {
-  return phaseOrder().indexOf(currentPhase) + 1;
-};
-
-export const nextPhase = (currentPhase: Phase) => {
-  return phaseOrder()[nextPhaseIndex(currentPhase)];
-};
 
 interface HandParameters {
   initialHandSize: number;
@@ -170,6 +169,32 @@ export const handParameters: HandParameters = {
     [3, 2],
     [4, 3],
   ],
+};
+
+export interface EuchreGameState {
+  currentPlayer: number;
+  leadingPlayer: number;
+  team1Score: number;
+  team2Score: number;
+  trump: EuchreSuit | null;
+  trumpCandidates: Array<EuchreSuit>;
+  leadingSuit: EuchreSuit | null;
+  dealer: number;
+  phase: Phase;
+  piles: Record<string, Pile<EuchreSuit, EuchreRank>>;
+  players: Array<EuchrePlayerState>;
+}
+
+const phaseOrder = () => {
+  return Object.values(Phase);
+};
+
+const nextPhaseIndex = (currentPhase: Phase) => {
+  return phaseOrder().indexOf(currentPhase) + 1;
+};
+
+export const nextPhase = (currentPhase: Phase) => {
+  return phaseOrder()[nextPhaseIndex(currentPhase)];
 };
 
 export function getLeftBowerSuit(trump: PlayingCardSuit): PlayingCardSuit {
@@ -243,6 +268,55 @@ export const getEuchreCardValue = (
   }
 
   return rankValues[card.rank]; // Other cards
+};
+
+export const getNextDealer = (state: EuchreGameState): number => {
+  const { players } = state;
+  const length = players.length;
+
+  return (state.dealer + 1) % length;
+};
+
+export const getNextPlayer = (state: EuchreGameState): number => {
+  const { players } = state;
+  const length = players.length;
+
+  const nextPlayer = (state.currentPlayer + 1) % length;
+  const nextNextPlayer = (nextPlayer + 1) % length;
+
+  return !players[nextPlayer].sittingOut ? nextPlayer : nextNextPlayer;
+};
+
+export const getLastPlayer = (state: EuchreGameState): number => {
+  const { players } = state;
+  const length = players.length;
+
+  const lastPlayer = (state.leadingPlayer - 1 + length) % length;
+  const lastLastPlayer = (lastPlayer - 1 + length) % length;
+
+  return players[lastPlayer].sittingOut ? lastLastPlayer : lastPlayer;
+};
+
+export const getWinningPlayer = (
+  state: EuchreGameState,
+  winningCard: number
+): number => {
+  let adjustedIndex = winningCard;
+
+  for (let i = 0; i < winningCard; i++) {
+    const currentPlayer = (state.leadingPlayer + i) % state.players.length;
+    if (state.players[currentPlayer].sittingOut) {
+      adjustedIndex++;
+    }
+  }
+
+  let winningPlayerIndex =
+    (state.leadingPlayer + adjustedIndex) % state.players.length;
+  while (state.players[winningPlayerIndex].sittingOut) {
+    winningPlayerIndex = (winningPlayerIndex + 1) % state.players.length;
+  }
+
+  return winningPlayerIndex;
 };
 
 export type { Pile } from "../playing-card/playing-card.interface";

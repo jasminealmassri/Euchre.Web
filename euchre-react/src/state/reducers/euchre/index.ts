@@ -5,6 +5,9 @@ import {
   EuchreSuit,
   Phase,
   PlayingCardSuit,
+  getNextDealer,
+  getNextPlayer,
+  getWinningPlayer,
   initialState,
   nextPhase,
   takeCardAt,
@@ -16,16 +19,18 @@ export const euchreSlice = createSlice({
   initialState: initialState(),
   reducers: {
     cleanUp: (state) => {
-      const { dealer, team1Score, team2Score } = state;
+      const { team1Score, team2Score } = state;
 
       return {
-        ...initialState((dealer + 1) % state.benchedPlayers.length),
+        ...initialState(getNextDealer(state)),
         team1Score,
         team2Score,
       };
     },
 
     discardTrick: (state) => {
+      const { leadingPlayer, tablePositionsPlaying } = state;
+
       state.piles[EuchrePile.DISCARD_PILE] = [
         ...state.piles[EuchrePile.TABLE],
         ...state.piles[EuchrePile.DISCARD_PILE],
@@ -33,6 +38,14 @@ export const euchreSlice = createSlice({
 
       state.piles[EuchrePile.TABLE] = [];
       state.leadingSuit = null;
+      state.tablePositionsPlaying = tablePositionsPlaying.map(
+        (_position, index) => {
+          return tablePositionsPlaying[
+            (tablePositionsPlaying.indexOf(leadingPlayer) + index) %
+              tablePositionsPlaying.length
+          ];
+        }
+      );
       state.trickLeader = state.currentPlayer;
     },
 
@@ -41,8 +54,7 @@ export const euchreSlice = createSlice({
         state
       );
 
-      const winningPlayerIndex =
-        (state.leadingPlayer + winningCardIndex) % state.players.length;
+      const winningPlayerIndex = getWinningPlayer(state, winningCardIndex);
 
       state.players[winningPlayerIndex].tricks += 1;
       state.leadingPlayer = winningPlayerIndex;
@@ -50,14 +62,37 @@ export const euchreSlice = createSlice({
     },
 
     benchPlayer: (state) => {
-      state.benchedPlayers = state.players.map((player) => {
-        return player.role === "m" ? player : null;
-      });
-      const filteredPlayers = state.players.filter(
-        (player) => player.role !== "m"
+      const { currentPlayer, piles, players, tablePositionsPlaying } = state;
+      const benchedPlayerPointer = state.players.findIndex(
+        (player) => player.role === "m"
       );
+      const benchedPlayerHashPointer = `player${benchedPlayerPointer + 1}`;
 
-      state.players = filteredPlayers;
+      state.piles[EuchrePile.DISCARD_PILE] = [
+        ...piles[benchedPlayerHashPointer],
+        ...piles[EuchrePile.DISCARD_PILE],
+      ];
+
+      // discard benched player's hand
+      state.piles[benchedPlayerHashPointer] = [];
+
+      // move to next player if current player is benched
+      state.currentPlayer =
+        benchedPlayerPointer === currentPlayer
+          ? getNextPlayer(state)
+          : currentPlayer;
+
+      state.players = players.map((player, index) => {
+        return benchedPlayerPointer === index
+          ? { ...player, sittingOut: true }
+          : player;
+      });
+
+      state.tablePositionsPlaying = tablePositionsPlaying.filter(
+        (_tablePosition, index) => {
+          return benchedPlayerPointer !== tablePositionsPlaying[index];
+        }
+      );
     },
 
     setRole: (state, action: PayloadAction<{ makerPointer: number }>) => {
@@ -86,7 +121,7 @@ export const euchreSlice = createSlice({
     },
 
     nextPlayer(state) {
-      state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
+      state.currentPlayer = getNextPlayer(state);
     },
 
     removeCandidate: (state, action: PayloadAction<PlayingCardSuit>) => {
@@ -118,7 +153,7 @@ export const euchreSlice = createSlice({
     },
 
     setNextDealer: (state) => {
-      state.dealer = (state.dealer + 1) % state.players.length;
+      state.dealer = getNextDealer(state);
     },
 
     setTrump: (state, action: PayloadAction<EuchreSuit>) => {
