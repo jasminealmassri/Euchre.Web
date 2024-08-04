@@ -51,7 +51,7 @@ const EngineDemo = () => {
                   index !== tablePositionsPlaying.length - 1 ? "," : ""
                 } `
             )}
-            ]
+            {" ]"}
           </li>
         </ul>
         <div className={"trick"}>
