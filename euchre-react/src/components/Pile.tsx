@@ -1,8 +1,14 @@
-import { EuchreRank, Pile, PlayingCardSuit } from "../lib/euchre";
+import {
+  EuchreRank,
+  getWinningPlayer,
+  Pile,
+  PlayingCardSuit,
+} from "../lib/euchre";
 import Card from "./Card";
 import React from "react";
 import "./TrickComponent.css";
 import { useEuchreSelector } from "../state/hooks";
+import { selectHighestCard } from "../state/selectors/euchre";
 
 interface Props {
   pile: Pile<PlayingCardSuit, EuchreRank>;
@@ -22,6 +28,7 @@ const PileViewer = ({
   const tablePositionsPlaying = useEuchreSelector(
     (state) => state.tablePositionsPlaying
   );
+  const winningCardIndex = useEuchreSelector(selectHighestCard(pile));
 
   const tablePileClasses: string[] = [
     "player-1-card",
@@ -49,6 +56,11 @@ const PileViewer = ({
               key={index}
             >
               {Card({ suit: card.suit, rank: card.rank, index, onClick })}
+              <div
+                className={` ${
+                  tablePileClasses[tablePositionsPlaying[index]]
+                } ${winningCardIndex === index ? `leadingCard` : ""}`}
+              ></div>
             </div>
           ))}
         </div>

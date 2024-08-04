@@ -1,89 +1,89 @@
 .card {
-    width: 4.1rem;
-    box-shadow: 2px 2px 1px 2px rgb(17, 17, 17);
-    border-radius: 5px;
-    
+  width: 4.1rem;
+  box-shadow: 2px 2px 1px 2px rgb(17, 17, 17);
+  border-radius: 5px;
 }
 
 .trump {
-    border-radius: 8px;
-    box-shadow: 0px 0px 0px 3px rgba(253, 206, 66, 0.8);
+  border-radius: 8px;
+  box-shadow: 0px 0px 0px 3px rgba(253, 206, 66, 0.8);
 }
 
-.player-1-card, .player-2-card, .player-3-card, .player-4-card {
-    .card {
-        box-shadow: 2px 2px 1px 2px black;
-        border-radius: 3px;
-    }   
+.player-1-card,
+.player-2-card,
+.player-3-card,
+.player-4-card {
+  .card {
+    box-shadow: 2px 2px 1px 2px black;
+    border-radius: 3px;
+  }
 }
 
-.player-2-hand, .player-3-hand, .player-4-hand {
-    .card {
-        width: 2.5rem;
-    }
+.player-2-hand,
+.player-3-hand,
+.player-4-hand {
+  .card {
+    width: 2.5rem;
+  }
 }
-
 
 .player-1-hand .card {
-    transition: all 0.2s linear;
+  transition: all 0.2s linear;
 }
 
 .playableCards .card:hover {
-    transform: translate(0, -20%);
-    cursor: pointer;
+  transform: translate(0, -20%);
+  cursor: pointer;
 }
 
 .player-2-hand {
-
-    .card:nth-child(1) {
-        position: absolute;
-    }
-    .card:nth-child(2) {
-        position: absolute;
-        top: 10%;
-    }
-    .card:nth-child(3) {
-        position: absolute;
-        top: 20%;
-    }
-    .card:nth-child(4) {
-        position: absolute;
-        top: 30%;
-    }
-    .card:nth-child(5) {
-        position: absolute;
-        top: 40%;
-    }
-    .card:nth-child(6) {
-        position: absolute;
-        top: 50%;
-    }
+  .card:nth-child(1) {
+    position: absolute;
+  }
+  .card:nth-child(2) {
+    position: absolute;
+    top: 10%;
+  }
+  .card:nth-child(3) {
+    position: absolute;
+    top: 20%;
+  }
+  .card:nth-child(4) {
+    position: absolute;
+    top: 30%;
+  }
+  .card:nth-child(5) {
+    position: absolute;
+    top: 40%;
+  }
+  .card:nth-child(6) {
+    position: absolute;
+    top: 50%;
+  }
 }
 
 .player-4-hand {
-
-    .card:nth-child(1) {
-        position: absolute;
-    }
-    .card:nth-child(2) {
-        position: absolute;
-        top: 10%;
-    }
-    .card:nth-child(3) {
-        position: absolute;
-        top: 20%;
-    }
-    .card:nth-child(4) {
-        position: absolute;
-        top: 30%;
-    }
-    .card:nth-child(5) {
-        position: absolute;
-        top: 40%;
-    }
-    .card:nth-child(6) {
-        position: absolute;
-        top: 50%;
-    }
+  .card:nth-child(1) {
+    position: absolute;
+  }
+  .card:nth-child(2) {
+    position: absolute;
+    top: 10%;
+  }
+  .card:nth-child(3) {
+    position: absolute;
+    top: 20%;
+  }
+  .card:nth-child(4) {
+    position: absolute;
+    top: 30%;
+  }
+  .card:nth-child(5) {
+    position: absolute;
+    top: 40%;
+  }
+  .card:nth-child(6) {
+    position: absolute;
+    top: 50%;
+  }
 }
-

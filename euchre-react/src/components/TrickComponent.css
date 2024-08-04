@@ -1,43 +1,65 @@
 .trick {
-    position: absolute;
-    width: 50%;
-    height: 44%;
-    top: 29%;
-    left: 25%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 1px 1px 5px black;
-    border: 4px dotted rgb(54, 44, 32);
-    background-color: rgb(40, 31, 18);
-    border-radius: 25px;
-    color: white;
+  position: absolute;
+  width: 50%;
+  height: 44%;
+  top: 29%;
+  left: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 1px 1px 5px black;
+  border: 4px dotted rgb(54, 44, 32);
+  background-color: rgb(40, 31, 18);
+  border-radius: 25px;
+  color: white;
 }
 
 .player-1-card {
-    position: absolute;
-    bottom: 2%;
-    left: 40%;
-    
+  position: absolute;
+  bottom: 2%;
+  left: 40%;
 }
 
 .player-2-card {
-    position: absolute;
-    bottom: 32%;
-    left: 18%;
-    
+  position: absolute;
+  bottom: 32%;
+  left: 18%;
 }
 
 .player-3-card {
-    position: absolute;
-    top: 2%;
-    left: 40%;
-    
+  position: absolute;
+  top: 2%;
+  left: 40%;
 }
 
 .player-4-card {
-    position: absolute;
-    bottom: 32%;
-    left: 62%;
-    
+  position: absolute;
+  bottom: 32%;
+  left: 62%;
+}
+
+.leadingCard {
+  top: -0.3rem;
+  left: -0.3rem;
+  z-index: 1;
+  opacity: 0.5;
+  width: 4.8rem;
+  height: 6.8rem;
+  border-radius: 10px;
+  background-color: rgb(255, 204, 0);
+  /* width: 100px; */
+  /* height: 100px; */
+  animation: leadingCard 4s linear infinite;
+}
+
+@keyframes leadingCard {
+  0% {
+    background-color: rgba(255, 204, 0, 0.5);
+  }
+  50% {
+    background-color: rgba(255, 204, 0, 0);
+  }
+  100% {
+    background-color: rgba(255, 204, 0, 0.5);
+  }
 }

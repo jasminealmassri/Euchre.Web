@@ -10,6 +10,7 @@ body {
 }
 
 .game {
+  z-index: 0;
   background-color: rgb(10, 45, 10);
   width: 40rem;
   height: 36rem;
@@ -23,4 +24,3 @@ body {
 p {
   margin: 0;
 }
-
