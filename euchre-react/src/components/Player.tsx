@@ -141,9 +141,14 @@ const Player = ({ playerPointer }: PlayerProps) => {
                 </button>
               </>
             )}
-            {canDeal && (
+            {canDeal &&
+              (() => {
+                dispatch(startHand());
+                return null;
+              })()}
+            {/* {canDeal && (
               <button onClick={() => dispatch(startHand())}>Deal</button>
-            )}
+            )} */}
             {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
             {canCallTrump && !mustCallTrump && (
               <button onClick={() => dispatch(passOnTrump())}>Pass</button>

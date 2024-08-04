@@ -11,7 +11,7 @@ import Pile from "./Pile";
 import Player from "./Player";
 import "./TableComponent.css";
 import ScoreComponent from "./ScoreComponent";
-import TableComponent from "./TableComponent";
+import MessageComponent from "./MessageComponent";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
@@ -32,7 +32,13 @@ const EngineDemo = () => {
     <>
       <div className="game">
         <ScoreComponent />
-        <TableComponent />
+        <MessageComponent />
+        {/* <PromptComponent/> */}
+        <p id="player-1-label">You</p>
+        <p id="player-2-label">Player 2</p>
+        <p id="player-3-label">Player 3</p>
+        <p id="player-4-label">Player 4</p>
+        {/* <TableComponent /> */}
       </div>
       <div>
         <ul>

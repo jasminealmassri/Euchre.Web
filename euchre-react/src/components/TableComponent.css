@@ -1,60 +1,60 @@
 .player-1-hand {
-    position: absolute;
-    bottom: 5%;
-    left: 25%;
-    z-index: 10;
+  position: absolute;
+  bottom: 5%;
+  left: 25%;
+  z-index: 10;
 }
 
-
-#player-1-label, #player-2-label, #player-3-label, #player-4-label {
-    color: rgb(186, 186, 186);
-    text-shadow: 1px 2px 1px black;
-    font-size: 0.8rem;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    position: absolute;
+#player-1-label,
+#player-2-label,
+#player-3-label,
+#player-4-label {
+  color: rgb(186, 186, 186);
+  text-shadow: 1px 2px 1px black;
+  font-size: 0.8rem;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  position: absolute;
 }
 
 #player-1-label {
-    bottom: 10%;
-    left: 80%;
+  bottom: 10%;
+  left: 80%;
 }
 
 #player-2-label {
-    
-    top: 35%;
-    left: 10%;
+  top: 35%;
+  left: 14%;
 }
 
 #player-3-label {
-    top: 23%;
-    left: 25%;
+  top: 23%;
+  left: 25%;
 }
 
 #player-4-label {
-    top: 35%;
-   left: 80%;
+  top: 35%;
+  left: 79%;
 }
 
 .player-2-hand {
-    position: absolute;
-    top: 40%;
-    left: 10%;
-    width: 10%;
-    height: 50%;
+  position: absolute;
+  top: 40%;
+  left: 15%;
+  width: 10%;
+  height: 50%;
 }
 
 .player-3-hand {
-    position: absolute;
-    top: 16%;
-    left: 35%;
+  position: absolute;
+  top: 16%;
+  left: 35%;
 }
 
 .player-4-hand {
-
-    position: absolute;
-    top: 40%;
-    right: 10%;
-    width: 10%;
-    height: 50%;
-
+  position: absolute;
+  top: 40%;
+  right: 10%;
+  width: 10%;
+  height: 50%;
 }
