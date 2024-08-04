@@ -2,13 +2,14 @@ import { EuchreGameState } from ".";
 
 export const debugState: EuchreGameState = {
   currentPlayer: 3,
-  dealer: 1,
   leadingPlayer: 2,
+  trickLeader: 1,
   team1Score: 0,
   team2Score: 2,
   trump: "hearts",
   trumpCandidates: ["diamonds", "spades", "clubs", "hearts"],
   leadingSuit: "clubs",
+  dealer: 1,
   phase: "playingTricks",
   piles: {
     deck: [
@@ -150,22 +151,35 @@ export const debugState: EuchreGameState = {
     {
       name: "Player 1",
       tricks: 0,
+      role: "d",
       hand: "player1",
+      sittingOut: false,
+      tablePosition: 1,
     },
     {
       name: "Player 2",
       tricks: 0,
+      role: "M",
       hand: "player2",
+      sittingOut: false,
+      tablePosition: 2,
     },
     {
       name: "Player 3",
       tricks: 4,
+      role: "d",
       hand: "player3",
+      sittingOut: true,
+      tablePosition: 3,
     },
     {
       name: "Player 4",
       tricks: 0,
+      role: "m",
       hand: "player4",
+      sittingOut: false,
+      tablePosition: 4,
     },
   ],
+  tablePositionsPlaying: [],
 } as EuchreGameState;

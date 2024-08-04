@@ -32,13 +32,6 @@ interface PlayerProps {
   playerPointer: number;
 }
 
-const dealerClasses: string[] = [
-  "player_1_is_dealer",
-  "player_2_is_dealer",
-  "player_3_is_dealer",
-  "player_4_is_dealer",
-];
-
 const Player = ({ playerPointer }: PlayerProps) => {
   const dispatch = useAppDispatch();
   const canBid = useEuchreSelector(selectCanBid(playerPointer));

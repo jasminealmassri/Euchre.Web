@@ -3,7 +3,6 @@ import { useContext } from "react";
 import HandComponent from "./HandComponent";
 import TrickComponent from "./TrickComponent";
 import "./TableComponent.css";
-import PromptComponent from "./PromptComponent";
 import MessageComponent from "./MessageComponent";
 
 const TableComponent = () => {

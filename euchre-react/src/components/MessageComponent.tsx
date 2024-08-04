@@ -1,13 +1,10 @@
-import { useContext } from "react";
 import "./MessageComponent.css";
-import { GameContext } from "./EuchreComponent";
 import { useEuchreSelector } from "../state/hooks";
 import { Phase } from "../state";
 
 const MessageComponent = () => {
   const phase = useEuchreSelector((state) => state.phase);
   const currentPlayer = useEuchreSelector((state) => state.currentPlayer);
-  const dealer = useEuchreSelector((state) => state.dealer);
   const leadingPlayer = useEuchreSelector((state) => state.leadingPlayer);
   //const game = useContext(GameContext);
 

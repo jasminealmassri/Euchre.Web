@@ -3,8 +3,6 @@ import Card from "./Card";
 import React from "react";
 import "./TrickComponent.css";
 import { useEuchreSelector } from "../state/hooks";
-import { selectPlayer, selectPlayers } from "../state/selectors/euchre";
-import { nextWrapIndex } from "../functions/Euchre/Utility";
 
 interface Props {
   pile: Pile<PlayingCardSuit, EuchreRank>;
@@ -21,8 +19,6 @@ const PileViewer = ({
   className,
   isTablePile = false,
 }: Props) => {
-  const players = useEuchreSelector(selectPlayers);
-  const trickLeader = useEuchreSelector((state) => state.trickLeader);
   const tablePositionsPlaying = useEuchreSelector(
     (state) => state.tablePositionsPlaying
   );
@@ -49,20 +45,7 @@ const PileViewer = ({
         <div className={className}>
           {pile.map((card, index) => (
             <div
-              className={
-                tablePileClasses[
-                  tablePositionsPlaying[
-                    index
-                    // nextWrapIndex(
-                    //   trickLeader + index - 1,
-                    //   tablePositionsPlaying.length
-                    // )
-                  ]
-                  // players[
-                  //   nextWrapIndex(trickLeader + index - 1, players.length)
-                  // ].tablePosition
-                ]
-              }
+              className={tablePileClasses[tablePositionsPlaying[index]]}
               key={index}
             >
               {Card({ suit: card.suit, rank: card.rank, index, onClick })}
