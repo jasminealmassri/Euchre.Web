@@ -12,6 +12,7 @@ import Player from "./Player";
 import "./TableComponent.css";
 import ScoreComponent from "./ScoreComponent";
 import MessageComponent from "./MessageComponent";
+import Computer from "./Computer";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
@@ -71,7 +72,11 @@ const EngineDemo = () => {
         {players.map((player, i) => (
           <React.Fragment key={player.name}>
             <div>
-              <Player playerPointer={i} />
+              {i === 0 ? (
+                <Player playerPointer={i} />
+              ) : (
+                <Computer playerPointer={i} />
+              )}
             </div>
             <hr />
           </React.Fragment>
