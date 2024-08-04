@@ -44,11 +44,14 @@ const EngineDemo = () => {
           <li>Team 2 Score: {team2Score}</li>
           <li>Leading player: {leadingPlayer + 1}</li>
           <li>
-            {" "}
-            Table Positions playing in order:
-            {tablePositionsPlaying.map((number) => (
-              <li>{number + 1}</li>
-            ))}
+            {"Table Positions playing in order: [ "}
+            {tablePositionsPlaying.map(
+              (number, index) =>
+                `${number + 1} ${
+                  index !== tablePositionsPlaying.length - 1 ? "," : ""
+                } `
+            )}
+            ]
           </li>
         </ul>
         <div className={"trick"}>
