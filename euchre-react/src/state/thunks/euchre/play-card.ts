@@ -11,7 +11,6 @@ import {
 } from "../../reducers/euchre";
 import { selectPlayerHand, selectSuit } from "../../selectors/euchre";
 import { AppThunk } from "../../store";
-import { startHand } from "./start-hand";
 
 export const playCard =
   (player: number, card: number): AppThunk =>

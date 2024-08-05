@@ -38,7 +38,7 @@ export const suitToColor = (suit: PlayingCardSuit) => {
 export interface PlayingCard<S, R> {
   suit: S;
   rank: R;
-  faceUp: boolean;
+  faceUp?: boolean;
 }
 
 export type Pile<S, R> = PlayingCard<S, R>[];

@@ -1,9 +1,4 @@
-import {
-  EuchreRank,
-  getWinningPlayer,
-  Pile,
-  PlayingCardSuit,
-} from "../lib/euchre";
+import { EuchreRank, Pile, PlayingCardSuit } from "../lib/euchre";
 import Card from "./Card";
 import React from "react";
 import "./TrickComponent.css";

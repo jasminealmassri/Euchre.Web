@@ -180,7 +180,7 @@ export const testState: EuchreGameState = {
       hand: "player4",
       name: "Player 4",
       role: "m",
-      sittingOut: false,
+      sittingOut: true,
       tablePosition: 4,
       type: "computer",
       tricks: 0,
