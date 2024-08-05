@@ -28,6 +28,7 @@ import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
 import "./CardComponent.css";
+import { useEffect } from "react";
 
 interface PlayerProps {
   playerPointer: number;
@@ -82,6 +83,12 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
 
     dispatch(playCard(playerPointer, index));
   };
+
+  // useEffect(() => {
+  //   if (canDeal) {
+  //     dispatch(startHand());
+  //   }
+  // }, [canDeal]);
 
   const handleDiscardClick = (index: number) => {
     if (!mustDiscard) {

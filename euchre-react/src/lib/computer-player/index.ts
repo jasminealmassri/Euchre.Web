@@ -1,5 +1,4 @@
-import { playCardByIndex } from "../../state/reducers/euchre";
-import { playCard } from "../../state/thunks/euchre";
+import { selectPlayerHand, selectSuit } from "../../state/selectors/euchre";
 import {
   EuchreGameState,
   EuchreRank,
@@ -7,8 +6,10 @@ import {
   getLeftBowerSuit,
 } from "../euchre";
 import {
+  Pile,
   PlayingCard,
   PlayingCardRank,
+  PlayingCardSuit,
 } from "../playing-card/playing-card.interface";
 
 export const getCardsRankList = (
@@ -88,8 +89,16 @@ export const getHighestSuitsChanceWin = (
   return state.trumpCandidates[Math.random() * state.trumpCandidates.length];
 };
 
-export const pickCardToPlay = (state: EuchreGameState): number => {
+export const pickCardToPlay = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  leadingSuit: EuchreSuit | null
+): number => {
   // TODO
-  // note, this has to take in account cards that CAN be played
-  return 0;
+  const hasLeadingSuit = hand.findIndex((card) => card.suit === leadingSuit);
+
+  if (hasLeadingSuit !== -1) {
+    return hasLeadingSuit;
+  } else {
+    return 0;
+  }
 };

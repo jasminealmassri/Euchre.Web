@@ -28,6 +28,7 @@ import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
 import { pickCardToPlay } from "../lib/computer-player";
+import { useEffect } from "react";
 
 interface PlayerProps {
   playerPointer: number;
@@ -47,6 +48,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
   const dealer = useEuchreSelector((state) => state.dealer);
+  const leadingSuit = useEuchreSelector((state) => state.leadingSuit);
 
   const playerCSSClasses: string[] = [
     "player-1-hand",
@@ -74,6 +76,18 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         break;
     }
   };
+
+  useEffect(() => {
+    if (canPlay) {
+      const timeoutId = setTimeout(() => {
+        handleCardClick(pickCardToPlay(hand, leadingSuit));
+      }, 800);
+      return () => clearTimeout(timeoutId);
+    }
+    // if (canDeal) {
+    //   dispatch(startHand());
+    // }
+  }, [canPlay]);
 
   const handlePlayClick = (index: number) => {
     if (!canPlay) {
@@ -121,11 +135,11 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           />
         </div>
         {/* Trial for how computer player can automatically advance state */}
-        {canPlay &&
+        {/* {canPlay &&
           (() => {
-            handleCardClick(0);
+            handleCardClick(pickCardToPlay(state, playerPointer));
             return null;
-          })()}
+          })()} */}
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
