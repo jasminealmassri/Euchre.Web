@@ -27,6 +27,7 @@ import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
+import "./CardComponent.css";
 
 interface PlayerProps {
   playerPointer: number;
@@ -116,6 +117,7 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
           <PileViewer
             onClick={handleCardClick}
             pile={hand}
+            cardHoverEffect={canPlay ? true : false}
             className={playerCSSClasses[player.tablePosition]}
           />
         </div>

@@ -46,7 +46,6 @@ export const euchreSlice = createSlice({
           ];
         }
       );
-      state.trickLeader = state.currentPlayer;
     },
 
     scoreTrick: (state) => {
@@ -135,9 +134,9 @@ export const euchreSlice = createSlice({
 
     scoreRound: (state) => {
       const team1Score =
-        state.players[0]?.tricks ?? 0 + state.players[2]?.tricks ?? 0;
+        (state.players[0]?.tricks ?? 0) + (state.players[2]?.tricks ?? 0);
       const team2Score =
-        state.players[1]?.tricks ?? 0 + state.players[3]?.tricks ?? 0;
+        (state.players[1]?.tricks ?? 0) + (state.players[3]?.tricks ?? 0);
 
       team1Score > team2Score
         ? (state.team1Score += 1)

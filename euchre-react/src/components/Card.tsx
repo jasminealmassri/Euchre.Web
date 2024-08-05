@@ -116,16 +116,24 @@ interface CardProps {
   index: number;
   flippedUp?: boolean;
   onClick?: (index: number) => void;
+  className?: string;
 }
 
-const Card = ({ suit, rank, index, onClick, flippedUp = true }: CardProps) => {
+const Card = ({
+  suit,
+  rank,
+  index,
+  onClick,
+  flippedUp = true,
+  className,
+}: CardProps) => {
   const imgPath = `${suit.toLowerCase()}${rank}`;
   const cardImage = flippedUp ? cardImages[imgPath] : back;
 
   return (
     <img
       onClick={() => onClick && onClick(index)}
-      className="card"
+      className={`card ${className}`}
       src={cardImage}
     />
   );

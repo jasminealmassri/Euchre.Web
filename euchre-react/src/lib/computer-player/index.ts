@@ -83,9 +83,7 @@ export const getHighestSuitsChanceWin = (
   state: EuchreGameState
 ): EuchreSuit => {
   // TODO
-  return state.trumpCandidates[
-    Math.random() * (state.trumpCandidates.length + 1)
-  ];
+  return state.trumpCandidates[Math.random() * state.trumpCandidates.length];
 };
 
 export const pickCardToPlay = (state: EuchreGameState): number => {

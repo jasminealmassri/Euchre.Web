@@ -4,6 +4,7 @@ import React from "react";
 import "./TrickComponent.css";
 import { useEuchreSelector } from "../state/hooks";
 import { selectHighestCard } from "../state/selectors/euchre";
+import "./CardComponent.css";
 
 interface Props {
   pile: Pile<PlayingCardSuit, EuchreRank>;
@@ -12,6 +13,7 @@ interface Props {
   onClick?: (index: number) => void;
   className?: string;
   isTablePile?: boolean;
+  cardHoverEffect?: boolean;
 }
 
 const PileViewer = ({
@@ -19,6 +21,7 @@ const PileViewer = ({
   pile,
   className,
   isTablePile = false,
+  cardHoverEffect = false,
 }: Props) => {
   const tablePositionsPlaying = useEuchreSelector(
     (state) => state.tablePositionsPlaying
@@ -38,7 +41,13 @@ const PileViewer = ({
         <div className={className}>
           {pile.map((card, index) => (
             <React.Fragment key={index}>
-              {Card({ suit: card.suit, rank: card.rank, index, onClick })}
+              {Card({
+                className: `${cardHoverEffect ? "playableCards" : ""}`,
+                suit: card.suit,
+                rank: card.rank,
+                index,
+                onClick,
+              })}
             </React.Fragment>
           ))}
         </div>

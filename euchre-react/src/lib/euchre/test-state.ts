@@ -3,7 +3,6 @@ import { EuchreGameState } from ".";
 export const testState: EuchreGameState = {
   currentPlayer: 0,
   leadingPlayer: 1,
-  trickLeader: 1,
   team1Score: 0,
   team2Score: 0,
   trump: "clubs",

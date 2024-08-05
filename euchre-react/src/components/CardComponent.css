@@ -31,7 +31,7 @@
   transition: all 0.2s linear;
 }
 
-.playableCards .card:hover {
+.playableCards:hover {
   transform: translate(0, -20%);
   cursor: pointer;
 }

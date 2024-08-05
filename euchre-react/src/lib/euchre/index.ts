@@ -67,7 +67,6 @@ export enum EuchrePile {
 export interface EuchreGameState {
   currentPlayer: number;
   leadingPlayer: number;
-  trickLeader: number;
   team1Score: number;
   team2Score: number;
   trump: EuchreSuit | null;
@@ -126,7 +125,6 @@ const firstDealer = Math.floor(Math.random() * 4);
 export const initialState = (dealer = firstDealer): EuchreGameState => ({
   currentPlayer: dealer,
   dealer,
-  trickLeader: (dealer + 1) % 4,
   leadingPlayer: (dealer + 1) % 4,
   team1Score: 0,
   team2Score: 0,
