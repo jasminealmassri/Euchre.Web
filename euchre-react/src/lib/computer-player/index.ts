@@ -1,3 +1,5 @@
+import { playCardByIndex } from "../../state/reducers/euchre";
+import { playCard } from "../../state/thunks/euchre";
 import {
   EuchreGameState,
   EuchreRank,

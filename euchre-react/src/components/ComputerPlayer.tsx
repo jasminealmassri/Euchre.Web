@@ -27,6 +27,7 @@ import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
+import { pickCardToPlay } from "../lib/computer-player";
 
 interface PlayerProps {
   playerPointer: number;
@@ -119,6 +120,12 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
             className={playerCSSClasses[player.tablePosition]}
           />
         </div>
+        {/* Trial for how computer player can automatically advance state */}
+        {canPlay &&
+          (() => {
+            handleCardClick(0);
+            return null;
+          })()}
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
