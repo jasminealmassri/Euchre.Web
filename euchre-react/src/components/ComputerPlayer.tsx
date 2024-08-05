@@ -89,6 +89,37 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     // }
   }, [canPlay]);
 
+  useEffect(() => {
+    if (canBid) {
+      const timeoutId = setTimeout(() => {
+        Math.floor(Math.random() * 2) === 1
+          ? dispatch(pass)
+          : dispatch(orderUp(playerPointer));
+      }, 800);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [canBid]);
+
+  useEffect(() => {
+    if (mustDeclare) {
+      const timeoutId = setTimeout(() => {
+        Math.floor(Math.random() * 2) === 1
+          ? dispatch(declare())
+          : dispatch(declare("alone"));
+      }, 800);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [mustDeclare]);
+
+  useEffect(() => {
+    if (mustDiscard) {
+      const timeoutId = setTimeout(() => {
+        handleDiscardClick(1);
+      }, 800);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [mustDiscard]);
+
   const handlePlayClick = (index: number) => {
     if (!canPlay) {
       return;
@@ -144,15 +175,15 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
           >
-            {canBid && (
+            {/* {canBid && (
               <>
                 <button onClick={() => dispatch(pass())}>Pass</button>
                 <button onClick={() => dispatch(orderUp(playerPointer))}>
                   Order Up
                 </button>
               </>
-            )}
-            {mustDeclare && (
+            )} */}
+            {/* {mustDeclare && (
               <>
                 <button onClick={() => dispatch(declare("alone"))}>
                   Play Alone
@@ -161,7 +192,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
                   Play With Partner
                 </button>
               </>
-            )}
+            )} */}
             {canDeal &&
               (() => {
                 dispatch(startHand());
