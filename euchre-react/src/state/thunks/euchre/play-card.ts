@@ -50,7 +50,6 @@ export const playCard =
         setTimeout(() => {
           dispatch(scoreRound());
           dispatch(cleanUp());
-          dispatch(transitionToPhase(Phase.DEALING));
         }, 2000);
       } else {
         setTimeout(() => {
