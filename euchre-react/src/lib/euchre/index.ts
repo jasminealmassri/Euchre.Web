@@ -292,5 +292,43 @@ export const getWinningPlayer = (
   return winningPlayerIndex;
 };
 
+export const scoreRound = (
+  state: EuchreGameState
+): { team1: number; team2: number } => {
+  const { players } = state;
+  const firstPlayer = players[0];
+  const makers = players.filter((player) => player.role !== "d");
+  const makersTeam: 1 | 2 = firstPlayer.role?.toLowerCase() === "m" ? 1 : 2;
+  const defendersTeam: 1 | 2 = firstPlayer.role === "d" ? 1 : 2;
+  const wentAlone = makers.find((player) => player.sittingOut);
+
+  const makersTricks = (makers[0]?.tricks ?? 0) + (makers[1]?.tricks ?? 0);
+
+  let makersScore = 0;
+  let defendersScore = 0;
+
+  switch (makersTricks) {
+    case 5:
+      makersScore = wentAlone ? 4 : 2;
+      break;
+    case 4:
+    case 3:
+      makersScore = 1;
+      break;
+    case 2:
+    case 1:
+    case 0:
+      defendersScore = 2;
+      break;
+    default:
+      break;
+  }
+
+  return {
+    [`team${makersTeam}`]: makersScore,
+    [`team${defendersTeam}`]: defendersScore,
+  } as { team1: number; team2: number };
+};
+
 export type { Pile } from "../playing-card/playing-card.interface";
 export { PlayingCardSuit } from "../playing-card/playing-card.interface";

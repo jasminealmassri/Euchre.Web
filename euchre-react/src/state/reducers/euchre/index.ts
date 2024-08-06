@@ -10,6 +10,7 @@ import {
   getWinningPlayer,
   initialState,
   nextPhase,
+  scoreRound as scoreEuchreRound,
   takeCardAt,
 } from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
@@ -117,14 +118,10 @@ export const euchreSlice = createSlice({
     resetState: () => initialState(),
 
     scoreRound: (state) => {
-      const team1Score =
-        (state.players[0]?.tricks ?? 0) + (state.players[2]?.tricks ?? 0);
-      const team2Score =
-        (state.players[1]?.tricks ?? 0) + (state.players[3]?.tricks ?? 0);
+      const { team1, team2 } = scoreEuchreRound(state);
 
-      team1Score > team2Score
-        ? (state.team1Score += 1)
-        : (state.team2Score += 1);
+      state.team1Score += team1;
+      state.team2Score += team2;
     },
 
     setCurrentPlayer: (state, action: PayloadAction<number>) => {
