@@ -20,10 +20,11 @@ export const euchreSlice = createSlice({
   initialState: initialState(),
   reducers: {
     cleanUp: (state) => {
-      const { team1Score, team2Score } = state;
+      const { phase, team1Score, team2Score } = state;
 
       return {
         ...initialState(getNextDealer(state)),
+        phase,
         team1Score,
         team2Score,
       };
@@ -107,6 +108,10 @@ export const euchreSlice = createSlice({
     nextPlayer(state) {
       state.currentPlayer = getNextPlayer(state);
     },
+
+    // recordScore: (state, action: PayloadAction<number>) => {
+
+    // },
 
     removeCandidate: (state, action: PayloadAction<PlayingCardSuit>) => {
       const remaining = state.trumpCandidates.filter(

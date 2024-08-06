@@ -292,10 +292,9 @@ export const getWinningPlayer = (
   return winningPlayerIndex;
 };
 
-export const scoreRound = (
-  state: EuchreGameState
-): { team1: number; team2: number } => {
-  const { players } = state;
+export const scoreRound = ({
+  players,
+}: EuchreGameState): { team1: number; team2: number } => {
   const firstPlayer = players[0];
   const makers = players.filter((player) => player.role !== "d");
   const makersTeam: 1 | 2 = firstPlayer.role?.toLowerCase() === "m" ? 1 : 2;
