@@ -2,6 +2,7 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 
 import euchreReducer from "./reducers/euchre";
 import listenerMiddleware from "./middleware/listener";
+import { EuchreGameState } from "../lib/euchre";
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +16,7 @@ export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
-  RootState,
+  { euchre: EuchreGameState },
   unknown,
   Action<string>
 >;

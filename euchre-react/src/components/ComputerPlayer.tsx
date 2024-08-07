@@ -77,48 +77,48 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     }
   };
 
-  useEffect(() => {
-    if (canPlay) {
-      const timeoutId = setTimeout(() => {
-        handleCardClick(pickCardToPlay(hand, leadingSuit));
-      }, 800);
-      return () => clearTimeout(timeoutId);
-    }
-    // if (canDeal) {
-    //   dispatch(startHand());
-    // }
-  }, [canPlay]);
+  // useEffect(() => {
+  //   if (canPlay) {
+  //     const timeoutId = setTimeout(() => {
+  //       handleCardClick(pickCardToPlay(hand, leadingSuit));
+  //     }, 800);
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  //   // if (canDeal) {
+  //   //   dispatch(startHand());
+  //   // }
+  // }, [canPlay]);
 
-  useEffect(() => {
-    if (canBid) {
-      const timeoutId = setTimeout(() => {
-        Math.floor(Math.random() * 2) === 1
-          ? dispatch(pass)
-          : dispatch(orderUp(playerPointer));
-      }, 800);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [canBid]);
+  // useEffect(() => {
+  //   if (canBid) {
+  //     const timeoutId = setTimeout(() => {
+  //       Math.floor(Math.random() * 2) === 1
+  //         ? dispatch(pass)
+  //         : dispatch(orderUp(playerPointer));
+  //     }, 800);
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [canBid]);
 
-  useEffect(() => {
-    if (mustDeclare) {
-      const timeoutId = setTimeout(() => {
-        Math.floor(Math.random() * 2) === 1
-          ? dispatch(declare())
-          : dispatch(declare("alone"));
-      }, 800);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [mustDeclare]);
+  // useEffect(() => {
+  //   if (mustDeclare) {
+  //     const timeoutId = setTimeout(() => {
+  //       Math.floor(Math.random() * 2) === 1
+  //         ? dispatch(declare())
+  //         : dispatch(declare());
+  //     }, 800);
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [mustDeclare]);
 
-  useEffect(() => {
-    if (mustDiscard) {
-      const timeoutId = setTimeout(() => {
-        handleDiscardClick(1);
-      }, 800);
-      return () => clearTimeout(timeoutId);
-    }
-  }, [mustDiscard]);
+  // useEffect(() => {
+  //   if (mustDiscard) {
+  //     const timeoutId = setTimeout(() => {
+  //       handleDiscardClick(1);
+  //     }, 800);
+  //     return () => clearTimeout(timeoutId);
+  //   }
+  // }, [mustDiscard]);
 
   const handlePlayClick = (index: number) => {
     if (!canPlay) {
@@ -175,24 +175,22 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
           >
-            {/* {canBid && (
+            {canBid && (
               <>
                 <button onClick={() => dispatch(pass())}>Pass</button>
                 <button onClick={() => dispatch(orderUp(playerPointer))}>
                   Order Up
                 </button>
               </>
-            )} */}
-            {/* {mustDeclare && (
+            )}
+            {mustDeclare && (
               <>
-                <button onClick={() => dispatch(declare("alone"))}>
-                  Play Alone
-                </button>
+                <button onClick={() => dispatch(declare())}>Play Alone</button>
                 <button onClick={() => dispatch(declare())}>
                   Play With Partner
                 </button>
               </>
-            )} */}
+            )}
             {canDeal &&
               (() => {
                 dispatch(startHand());
