@@ -368,7 +368,7 @@ export const getHighestCard = (
   return highestValueAndIndex.index;
 };
 
-export const sortPile = (
+export const getSortedPile = (
   pile: PlayingCard<PlayingCardSuit, EuchreRank>[],
   trump: PlayingCardSuit | null = null,
   leadingSuit: PlayingCardSuit | null = null,
@@ -382,7 +382,7 @@ export const sortPile = (
 
   const [card, remainingCards] = takeCardAt(highestIndex, pile);
 
-  return sortPile(remainingCards, trump, leadingSuit, [
+  return getSortedPile(remainingCards, trump, leadingSuit, [
     ...sortedPile,
     card,
   ] as Pile<PlayingCardSuit, EuchreRank>);

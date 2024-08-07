@@ -9,7 +9,7 @@ import {
   PlayingCardRank,
   PlayingCardSuit,
   getWinningPlayer,
-  sortPile,
+  getSortedPile,
 } from ".";
 import { selectHighestCard } from "../../state/selectors/euchre";
 
@@ -151,7 +151,7 @@ test("sorting pile", () => {
     },
   ];
 
-  const sortedPile = sortPile(
+  const sortedPile = getSortedPile(
     pile,
     PlayingCardSuit.HEARTS,
     PlayingCardSuit.SPADES
