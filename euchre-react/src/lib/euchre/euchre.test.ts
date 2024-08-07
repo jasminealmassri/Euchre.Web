@@ -73,3 +73,41 @@ test("correctly identifies highest rank card before and after leading suit", () 
   expect(highestRankedNoLeadingSuit).toBe(0);
   expect(highestRankedLeadingSuit).toBe(1);
 });
+
+test("given same ranks, returns the first highest rank found", () => {
+  const sameRanks: Pile<EuchreSuit, EuchreRank> = [
+    {
+      suit: PlayingCardSuit.HEARTS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.SPADES,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.DIAMONDS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.CLUBS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+  ];
+
+  const highestRank = selectHighestCard(sameRanks)({
+    trump: null,
+    leadingSuit: null,
+  } as EuchreGameState);
+
+  const highestRank2 = selectHighestCard(sameRanks.reverse())({
+    trump: null,
+    leadingSuit: null,
+  } as EuchreGameState);
+
+  expect(highestRank).toBe(0);
+  expect(highestRank2).toBe(0);
+});
