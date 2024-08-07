@@ -31,12 +31,19 @@ export const ranks: EuchreRank[] = [
 
 export type EuchreCard = PlayingCard<EuchreSuit, EuchreRank>;
 
+export enum PlayerType {
+  HUMAN = "human",
+  COMPUTER = "computer",
+}
+
 export type EuchrePlayerState = {
   hand: string;
   name: string;
   role: "M" | "m" | "d" | null;
   tricks: number;
   sittingOut: boolean;
+  tricks: number;
+  type: PlayerType;
 };
 
 export enum Phase {
@@ -102,33 +109,37 @@ export interface EuchreGameState {
 export const player1State: EuchrePlayerState = {
   hand: "player1",
   name: "Player 1",
+  sittingOut: false,
   role: null,
   tricks: 0,
-  sittingOut: false,
+  type: PlayerType.HUMAN,
 };
 
 export const player2State: EuchrePlayerState = {
   hand: "player2",
   name: "Player 2",
+  sittingOut: false,
   role: null,
   tricks: 0,
-  sittingOut: false,
+  type: PlayerType.COMPUTER,
 };
 
 export const player3State: EuchrePlayerState = {
   hand: "player3",
   name: "Player 3",
+  sittingOut: false,
   role: null,
   tricks: 0,
-  sittingOut: false,
+  type: PlayerType.COMPUTER,
 };
 
 export const player4State: EuchrePlayerState = {
   hand: "player4",
   name: "Player 4",
+  sittingOut: false,
   role: null,
   tricks: 0,
-  sittingOut: false,
+  type: PlayerType.COMPUTER,
 };
 
 const firstDealer = Math.floor(Math.random() * 4);
