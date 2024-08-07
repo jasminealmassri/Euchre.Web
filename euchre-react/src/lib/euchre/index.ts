@@ -209,8 +209,8 @@ export const isLeftBower = (
 
 export const getEuchreCardValue = (
   card: PlayingCard<PlayingCardSuit, EuchreRank>,
-  trumpSuit: PlayingCardSuit,
-  leadingSuit: PlayingCardSuit
+  trumpSuit: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null
 ): number => {
   const rankValues: Record<EuchreRank, number> = {
     "9": 1,
@@ -221,7 +221,9 @@ export const getEuchreCardValue = (
     A: 6,
   };
 
-  const sameColorSuit = (suit: PlayingCardSuit): PlayingCardSuit => {
+  const sameColorSuit = (
+    suit: PlayingCardSuit | null
+  ): PlayingCardSuit | null => {
     switch (suit) {
       case PlayingCardSuit.HEARTS:
         return PlayingCardSuit.DIAMONDS;
@@ -231,6 +233,8 @@ export const getEuchreCardValue = (
         return PlayingCardSuit.SPADES;
       case PlayingCardSuit.SPADES:
         return PlayingCardSuit.CLUBS;
+      case null:
+        return null;
     }
   };
 
@@ -340,4 +344,7 @@ export const scoreRound = ({
 };
 
 export type { Pile } from "../playing-card/playing-card.interface";
-export { PlayingCardSuit } from "../playing-card/playing-card.interface";
+export {
+  PlayingCardSuit,
+  PlayingCardRank,
+} from "../playing-card/playing-card.interface";
