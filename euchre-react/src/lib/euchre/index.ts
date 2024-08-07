@@ -1,4 +1,4 @@
-import { makeDeck } from "../card-manipulation";
+import { makeDeck, takeCardAt } from "../card-manipulation";
 import {
   Deck,
   Pile,
@@ -341,6 +341,51 @@ export const scoreRound = ({
     [`team${makersTeam}`]: makersScore,
     [`team${defendersTeam}`]: defendersScore,
   } as { team1: number; team2: number };
+};
+
+export const getHighestCard = (
+  pile: Pile<PlayingCardSuit, EuchreRank>,
+  trump: PlayingCardSuit | null,
+  leadingSuit: PlayingCardSuit | null
+) => {
+  if (pile.length === 0) {
+    return -1;
+  }
+
+  const highestValueAndIndex: { value: number; index: number } = pile.reduce<{
+    value: number;
+    index: number;
+  }>(
+    (highestRanked, currentCard, currentIndex) => {
+      const value = getEuchreCardValue(currentCard, trump, leadingSuit);
+      return value > highestRanked.value
+        ? { value, index: currentIndex }
+        : highestRanked;
+    },
+    { value: 0, index: 0 }
+  );
+
+  return highestValueAndIndex.index;
+};
+
+export const sortPile = (
+  pile: PlayingCard<PlayingCardSuit, EuchreRank>[],
+  trump: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null,
+  sortedPile: Pile<PlayingCardSuit, EuchreRank> = []
+): PlayingCard<PlayingCardSuit, EuchreRank>[] => {
+  const highestIndex = getHighestCard(pile, trump, leadingSuit);
+
+  if (highestIndex < 0) {
+    return sortedPile;
+  }
+
+  const [card, remainingCards] = takeCardAt(highestIndex, pile);
+
+  return sortPile(remainingCards, trump, leadingSuit, [
+    ...sortedPile,
+    card,
+  ] as Pile<PlayingCardSuit, EuchreRank>);
 };
 
 export type { Pile } from "../playing-card/playing-card.interface";

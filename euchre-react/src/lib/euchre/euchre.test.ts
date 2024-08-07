@@ -9,6 +9,7 @@ import {
   PlayingCardRank,
   PlayingCardSuit,
   getWinningPlayer,
+  sortPile,
 } from ".";
 import { selectHighestCard } from "../../state/selectors/euchre";
 
@@ -110,4 +111,77 @@ test("given same ranks, returns the first highest rank found", () => {
 
   expect(highestRank).toBe(0);
   expect(highestRank2).toBe(0);
+});
+
+test("empty list returns -1", () => {
+  const notFound = selectHighestCard([])({
+    trump: null,
+    leadingSuit: null,
+  } as EuchreGameState);
+
+  expect(notFound).toBe(-1);
+});
+
+test("sorting pile", () => {
+  const pile: Pile<EuchreSuit, EuchreRank> = [
+    {
+      suit: PlayingCardSuit.HEARTS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.DIAMONDS,
+      rank: PlayingCardRank.JACK,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.HEARTS,
+      rank: PlayingCardRank.JACK,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.CLUBS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.SPADES,
+      rank: PlayingCardRank.TEN,
+      faceUp: true,
+    },
+  ];
+
+  const sortedPile = sortPile(
+    pile,
+    PlayingCardSuit.HEARTS,
+    PlayingCardSuit.SPADES
+  );
+
+  expect(sortedPile).toStrictEqual([
+    {
+      suit: PlayingCardSuit.HEARTS,
+      rank: PlayingCardRank.JACK,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.DIAMONDS,
+      rank: PlayingCardRank.JACK,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.HEARTS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.SPADES,
+      rank: PlayingCardRank.TEN,
+      faceUp: true,
+    },
+    {
+      suit: PlayingCardSuit.CLUBS,
+      rank: PlayingCardRank.ACE,
+      faceUp: true,
+    },
+  ]);
 });
