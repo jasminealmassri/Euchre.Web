@@ -40,7 +40,6 @@ export type EuchrePlayerState = {
   hand: string;
   name: string;
   role: "M" | "m" | "d" | null;
-  tricks: number;
   sittingOut: boolean;
   tricks: number;
   type: PlayerType;
