@@ -6,6 +6,8 @@ import {
   selectDealerPointer,
   selectPhase,
   selectPlayers,
+  selectTrumpMaker,
+  selectTrumpMakerIndex,
 } from "../state/selectors/euchre";
 import Pile from "./Pile";
 import HumanPlayer from "./HumanPlayer";
@@ -13,12 +15,15 @@ import "./TableComponent.css";
 import ScoreComponent from "./ScoreComponent";
 import MessageComponent from "./MessageComponent";
 import ComputerPlayer from "./ComputerPlayer";
+import { EuchrePlayerState } from "../state";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
   const players = useEuchreSelector(selectPlayers);
   const dealerPointer = useEuchreSelector(selectDealerPointer);
   const dealer = useEuchreSelector(findPlayer(dealerPointer));
+  const trumpMaker = useEuchreSelector(selectTrumpMaker) as EuchrePlayerState;
+  const trumpMakerIndex = useEuchreSelector(selectTrumpMakerIndex);
   const talon = useEuchreSelector((state) => state.piles.talon);
   const table = useEuchreSelector((state) => state.piles.table);
   const trump = useEuchreSelector((state) => state.trump);
@@ -35,10 +40,10 @@ const EngineDemo = () => {
         <ScoreComponent />
         <MessageComponent />
         {/* <PromptComponent/> */}
-        <p id="player-1-label">You</p>
-        <p id="player-2-label">Player 2</p>
-        <p id="player-3-label">Player 3</p>
-        <p id="player-4-label">Player 4</p>
+        <p id="player-1-label">{players[0].name}</p>
+        <p id="player-2-label">{players[1].name}</p>
+        <p id="player-3-label">{players[2].name}</p>
+        <p id="player-4-label">{players[3].name}</p>
         {/* <TableComponent /> */}
       </div>
       <div>

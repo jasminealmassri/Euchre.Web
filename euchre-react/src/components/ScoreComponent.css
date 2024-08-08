@@ -1,5 +1,12 @@
+.scoreboard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .total_scores,
-.scoreboard {
+.round-scoreboard {
   position: relative;
   z-index: 10;
   color: rgb(202, 202, 202);
@@ -19,7 +26,7 @@
 
 .total_scores {
   box-shadow: 1px 1px 1px 1px white;
-  width: 52%;
+  width: 70%;
   display: flex;
   div {
     flex: 1 1 auto;
@@ -31,9 +38,9 @@
   }
 }
 
-.scoreboard {
+.round-scoreboard {
   box-shadow: 1px 1px 1px 1px white;
-  width: 60%;
+  width: 80%;
   text-align: center;
   margin: 0 auto;
   display: flex;

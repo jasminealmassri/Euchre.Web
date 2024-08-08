@@ -29,6 +29,14 @@ export const selectPlayerHand = (player: number) => (state: EuchreGameState) =>
 
 export const selectPlayers = (state: EuchreGameState) => state.players;
 
+export const selectTrumpMaker = (state: EuchreGameState) => {
+  return state.players.find((player) => player.role === "M");
+};
+
+export const selectTrumpMakerIndex = (state: EuchreGameState) => {
+  return state.players.findIndex((player) => player.role === "M");
+};
+
 export const selectPlayer = (player: number) => (state: EuchreGameState) =>
   state.players[player];
 
