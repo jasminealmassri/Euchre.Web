@@ -13,6 +13,13 @@ import {
   PlayingCardSuit,
 } from "../playing-card/playing-card.interface";
 
+export const sameCard = (
+  card1: PlayingCard<EuchreSuit, EuchreRank>,
+  card2: PlayingCard<EuchreSuit, EuchreRank>
+) => {
+  return card1.suit === card2.suit && card1.rank === card2.rank;
+};
+
 export const getCardsRankList = (
   trump: EuchreSuit,
   leadingSuit: EuchreSuit
@@ -73,9 +80,25 @@ export const getCardsRankList = (
   ];
 };
 
-export const getCardsChanceWinning = (state: EuchreGameState): number => {
-  // TODO
-  return Math.random();
+export const getCardsChanceWinning = (
+  card: PlayingCard<PlayingCardSuit, EuchreRank>,
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  proposedTrump: PlayingCardSuit
+): number => {
+  const ranksList = getCardsRankList(proposedTrump, card.suit);
+  // remove cards that already exist in the hand
+
+  const restOfHand = hand.filter((handCard) => !sameCard(card, handCard));
+  const filteredRanksList = ranksList.filter(
+    (rankCard) => !restOfHand.some((handCard) => sameCard(rankCard, handCard))
+  );
+  const cardRank = filteredRanksList.findIndex((rankCard) =>
+    sameCard(rankCard, card)
+  );
+  console.log("ranksList:", ranksList);
+  console.log("filteredRanksList:", filteredRanksList);
+  console.log("cardIndex:", cardRank);
+  return (ranksList.length - 1 - cardRank) / (ranksList.length - 1);
 };
 
 export const getExpectedTricksWin = (state: EuchreGameState): number => {

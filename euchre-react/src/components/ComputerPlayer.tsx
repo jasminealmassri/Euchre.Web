@@ -27,7 +27,7 @@ import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
-import { pickCardToPlay } from "../lib/computer-player";
+import { pickCardToPlay, getCardsChanceWinning } from "../lib/computer-player";
 import { useEffect } from "react";
 
 interface PlayerProps {
@@ -46,6 +46,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const trump = useEuchreSelector((state) => state.trump);
   const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
+  const talon = useEuchreSelector((state) => state.piles.talon);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
   const dealer = useEuchreSelector((state) => state.dealer);
@@ -95,6 +96,17 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   useEffect(() => {
     if (canBid) {
+      hand.map((card) => {
+        const cardChanceWinning = getCardsChanceWinning(
+          card,
+          hand,
+          talon[0].suit
+        );
+        console.log(
+          `${JSON.stringify(card)}'s chance of winning is ${cardChanceWinning}`
+        );
+      });
+
       const timeoutId = setTimeout(() => {
         Math.floor(Math.random() * 2) === 1
           ? dispatch(pass())
