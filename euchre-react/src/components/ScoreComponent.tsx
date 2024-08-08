@@ -43,7 +43,9 @@ const ScoreComponent = () => {
         </div>
         <div className="middle_score">
           <p>Current trump:</p>
-          <img src={getTrumpIcon(trump)}></img>
+          {trump && (
+            <img src={getTrumpIcon(trump)} className="trumpAnimation"></img>
+          )}
         </div>
         <div className="right_score">
           <p>Tricks lost: {(player2?.tricks ?? 0) + (player4?.tricks ?? 0)} </p>

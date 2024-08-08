@@ -108,7 +108,7 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
 
   return (
     <div>
-      <ul>
+      {/* <ul>
         <li>
           Name: {player.name} {canPlay && "*"}
         </li>
@@ -118,7 +118,7 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
         <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
         <li>Sitting Out: {player.sittingOut ? "Yes" : "No"}</li>
-      </ul>
+      </ul> */}
       <div>
         <div>
           <PileViewer

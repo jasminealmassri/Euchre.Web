@@ -1,64 +1,88 @@
-.total_scores, .scoreboard {
-    color: rgb(202, 202, 202);
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: center;
-    margin: 2% auto;
-    border-radius: 5px;
-    background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,0) 0%, rgba(123,120,134,0.6) 100%);
-    text-shadow: 3px 1px 2px black;
+.total_scores,
+.scoreboard {
+  position: relative;
+  z-index: 10;
+  color: rgb(202, 202, 202);
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  margin: 2% auto;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(123, 120, 134, 0.6) 100%
+  );
+  text-shadow: 3px 1px 2px black;
 }
-    
+
 .total_scores {
-    box-shadow: 1px 1px 1px 1px white;
-    width: 52%;
-    display: flex;
-    div {
-        flex: 1 1 auto;
-        padding: 0.3rem;
-        text-align: center;
-    }
-    div:nth-child(2) {
-        border-left: 2px dashed rgb(156, 156, 156);
-    }
+  box-shadow: 1px 1px 1px 1px white;
+  width: 52%;
+  display: flex;
+  div {
+    flex: 1 1 auto;
+    padding: 0.3rem;
+    text-align: center;
+  }
+  div:nth-child(2) {
+    border-left: 2px dashed rgb(156, 156, 156);
+  }
 }
 
 .scoreboard {
-    box-shadow: 1px 1px 1px 1px white;
-    width: 60%;
-    text-align: center;
-    margin: 0 auto;
+  box-shadow: 1px 1px 1px 1px white;
+  width: 60%;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .left_score,
+  .right_score {
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    gap: 2rem;
+    flex: 1 1 auto;
+    justify-content: center;
     align-items: center;
-    .left_score, .right_score {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        flex: 1 1 auto;
-        justify-content: center;
-        align-items: center;
-        padding: 0.3rem;
-    }
-    .left_score {
-        border-right: 2px dashed rgb(156, 156, 156);
-    }
-    .right_score {
-        border-left: 2px dashed rgb(156, 156, 156);
-    }
+    padding: 0.3rem;
+  }
+  .left_score {
+    border-right: 2px dashed rgb(156, 156, 156);
+  }
+  .right_score {
+    border-left: 2px dashed rgb(156, 156, 156);
+  }
 
-    .middle_score {
-        gap: 0.3rem;
-        flex: 1 1 auto;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        padding: 0.3rem;
-        img { 
-            width: 1rem; 
-        }
+  .middle_score {
+    gap: 0.3rem;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    img {
+      width: 1rem;
     }
+  }
 }
-  
+
+.trumpAnimation {
+  position: relative;
+  z-index: 10;
+  animation: popIn 0.3s ease-in-out;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(10000%);
+    opacity: 20%;
+  }
+  to {
+    transform: scale(100%);
+    opacity: 100%;
+  }
+}

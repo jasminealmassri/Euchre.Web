@@ -78,11 +78,13 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     }
   };
 
+  const timeDelayMS: number = 1200;
+
   useEffect(() => {
     if (canPlay) {
       const timeoutId = setTimeout(() => {
         handleCardClick(pickCardToPlay(hand, leadingSuit));
-      }, 800);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {
@@ -96,7 +98,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         Math.floor(Math.random() * 2) === 1
           ? dispatch(pass())
           : dispatch(orderUp(playerPointer));
-      }, 800);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
   }, [canBid]);
@@ -107,7 +109,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         Math.floor(Math.random() * 2) === 1
           ? dispatch(declare())
           : dispatch(declare());
-      }, 800);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
   }, [mustDeclare]);
@@ -116,7 +118,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     if (mustDiscard) {
       const timeoutId = setTimeout(() => {
         handleDiscardClick(1);
-      }, 800);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
   }, [mustDiscard]);
@@ -133,7 +135,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
             ? dispatch(callTrump(playerPointer, trump))
             : dispatch(passOnTrump());
         }
-      }, 800);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
   });
@@ -164,7 +166,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   return (
     <div>
-      <ul>
+      {/* <ul>
         <li>
           Name: {player.name} {canPlay && "*"}
         </li>
@@ -174,7 +176,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         <li>Role: {player.role}</li>
         <li>Tricks: {player.tricks}</li>
         <li>Sitting Out: {player.sittingOut ? "Yes" : "No"}</li>
-      </ul>
+      </ul> */}
       <div>
         <div>
           <PileViewer

@@ -31,7 +31,7 @@ const EngineDemo = () => {
   );
   return (
     <>
-      <div className="game">
+      <div>
         <ScoreComponent />
         <MessageComponent />
         {/* <PromptComponent/> */}
@@ -42,7 +42,7 @@ const EngineDemo = () => {
         {/* <TableComponent /> */}
       </div>
       <div>
-        <ul>
+        {/* <ul>
           <li>Phase: {phase}</li>
           <li>Dealer: {dealer?.name}</li>
           <li>Trump: {trump}</li>
@@ -60,7 +60,7 @@ const EngineDemo = () => {
             )}
             {" ]"}
           </li>
-        </ul>
+        </ul> */}
         <div className={"trick"}>
           {talon.length > 0 && (
             <Pile pile={talon} className={`player-${dealerPointer + 1}-card`} />
@@ -78,7 +78,7 @@ const EngineDemo = () => {
                 <ComputerPlayer playerPointer={i} />
               )}
             </div>
-            <hr />
+            {/* <hr /> */}
           </React.Fragment>
         ))}
       </div>
