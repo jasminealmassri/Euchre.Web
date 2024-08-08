@@ -21,7 +21,7 @@ import {
   playCard,
   startHand,
 } from "../state/thunks/euchre";
-import { Phase, PlayingCardSuit } from "../lib/euchre";
+import { EuchreSuit, Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
@@ -44,6 +44,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const mustDeclare = useEuchreSelector(selectMustDeclare(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
+  const trump = useEuchreSelector((state) => state.trump);
   const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
@@ -83,7 +84,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   useEffect(() => {
     if (canPlay) {
       const timeoutId = setTimeout(() => {
-        handleCardClick(pickCardToPlay(hand, leadingSuit));
+        handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }

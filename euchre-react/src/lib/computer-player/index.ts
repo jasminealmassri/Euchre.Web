@@ -4,6 +4,7 @@ import {
   EuchreRank,
   EuchreSuit,
   getLeftBowerSuit,
+  isLeftBower,
 } from "../euchre";
 import {
   Pile,
@@ -91,10 +92,17 @@ export const getHighestSuitsChanceWin = (
 
 export const pickCardToPlay = (
   hand: Pile<PlayingCardSuit, EuchreRank>,
-  leadingSuit: EuchreSuit | null
+  leadingSuit: EuchreSuit | null,
+  trumpSuit: EuchreSuit
 ): number => {
   // TODO
-  const hasLeadingSuit = hand.findIndex((card) => card.suit === leadingSuit);
+  const copyHand: Pile<PlayingCardSuit, EuchreRank> = [...hand];
+  const updatedHand = copyHand.map((card) =>
+    isLeftBower(card, trumpSuit) ? { ...card, suit: trumpSuit } : card
+  );
+  const hasLeadingSuit = updatedHand.findIndex(
+    (card) => card.suit === leadingSuit
+  );
 
   if (hasLeadingSuit !== -1) {
     return hasLeadingSuit;

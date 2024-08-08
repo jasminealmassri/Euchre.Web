@@ -329,7 +329,7 @@ export const scoreRound = ({
   const makers = players.filter((player) => player.role !== "d");
   const makersTeam: 1 | 2 = firstPlayer.role?.toLowerCase() === "m" ? 1 : 2;
   const defendersTeam: 1 | 2 = firstPlayer.role === "d" ? 1 : 2;
-  const wentAlone = makers.find((player) => player.sittingOut);
+  const wentAlone = makers.find((player) => player.sittingOut);  
 
   const makersTricks = (makers[0]?.tricks ?? 0) + (makers[1]?.tricks ?? 0);
 
