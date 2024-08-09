@@ -29,7 +29,6 @@ import TrumpSelector from "./TrumpSelector";
 import "./TableComponent.css";
 import "./Player.css";
 import "./CardComponent.css";
-import { useEffect } from "react";
 
 interface PlayerProps {
   playerPointer: number;
@@ -134,13 +133,13 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
           >
-            {hand.length > 0 && player.type === PlayerType.HUMAN && (
+            {/* {hand.length > 0 && player.type === PlayerType.HUMAN && (
               <button
                 onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
               >
                 Sort
               </button>
-            )}
+            )} */}
             {canBid && (
               <>
                 <button onClick={() => dispatch(pass())}>Pass</button>
