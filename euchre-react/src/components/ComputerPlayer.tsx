@@ -32,6 +32,10 @@ import {
   getCardsChanceWinning,
   decideToOrderItUp,
   getExpectedTricksWin,
+  decideToGoAlone,
+  pickCardToDiscard,
+  pickSuitForTrump,
+  forcedPickTrump,
 } from "../lib/computer-player";
 import { useEffect } from "react";
 
@@ -108,17 +112,17 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           talon[0].suit
         );
         console.log(
-          `${JSON.stringify(card)}'s chance of winning is ${cardChanceWinning}`
-        );
-        console.log(
-          "Number of expected tricks to win is: ",
-          getExpectedTricksWin(hand, talon[0].suit)
+          `[${card.suit}, ${card.rank}]'s chance of winning is ${cardChanceWinning}`
         );
       });
 
+      console.log(
+        "Number of expected tricks to win is: ",
+        getExpectedTricksWin(hand, talon[0].suit)
+      );
       const timeoutId = setTimeout(() => {
         decideToOrderItUp(hand, talon[0].suit)
-          ? dispatch(orderUp(playerPointer))
+          ? dispatch(orderUp(playerPointer)) // dispatch(orderUp(playerPointer))
           : dispatch(pass());
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
@@ -128,8 +132,8 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   useEffect(() => {
     if (mustDeclare) {
       const timeoutId = setTimeout(() => {
-        Math.floor(Math.random() * 2) === 1
-          ? dispatch(declare())
+        decideToGoAlone(hand, trump as PlayingCardSuit)
+          ? dispatch(declare("alone"))
           : dispatch(declare());
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
@@ -139,7 +143,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   useEffect(() => {
     if (mustDiscard) {
       const timeoutId = setTimeout(() => {
-        handleDiscardClick(1);
+        handleDiscardClick(pickCardToDiscard(hand, trump as PlayingCardSuit));
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
@@ -147,14 +151,14 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   useEffect(() => {
     if (canCallTrump) {
-      const trump =
-        trumpCandidates[Math.floor(Math.random() * trumpCandidates.length)];
       const timeoutId = setTimeout(() => {
         if (mustCallTrump) {
-          dispatch(callTrump(playerPointer, trump));
+          const forcedTrump = forcedPickTrump(hand, trumpCandidates);
+          dispatch(callTrump(playerPointer, forcedTrump));
         } else {
-          Math.floor(Math.random() * 2) === 1
-            ? dispatch(callTrump(playerPointer, trump))
+          const chosenSuit = pickSuitForTrump(hand, trumpCandidates);
+          chosenSuit
+            ? dispatch(callTrump(playerPointer, chosenSuit))
             : dispatch(passOnTrump());
         }
       }, timeDelayMS);

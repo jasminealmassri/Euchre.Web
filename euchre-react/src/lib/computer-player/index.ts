@@ -108,8 +108,17 @@ export const getExpectedTricksWin = (
   return hand.reduce((accumulator, card) => {
     return (
       accumulator +
-      (getCardsChanceWinning(card, hand, proposedTrump) >= 0.5 ? 1 : 0)
+      (getCardsChanceWinning(card, hand, proposedTrump) > 0.5 ? 1 : 0)
     );
+  }, 0);
+};
+
+export const getHandsTotalWinningPower = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  proposedTrump: PlayingCardSuit
+): number => {
+  return hand.reduce((accumulator, card) => {
+    return accumulator + getCardsChanceWinning(card, hand, proposedTrump);
   }, 0);
 };
 
@@ -120,11 +129,64 @@ export const decideToOrderItUp = (
   return getExpectedTricksWin(hand, proposedTrump) >= 3;
 };
 
-export const getHighestSuitsChanceWin = (
-  state: EuchreGameState
+export const decideToGoAlone = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  proposedTrump: PlayingCardSuit
+): boolean => {
+  return getExpectedTricksWin(hand, proposedTrump) >= 4;
+};
+
+export const pickCardToDiscard = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  trump: PlayingCardSuit
+): number => {
+  const cardsChancesWinningArray = hand.map((card) =>
+    getCardsChanceWinning(card, hand, trump)
+  );
+  let lowestChanceWinning = cardsChancesWinningArray[1];
+  let lowestIndex = 1;
+  for (let i = 1; i < cardsChancesWinningArray.length; i++) {
+    if (cardsChancesWinningArray[i] < lowestChanceWinning) {
+      lowestChanceWinning = cardsChancesWinningArray[i];
+      lowestIndex = i;
+    }
+  }
+  return lowestIndex;
+};
+
+export const pickSuitForTrump = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  trumpCandidates: Array<EuchreSuit>
+): EuchreSuit | null => {
+  let highestWinPower = 0.0;
+  let highestSuit = trumpCandidates[0];
+  for (let i = 0; i < trumpCandidates.length; i++) {
+    let handsWinningPower = getHandsTotalWinningPower(hand, trumpCandidates[i]);
+    if (handsWinningPower > highestWinPower) {
+      highestWinPower = handsWinningPower;
+      highestSuit = trumpCandidates[i];
+    }
+  }
+  console.log(
+    `highest winning power is: ${highestWinPower}, for suit ${highestSuit}`
+  );
+  return highestWinPower > 3 ? highestSuit : null;
+};
+
+export const forcedPickTrump = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  trumpCandidates: Array<EuchreSuit>
 ): EuchreSuit => {
-  // TODO
-  return state.trumpCandidates[Math.random() * state.trumpCandidates.length];
+  let highestWinPower = 0.0;
+  let highestSuit = trumpCandidates[0];
+  for (let i = 0; i < trumpCandidates.length; i++) {
+    let handsWinningPower = getHandsTotalWinningPower(hand, trumpCandidates[i]);
+    if (handsWinningPower > highestWinPower) {
+      highestWinPower = handsWinningPower;
+      highestSuit = trumpCandidates[i];
+    }
+  }
+  return highestSuit;
 };
 
 export const pickCardToPlay = (
