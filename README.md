@@ -29,5 +29,5 @@ Collaboration to re-factor the Euchre game engine to use redux, current todo is 
 ### Getting started
 
 1. `npm install`
-2. Navigate to the 'euchre-react' directory
+2. `cd euchre-react`
 3. `npm run dev`
