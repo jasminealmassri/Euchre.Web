@@ -26,7 +26,6 @@ import {
 } from "../state/thunks/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
-import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
 import "./CardComponent.css";
@@ -130,17 +129,18 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
             className={playerCSSClasses[player.tablePosition]}
           />
         </div>
-        {hand.length > 0 && player.type === PlayerType.HUMAN && (
-          <button
-            onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
-          >
-            Sort
-          </button>
-        )}
+
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
           >
+            {hand.length > 0 && player.type === PlayerType.HUMAN && (
+              <button
+                onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
+              >
+                Sort
+              </button>
+            )}
             {canBid && (
               <>
                 <button onClick={() => dispatch(pass())}>Pass</button>
