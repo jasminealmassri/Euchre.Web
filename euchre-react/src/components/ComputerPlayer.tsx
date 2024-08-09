@@ -27,7 +27,12 @@ import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
 import "./TableComponent.css";
 import "./Player.css";
-import { pickCardToPlay, getCardsChanceWinning } from "../lib/computer-player";
+import {
+  pickCardToPlay,
+  getCardsChanceWinning,
+  decideToOrderItUp,
+  getExpectedTricksWin,
+} from "../lib/computer-player";
 import { useEffect } from "react";
 
 interface PlayerProps {
@@ -105,12 +110,16 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         console.log(
           `${JSON.stringify(card)}'s chance of winning is ${cardChanceWinning}`
         );
+        console.log(
+          "Number of expected tricks to win is: ",
+          getExpectedTricksWin(hand, talon[0].suit)
+        );
       });
 
       const timeoutId = setTimeout(() => {
-        Math.floor(Math.random() * 2) === 1
-          ? dispatch(pass())
-          : dispatch(orderUp(playerPointer));
+        decideToOrderItUp(hand, talon[0].suit)
+          ? dispatch(orderUp(playerPointer))
+          : dispatch(pass());
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }

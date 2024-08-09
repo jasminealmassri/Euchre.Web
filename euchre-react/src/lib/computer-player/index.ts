@@ -95,15 +95,29 @@ export const getCardsChanceWinning = (
   const cardRank = filteredRanksList.findIndex((rankCard) =>
     sameCard(rankCard, card)
   );
-  console.log("ranksList:", ranksList);
-  console.log("filteredRanksList:", filteredRanksList);
-  console.log("cardIndex:", cardRank);
+  // hand: console.log("ranksList:", ranksList);
+  // console.log("filteredRanksList:", filteredRanksList);
+  // console.log("cardIndex:", cardRank);
   return (ranksList.length - 1 - cardRank) / (ranksList.length - 1);
 };
 
-export const getExpectedTricksWin = (state: EuchreGameState): number => {
-  // TODO
-  return Math.floor(Math.random() * 6);
+export const getExpectedTricksWin = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  proposedTrump: PlayingCardSuit
+): number => {
+  return hand.reduce((accumulator, card) => {
+    return (
+      accumulator +
+      (getCardsChanceWinning(card, hand, proposedTrump) >= 0.5 ? 1 : 0)
+    );
+  }, 0);
+};
+
+export const decideToOrderItUp = (
+  hand: Pile<PlayingCardSuit, EuchreRank>,
+  proposedTrump: PlayingCardSuit
+): boolean => {
+  return getExpectedTricksWin(hand, proposedTrump) >= 3;
 };
 
 export const getHighestSuitsChanceWin = (
