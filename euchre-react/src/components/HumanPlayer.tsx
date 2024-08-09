@@ -1,4 +1,6 @@
+import { Phase, PlayerType, PlayingCardSuit } from "../lib/euchre";
 import { useAppDispatch, useEuchreSelector } from "../state/hooks";
+import { sortPile } from "../state/reducers/euchre";
 import {
   selectCanBid,
   selectCanCallTrump,
@@ -14,6 +16,7 @@ import {
 } from "../state/selectors/euchre";
 import {
   callTrump,
+  declare,
   discard,
   orderUp,
   pass,
@@ -21,7 +24,6 @@ import {
   playCard,
   startHand,
 } from "../state/thunks/euchre";
-import { Phase, PlayingCardSuit } from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
@@ -128,6 +130,13 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
             className={playerCSSClasses[player.tablePosition]}
           />
         </div>
+        {hand.length > 0 && player.type === PlayerType.HUMAN && (
+          <button
+            onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
+          >
+            Sort
+          </button>
+        )}
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}

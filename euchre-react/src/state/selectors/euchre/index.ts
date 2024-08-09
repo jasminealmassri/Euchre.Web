@@ -6,7 +6,7 @@ import {
   Phase,
   Pile,
   PlayingCardSuit,
-  getEuchreCardValue,
+  getHighestCard,
   getLeftBowerSuit,
   isLeftBower,
 } from "../../";
@@ -93,18 +93,5 @@ export const selectHighestCard =
     const trump = state.trump as PlayingCardSuit;
     const leadingSuit = state.leadingSuit as PlayingCardSuit;
 
-    const highestValueAndIndex: { value: number; index: number } = pile.reduce<{
-      value: number;
-      index: number;
-    }>(
-      (highestRanked, currentCard, currentIndex) => {
-        const value = getEuchreCardValue(currentCard, trump, leadingSuit);
-        return value > highestRanked.value
-          ? { value, index: currentIndex }
-          : highestRanked;
-      },
-      { value: 0, index: 0 }
-    );
-
-    return highestValueAndIndex.index;
+    return getHighestCard(pile, trump, leadingSuit);
   };

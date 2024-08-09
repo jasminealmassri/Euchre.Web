@@ -1,4 +1,4 @@
-import { makeDeck } from "../card-manipulation";
+import { makeDeck, takeCardAt } from "../card-manipulation";
 import {
   Deck,
   Pile,
@@ -31,14 +31,20 @@ export const ranks: EuchreRank[] = [
 
 export type EuchreCard = PlayingCard<EuchreSuit, EuchreRank>;
 
+export enum PlayerType {
+  HUMAN = "human",
+  COMPUTER = "computer",
+}
+
 export type EuchrePlayerState = {
   hand: string;
   name: string;
   type: "human" | "computer";
   tablePosition: number;
   role: "M" | "m" | "d" | null;
-  tricks: number;
   sittingOut: boolean;
+  tricks: number;
+  type: PlayerType;
 };
 
 export enum Phase {
@@ -188,6 +194,69 @@ export interface EuchreGameState {
   players: Array<EuchrePlayerState>;
 }
 
+export const player1State: EuchrePlayerState = {
+  hand: "player1",
+  name: "Player 1",
+  sittingOut: false,
+  role: null,
+  tricks: 0,
+  type: PlayerType.HUMAN,
+};
+
+export const player2State: EuchrePlayerState = {
+  hand: "player2",
+  name: "Player 2",
+  sittingOut: false,
+  role: null,
+  tricks: 0,
+  type: PlayerType.COMPUTER,
+};
+
+export const player3State: EuchrePlayerState = {
+  hand: "player3",
+  name: "Player 3",
+  sittingOut: false,
+  role: null,
+  tricks: 0,
+  type: PlayerType.COMPUTER,
+};
+
+export const player4State: EuchrePlayerState = {
+  hand: "player4",
+  name: "Player 4",
+  sittingOut: false,
+  role: null,
+  tricks: 0,
+  type: PlayerType.COMPUTER,
+};
+
+const firstDealer = Math.floor(Math.random() * 4);
+
+export const initialState = (dealer = firstDealer): EuchreGameState => ({
+  currentPlayer: dealer,
+  dealer,
+  leadingPlayer: (dealer + 1) % 4,
+  team1Score: 0,
+  team2Score: 0,
+  trump: null,
+  trumpCandidates: suits,
+  leadingSuit: null,
+  phase: Phase.DEALING,
+  piles: {
+    deck: makeDeck(suits, ranks),
+    discard: [],
+    talon: [],
+    table: [],
+    player1: [],
+    player2: [],
+    player3: [],
+    player4: [],
+  },
+  players: [player1State, player2State, player3State, player4State],
+});
+
+// Helper functions
+
 const phaseOrder = () => {
   return Object.values(Phase);
 };
@@ -229,8 +298,8 @@ export const isLeftBower = (
 
 export const getEuchreCardValue = (
   card: PlayingCard<PlayingCardSuit, EuchreRank>,
-  trumpSuit: PlayingCardSuit,
-  leadingSuit: PlayingCardSuit
+  trumpSuit: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null
 ): number => {
   const rankValues: Record<EuchreRank, number> = {
     "9": 1,
@@ -241,7 +310,9 @@ export const getEuchreCardValue = (
     A: 6,
   };
 
-  const sameColorSuit = (suit: PlayingCardSuit): PlayingCardSuit => {
+  const sameColorSuit = (
+    suit: PlayingCardSuit | null
+  ): PlayingCardSuit | null => {
     switch (suit) {
       case PlayingCardSuit.HEARTS:
         return PlayingCardSuit.DIAMONDS;
@@ -251,6 +322,8 @@ export const getEuchreCardValue = (
         return PlayingCardSuit.SPADES;
       case PlayingCardSuit.SPADES:
         return PlayingCardSuit.CLUBS;
+      case null:
+        return null;
     }
   };
 
@@ -359,5 +432,53 @@ export const scoreRound = ({
   } as { team1: number; team2: number };
 };
 
+export const getHighestCard = (
+  pile: Pile<PlayingCardSuit, EuchreRank>,
+  trump: PlayingCardSuit | null,
+  leadingSuit: PlayingCardSuit | null
+) => {
+  if (pile.length === 0) {
+    return -1;
+  }
+
+  const highestValueAndIndex: { value: number; index: number } = pile.reduce<{
+    value: number;
+    index: number;
+  }>(
+    (highestRanked, currentCard, currentIndex) => {
+      const value = getEuchreCardValue(currentCard, trump, leadingSuit);
+      return value > highestRanked.value
+        ? { value, index: currentIndex }
+        : highestRanked;
+    },
+    { value: 0, index: 0 }
+  );
+
+  return highestValueAndIndex.index;
+};
+
+export const getSortedPile = (
+  pile: PlayingCard<PlayingCardSuit, EuchreRank>[],
+  trump: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null,
+  sortedPile: Pile<PlayingCardSuit, EuchreRank> = []
+): PlayingCard<PlayingCardSuit, EuchreRank>[] => {
+  const highestIndex = getHighestCard(pile, trump, leadingSuit);
+
+  if (highestIndex < 0) {
+    return sortedPile;
+  }
+
+  const [card, remainingCards] = takeCardAt(highestIndex, pile);
+
+  return getSortedPile(remainingCards, trump, leadingSuit, [
+    ...sortedPile,
+    card,
+  ] as Pile<PlayingCardSuit, EuchreRank>);
+};
+
 export type { Pile } from "../playing-card/playing-card.interface";
-export { PlayingCardSuit } from "../playing-card/playing-card.interface";
+export {
+  PlayingCardSuit,
+  PlayingCardRank,
+} from "../playing-card/playing-card.interface";

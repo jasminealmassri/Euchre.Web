@@ -11,6 +11,7 @@ import {
   initialState,
   nextPhase,
   scoreRound as scoreEuchreRound,
+  getSortedPile,
   takeCardAt,
 } from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
@@ -161,6 +162,14 @@ export const euchreSlice = createSlice({
       state.trump = action.payload;
     },
 
+    sortPile: (state, action: PayloadAction<string>) => {
+      state.piles[action.payload] = getSortedPile(
+        state.piles[action.payload],
+        state.trump,
+        state.leadingSuit
+      );
+    },
+
     transitionToPhase: (state, action: PayloadAction<Phase>) => {
       state.phase = action.payload;
     },
@@ -237,6 +246,7 @@ export const {
   setRole,
   setTrump,
   shuffle,
+  sortPile,
   transitionToNextPhase,
   transitionToPhase,
 } = euchreSlice.actions;
