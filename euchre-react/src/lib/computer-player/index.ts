@@ -1,3 +1,4 @@
+import { sortPile } from "../../state/reducers/euchre";
 import { selectPlayerHand, selectSuit } from "../../state/selectors/euchre";
 import {
   EuchreGameState,
@@ -5,6 +6,7 @@ import {
   EuchreSuit,
   getHighestCard,
   getLeftBowerSuit,
+  getSortedPile,
   isLeftBower,
 } from "../euchre";
 import {
@@ -259,58 +261,34 @@ export const getCardsThatCanWin = (
 
 // returns the index of the chosen card to get rid of
 export const pickThrowAwayCard = (
-  trick: Pile<EuchreSuit, EuchreRank>,
   hand: Pile<EuchreSuit, EuchreRank>,
   trump: EuchreSuit,
   leadingSuit: EuchreSuit
 ): number => {
-  let copyHand = [...hand];
-  let playableCards: Pile<EuchreSuit, EuchreRank> = copyHand;
+  let playableCards: Pile<EuchreSuit, EuchreRank> = hand;
+  if (
+    hand.find(
+      (card) =>
+        card.suit === leadingSuit ||
+        (leadingSuit === trump && isLeftBower(card, trump))
+    )
+  ) {
+    playableCards = hand.filter(
+      (card) =>
+        card.suit === leadingSuit ||
+        (leadingSuit === trump && isLeftBower(card, trump))
+    );
+  }
 
-  copyHand.map((card) => {
-    isLeftBower(card, trump) ? { ...card, suit: trump } : card;
+  const sortedPlayableCards = getSortedPile(playableCards, trump, leadingSuit);
+  let lowestCardIndex = 0;
+  hand.forEach((card, index) => {
+    if (sameCard(card, sortedPlayableCards[sortedPlayableCards.length - 1])) {
+      lowestCardIndex = index;
+    }
   });
 
-  // filter it out to only cards that can be played, if leading suit exists in the hand
-  if (copyHand.find((card) => card.suit === leadingSuit)) {
-    playableCards = copyHand.filter((card) => card.suit === leadingSuit);
-  }
-
-  // get overall ranks list
-  const ranksList = getCardsRankList(trump, leadingSuit);
-
-  // get rank of highest card
-  const highestCardIndex = getHighestCard(trick, trump, leadingSuit);
-  let rankOfCardToBeat = ranksList.length - 1; // last index to start
-
-  // get the highest rank of the current trick
-  for (let i = 0; i < ranksList.length; i++) {
-    if (sameCard(trick[highestCardIndex], ranksList[i])) {
-      rankOfCardToBeat = i;
-      break;
-    }
-  }
-
-  // push cards that can win to the cards that can win
-  for (let i = 0; i < ranksList.length; i++) {
-    for (let j = 0; j < playableCards.length; j++) {
-      if (sameCard(ranksList[i], playableCards[j])) {
-        if (i < rankOfCardToBeat) {
-          cardsThatCanWin.push(playableCards[j]);
-        }
-      }
-    }
-  }
-  // get the indices of the cards that can win from the copyHand
-  for (let i = 0; i < cardsThatCanWin.length; i++) {
-    for (let j = 0; j < copyHand.length; j++) {
-      if (sameCard(cardsThatCanWin[i], copyHand[j])) {
-        cardsIndicesThatCanwin.push(j);
-      }
-    }
-  }
-  // give back the indices of the cards that can be played and win, these are ordered highest to lowest rank
-  return cardsIndicesThatCanwin;
+  return lowestCardIndex;
 };
 
 export const pickCardToPlay = (

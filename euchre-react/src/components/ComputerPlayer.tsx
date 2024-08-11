@@ -37,6 +37,7 @@ import {
   pickSuitForTrump,
   forcedPickTrump,
   getCardsThatCanWin,
+  pickThrowAwayCard,
 } from "../lib/computer-player";
 import { useEffect } from "react";
 
@@ -115,6 +116,17 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         cardIndicesThatCanWin.forEach((index) =>
           console.log(JSON.stringify(hand[index]))
         );
+        if (cardIndicesThatCanWin.length === 0) {
+          const throwAwayIndex = pickThrowAwayCard(
+            hand,
+            trump as PlayingCardSuit,
+            leadingSuit as PlayingCardSuit
+          );
+          console.log(
+            "Throwaway mode, card chosen is: ",
+            JSON.stringify(hand[throwAwayIndex])
+          );
+        }
       }
       const timeoutId = setTimeout(() => {
         handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
