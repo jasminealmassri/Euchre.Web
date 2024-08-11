@@ -36,6 +36,7 @@ import {
   pickCardToDiscard,
   pickSuitForTrump,
   forcedPickTrump,
+  getCardsThatCanWin,
 } from "../lib/computer-player";
 import { useEffect } from "react";
 
@@ -55,6 +56,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const trump = useEuchreSelector((state) => state.trump);
   const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
+  const trick = useEuchreSelector((state) => state.piles.table);
   const talon = useEuchreSelector((state) => state.piles.talon);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
@@ -93,9 +95,21 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   useEffect(() => {
     if (canPlay) {
+      if (trick.length > 0) {
+        const cardIndicesThatCanWin = getCardsThatCanWin(
+          trick,
+          hand,
+          trump as PlayingCardSuit,
+          leadingSuit as PlayingCardSuit
+        );
+        console.log("Cards that can win:");
+        cardIndicesThatCanWin.forEach((index) =>
+          console.log(JSON.stringify(hand[index]))
+        );
+      }
       const timeoutId = setTimeout(() => {
         handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
-      }, timeDelayMS);
+      }, 10000);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {

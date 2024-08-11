@@ -3,6 +3,7 @@ import {
   EuchreGameState,
   EuchreRank,
   EuchreSuit,
+  getHighestCard,
   getLeftBowerSuit,
   isLeftBower,
 } from "../euchre";
@@ -10,7 +11,7 @@ import {
   Pile,
   PlayingCard,
   PlayingCardRank,
-  PlayingCardSuit,
+  EuchreSuit,
 } from "../playing-card/playing-card.interface";
 
 export const sameCard = (
@@ -81,14 +82,14 @@ export const getCardsRankList = (
 };
 
 export const getCardsChanceWinning = (
-  card: PlayingCard<PlayingCardSuit, EuchreRank>,
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  proposedTrump: PlayingCardSuit
+  card: PlayingCard<EuchreSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
 ): number => {
   const ranksList = getCardsRankList(proposedTrump, card.suit);
-  // remove cards that already exist in the hand
 
   const restOfHand = hand.filter((handCard) => !sameCard(card, handCard));
+  // remove cards that already exist in the hand
   const filteredRanksList = ranksList.filter(
     (rankCard) => !restOfHand.some((handCard) => sameCard(rankCard, handCard))
   );
@@ -102,8 +103,8 @@ export const getCardsChanceWinning = (
 };
 
 export const getExpectedTricksWin = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  proposedTrump: PlayingCardSuit
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
 ): number => {
   return hand.reduce((accumulator, card) => {
     return (
@@ -114,8 +115,8 @@ export const getExpectedTricksWin = (
 };
 
 export const getHandsTotalWinningPower = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  proposedTrump: PlayingCardSuit
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
 ): number => {
   return hand.reduce((accumulator, card) => {
     return accumulator + getCardsChanceWinning(card, hand, proposedTrump);
@@ -123,22 +124,22 @@ export const getHandsTotalWinningPower = (
 };
 
 export const decideToOrderItUp = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  proposedTrump: PlayingCardSuit
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
 ): boolean => {
   return getExpectedTricksWin(hand, proposedTrump) >= 3;
 };
 
 export const decideToGoAlone = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  proposedTrump: PlayingCardSuit
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
 ): boolean => {
   return getExpectedTricksWin(hand, proposedTrump) >= 4;
 };
 
 export const pickCardToDiscard = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
-  trump: PlayingCardSuit
+  hand: Pile<EuchreSuit, EuchreRank>,
+  trump: EuchreSuit
 ): number => {
   const cardsChancesWinningArray = hand.map((card) =>
     getCardsChanceWinning(card, hand, trump)
@@ -155,7 +156,7 @@ export const pickCardToDiscard = (
 };
 
 export const pickSuitForTrump = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
   trumpCandidates: Array<EuchreSuit>
 ): EuchreSuit | null => {
   let highestWinPower = 0.0;
@@ -174,7 +175,7 @@ export const pickSuitForTrump = (
 };
 
 export const forcedPickTrump = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
   trumpCandidates: Array<EuchreSuit>
 ): EuchreSuit => {
   let highestWinPower = 0.0;
@@ -189,13 +190,95 @@ export const forcedPickTrump = (
   return highestSuit;
 };
 
+// this function is for when a leading suit has already been chosen (trick.length > 0)
+export const getCardsThatCanWin = (
+  trick: Pile<EuchreSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
+  trump: EuchreSuit,
+  leadingSuit: EuchreSuit
+): number[] => {
+  let copyHand = [...hand];
+  let cardsThatCanWin: PlayingCard<EuchreSuit, EuchreRank>[] = [];
+  let cardsIndicesThatCanwin: number[] = [];
+  let playableCards: Pile<EuchreSuit, EuchreRank> = hand;
+
+  copyHand.map((card) => {
+    isLeftBower(card, trump) ? { ...card, suit: trump } : card;
+  });
+
+  // filter it out to only cards that can be played, if leading suit exists in the hand
+  if (copyHand.find((card) => card.suit === leadingSuit)) {
+    playableCards = copyHand.filter((card) => card.suit === leadingSuit);
+  }
+
+  // get overall ranks list
+  const ranksList = getCardsRankList(trump, leadingSuit);
+
+  // get rank of highest card
+  const highestCardIndex = getHighestCard(trick, trump, leadingSuit);
+  console.log("highest card index in the trick is: ", highestCardIndex);
+  let rankOfCardToBeat = ranksList.length - 1; // last index to start
+
+  // get the highest rank of the current trick
+  for (let i = 0; i < ranksList.length; i++) {
+    if (sameCard(trick[highestCardIndex], ranksList[i])) {
+      rankOfCardToBeat = i;
+    }
+  }
+  console.log("The rank to beat is: ", rankOfCardToBeat);
+
+  // push cards that can win to the cards that can win
+  for (let i = 0; i < playableCards.length; i++) {
+    for (let j = 0; j < ranksList.length; j++) {
+      if (sameCard(ranksList[j], playableCards[i])) {
+        if (j < rankOfCardToBeat) {
+          console.log(
+            "card: ",
+            JSON.stringify(playableCards[i]),
+            " can win at rank: ",
+            j
+          );
+          cardsThatCanWin.push(playableCards[i]);
+        }
+      }
+    }
+  }
+  // get the indices of the cards that can win from the copyHand
+  for (let i = 0; i < cardsThatCanWin.length; i++) {
+    for (let j = 0; j < copyHand.length; j++) {
+      if (sameCard(cardsThatCanWin[i], copyHand[j])) {
+        cardsIndicesThatCanwin.push(j);
+      }
+    }
+  }
+  // give back the indices of the cards that can be played and win, these are ordered highest to lowest
+  console.log("returning these indices: ", cardsIndicesThatCanwin);
+  return cardsIndicesThatCanwin;
+};
+
+export const pickThrowawayCard = (
+  trick: Pile<EuchreSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
+  trump: EuchreSuit,
+  leadingSuit: EuchreSuit
+) => {
+  //const playableCards: Pile<EuchreSuit, EuchreRank> = [];
+
+  // filter it out to only cards that can be played
+  const playableCards = hand.filter(
+    (card) =>
+      (leadingSuit === trump && isLeftBower(card, trump)) ||
+      card.suit === leadingSuit
+  );
+};
+
 export const pickCardToPlay = (
-  hand: Pile<PlayingCardSuit, EuchreRank>,
+  hand: Pile<EuchreSuit, EuchreRank>,
   leadingSuit: EuchreSuit | null,
   trumpSuit: EuchreSuit
 ): number => {
   // TODO
-  const copyHand: Pile<PlayingCardSuit, EuchreRank> = [...hand];
+  const copyHand: Pile<EuchreSuit, EuchreRank> = [...hand];
   const updatedHand = copyHand.map((card) =>
     isLeftBower(card, trumpSuit) ? { ...card, suit: trumpSuit } : card
   );
