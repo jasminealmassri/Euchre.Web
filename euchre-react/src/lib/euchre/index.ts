@@ -125,7 +125,7 @@ export const player4State: EuchrePlayerState = {
   tricks: 0,
 };
 
-// const firstDealer = Math.floor(Math.random() * 4);
+const firstDealer = Math.floor(Math.random() * 4);
 
 export const initialState = (dealer = firstDealer): EuchreGameState => ({
   currentPlayer: dealer,
@@ -229,7 +229,7 @@ export interface EuchreGameState {
 //   type: PlayerType.COMPUTER,
 // };
 
-const firstDealer = Math.floor(Math.random() * 4);
+//const firstDealer = Math.floor(Math.random() * 4);
 
 // export const initialState = (dealer = firstDealer): EuchreGameState => ({
 //   currentPlayer: dealer,

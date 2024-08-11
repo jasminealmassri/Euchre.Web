@@ -29,6 +29,7 @@ import TrumpSelector from "./TrumpSelector";
 import "./TableComponent.css";
 import "./Player.css";
 import "./CardComponent.css";
+import { useEffect } from "react";
 
 interface PlayerProps {
   playerPointer: number;
@@ -84,11 +85,15 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
     dispatch(playCard(playerPointer, index));
   };
 
-  // useEffect(() => {
-  //   if (canDeal) {
-  //     dispatch(startHand());
-  //   }
-  // }, [canDeal]);
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (canDeal) {
+        console.log(`player ${playerPointer + 1} can deal`);
+        dispatch(startHand());
+      }
+    }, 50);
+    return () => clearTimeout(timeoutId);
+  }, [canDeal]);
 
   const handleDiscardClick = (index: number) => {
     if (!mustDiscard) {
@@ -158,11 +163,11 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
                 </button>
               </>
             )}
-            {canDeal &&
+            {/* {canDeal &&
               (() => {
                 dispatch(startHand());
                 return null;
-              })()}
+              })()} */}
             {/* {canDeal && (
               <button onClick={() => dispatch(startHand())}>Deal</button>
             )} */}

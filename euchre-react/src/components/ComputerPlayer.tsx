@@ -92,6 +92,15 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   };
 
   const timeDelayMS: number = 1200;
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      if (canDeal) {
+        console.log(`player ${playerPointer + 1} can deal`);
+        dispatch(startHand());
+      }
+    }, 50);
+    return () => clearTimeout(timeoutId);
+  }, [canDeal]);
 
   useEffect(() => {
     if (canPlay) {
@@ -109,7 +118,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
       }
       const timeoutId = setTimeout(() => {
         handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
-      }, 10000);
+      }, 30000);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {
@@ -251,11 +260,11 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
                 </button>
               </>
             )}
-            {canDeal &&
+            {/*{canDeal &&
               (() => {
                 dispatch(startHand());
                 return null;
-              })()}
+              })()} */}
             {/* {canDeal && (
               <button onClick={() => dispatch(startHand())}>Deal</button>
             )} */}
