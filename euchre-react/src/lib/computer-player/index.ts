@@ -198,15 +198,25 @@ export const getCardsThatCanWin = (
   let cardsIndicesThatCanwin: number[] = [];
 
   // check if this is working
-  let copyHand = hand.map((card) => {
-    return isLeftBower(card, trump) ? { ...card, suit: trump } : card;
-  });
-  let playableCards: Pile<EuchreSuit, EuchreRank> = copyHand;
-  console.log("copy hand after left bower evaluation is ", copyHand);
+  // let copyHand = hand.map((card) => {
+  //   return isLeftBower(card, trump) ? { ...card, suit: trump } : card;
+  // });
+  let playableCards: Pile<EuchreSuit, EuchreRank> = hand;
+  //console.log("copy hand after left bower evaluation is ", copyHand);
 
   // filter it out to only cards that can be played, if leading suit exists in the hand
-  if (copyHand.find((card) => card.suit === leadingSuit)) {
-    playableCards = copyHand.filter((card) => card.suit === leadingSuit);
+  if (
+    hand.find(
+      (card) =>
+        card.suit === leadingSuit ||
+        (leadingSuit === trump && isLeftBower(card, trump))
+    )
+  ) {
+    playableCards = hand.filter(
+      (card) =>
+        card.suit === leadingSuit ||
+        (leadingSuit === trump && isLeftBower(card, trump))
+    );
   }
   console.log("playable cards afer filtering is, ", playableCards);
 
@@ -237,8 +247,8 @@ export const getCardsThatCanWin = (
   }
   // get the indices of the cards that can win from the copyHand
   for (let i = 0; i < cardsThatCanWin.length; i++) {
-    for (let j = 0; j < copyHand.length; j++) {
-      if (sameCard(cardsThatCanWin[i], copyHand[j])) {
+    for (let j = 0; j < hand.length; j++) {
+      if (sameCard(cardsThatCanWin[i], hand[j])) {
         cardsIndicesThatCanwin.push(j);
       }
     }
