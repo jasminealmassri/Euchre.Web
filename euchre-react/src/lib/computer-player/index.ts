@@ -223,22 +223,23 @@ export const getCardsThatCanWin = (
   for (let i = 0; i < ranksList.length; i++) {
     if (sameCard(trick[highestCardIndex], ranksList[i])) {
       rankOfCardToBeat = i;
+      break;
     }
   }
   console.log("The rank to beat is: ", rankOfCardToBeat);
 
   // push cards that can win to the cards that can win
-  for (let i = 0; i < playableCards.length; i++) {
-    for (let j = 0; j < ranksList.length; j++) {
-      if (sameCard(ranksList[j], playableCards[i])) {
-        if (j < rankOfCardToBeat) {
+  for (let i = 0; i < ranksList.length; i++) {
+    for (let j = 0; j < playableCards.length; j++) {
+      if (sameCard(ranksList[i], playableCards[j])) {
+        if (i < rankOfCardToBeat) {
           console.log(
             "card: ",
             JSON.stringify(playableCards[i]),
             " can win at rank: ",
             j
           );
-          cardsThatCanWin.push(playableCards[i]);
+          cardsThatCanWin.push(playableCards[j]);
         }
       }
     }
