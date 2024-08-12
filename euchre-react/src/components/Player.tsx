@@ -6,6 +6,7 @@ import {
   selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
+  selectHandTotal,
   selectLeadingPlayer,
   selectMustCallTrump,
   selectMustDeclare,
@@ -44,6 +45,8 @@ const Player = ({ playerPointer }: PlayerProps) => {
   const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
+  const handPoints = useEuchreSelector(selectHandTotal(playerPointer));
+  const currentPlayer = useEuchreSelector((state) => state.currentPlayer);
 
   const handleCardClick = (index: number) => {
     switch (phase) {
@@ -86,7 +89,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
     <div>
       <ul>
         <li>
-          Name: {player.name} {canPlay && "*"}
+          Name: {player.name} {currentPlayer === playerPointer && "*"}
         </li>
         <li>
           Leading Player: {playerPointer === leadingPlayer ? "Yes" : "No"}
@@ -103,7 +106,7 @@ const Player = ({ playerPointer }: PlayerProps) => {
           <button
             onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
           >
-            Sort
+            Sort ({handPoints})
           </button>
         )}
         {canBid && (

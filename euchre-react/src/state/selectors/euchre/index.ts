@@ -6,6 +6,7 @@ import {
   Phase,
   Pile,
   PlayingCardSuit,
+  getHandValue,
   getHighestCard,
   getLeftBowerSuit,
   isLeftBower,
@@ -87,3 +88,8 @@ export const selectHighestCard =
 
     return getHighestCard(pile, trump, leadingSuit);
   };
+
+export const selectHandTotal = (player: number) => (state: EuchreGameState) => {
+  const hand = state.piles[`player${player + 1}`];
+  return getHandValue(hand, state.trump, state.leadingSuit);
+};

@@ -388,6 +388,17 @@ export const getSortedPile = (
   ] as Pile<PlayingCardSuit, EuchreRank>);
 };
 
+export const getHandValue = (
+  hand: PlayingCard<PlayingCardSuit, EuchreRank>[],
+  trump: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null
+): number => {
+  return hand.reduce(
+    (sum, card) => sum + getEuchreCardValue(card, trump, leadingSuit),
+    0
+  );
+};
+
 export type { Pile } from "../playing-card/playing-card.interface";
 export {
   PlayingCardSuit,
