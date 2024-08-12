@@ -9,7 +9,6 @@ import {
   getNextPlayer,
   getWinningPlayer,
   initialState,
-  nextPhase,
   scoreRound as scoreEuchreRound,
   getSortedPile,
   takeCardAt,
@@ -158,10 +157,6 @@ export const euchreSlice = createSlice({
       state.phase = action.payload;
     },
 
-    transitionToNextPhase: (state) => {
-      state.phase = nextPhase(state.phase);
-    },
-
     // pile actions
     moveCard: (
       state,
@@ -231,7 +226,6 @@ export const {
   setTrump,
   shuffle,
   sortPile,
-  transitionToNextPhase,
   transitionToPhase,
 } = euchreSlice.actions;
 export default euchreSlice.reducer;

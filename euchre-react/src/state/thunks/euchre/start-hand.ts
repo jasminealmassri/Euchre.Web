@@ -1,10 +1,10 @@
-import { EuchrePile, handParameters, utils } from "../..";
+import { EuchrePile, handParameters, Phase, utils } from "../..";
 import {
   cleanUp,
   moveCard,
   nextPlayer,
   shuffle,
-  transitionToNextPhase,
+  transitionToPhase,
 } from "../../reducers/euchre";
 import { AppThunk } from "../../store";
 
@@ -30,6 +30,6 @@ export const startHand = (): AppThunk => (dispatch, getState) => {
       faceUp: true,
     })
   );
-  dispatch(transitionToNextPhase());
+  dispatch(transitionToPhase(Phase.BIDDING));
   dispatch(nextPlayer());
 };
