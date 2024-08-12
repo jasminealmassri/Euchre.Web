@@ -8,6 +8,7 @@ import {
   getLeftBowerSuit,
   getSortedPile,
   isLeftBower,
+  isRightBower,
 } from "../euchre";
 import {
   Pile,
@@ -300,6 +301,61 @@ export const pickThrowAwayCard = (
   });
 
   return lowestCardHandIndex;
+};
+//
+//
+//
+//
+//
+export const pickLeadingCard = (
+  hand: Pile<EuchreSuit, EuchreRank>,
+  trump: EuchreSuit
+): number => {
+  let chosenIndex = 0;
+  let cardsHighestChanceWin = 0;
+
+  if (hand.some((card) => isRightBower(card, trump))) {
+    hand.forEach((card, index) => {
+      if (isRightBower(card, trump)) {
+        chosenIndex = index;
+      }
+    });
+  } else if (
+    hand.some(
+      (card) => card.suit !== trump && card.rank === PlayingCardRank.ACE
+    )
+  ) {
+    hand.forEach((card, index) => {
+      if (card.suit !== trump && card.rank === PlayingCardRank.ACE) {
+        chosenIndex = index;
+      }
+    });
+  } else if (
+    hand.some(
+      (card) => card.suit !== trump && card.rank === PlayingCardRank.KING
+    )
+  ) {
+    hand.forEach((card, index) => {
+      if (card.suit !== trump && card.rank === PlayingCardRank.KING) {
+        chosenIndex = index;
+      }
+    });
+  } else {
+    const nonTrumpHand = hand.filter(
+      (card) => card.suit !== trump || !isLeftBower(card, trump)
+    );
+    let highestChanceWin = 0.0;
+    nonTrumpHand.forEach((card, index) => {
+      const cardsChanceWin = getCardsChanceWinning(card, hand, trump);
+      if (cardsChanceWin > highestChanceWin) {
+        highestChanceWin = cardsChanceWin;
+        chosenIndex = index;
+      }
+    });
+  }
+
+  // placeholder
+  return chosenIndex;
 };
 
 export const pickCardToPlay = (
