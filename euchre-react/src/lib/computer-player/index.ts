@@ -312,7 +312,6 @@ export const pickLeadingCard = (
   trump: EuchreSuit
 ): number => {
   let chosenIndex = 0;
-  let cardsHighestChanceWin = 0;
 
   if (hand.some((card) => isRightBower(card, trump))) {
     hand.forEach((card, index) => {
@@ -360,21 +359,35 @@ export const pickLeadingCard = (
 
 export const pickCardToPlay = (
   hand: Pile<EuchreSuit, EuchreRank>,
-  leadingSuit: EuchreSuit | null,
-  trumpSuit: EuchreSuit
+  trick: Pile<EuchreSuit, EuchreRank>,
+  trump: EuchreSuit
 ): number => {
-  // TODO
-  const copyHand: Pile<EuchreSuit, EuchreRank> = [...hand];
-  const updatedHand = copyHand.map((card) =>
-    isLeftBower(card, trumpSuit) ? { ...card, suit: trumpSuit } : card
-  );
-  const hasLeadingSuit = updatedHand.findIndex(
-    (card) => card.suit === leadingSuit
-  );
+  let chosenCardIndex = 0;
 
-  if (hasLeadingSuit !== -1) {
-    return hasLeadingSuit;
+  if (trick.length === 0) {
+    chosenCardIndex = pickLeadingCard(hand, trump);
   } else {
-    return 0;
+    const leadingSuit = trick[0].suit;
+    const cardsThatCanWin = getCardsThatCanWin(trick, hand, trump, leadingSuit);
+    if (cardsThatCanWin.length === 0) {
+      chosenCardIndex = pickThrowAwayCard(hand, trump, leadingSuit);
+    } else {
+      chosenCardIndex = cardsThatCanWin[cardsThatCanWin.length - 1];
+    }
   }
+  return chosenCardIndex;
+  // TODO
+  // const copyHand: Pile<EuchreSuit, EuchreRank> = [...hand];
+  // const updatedHand = copyHand.map((card) =>
+  //   isLeftBower(card, trumpSuit) ? { ...card, suit: trumpSuit } : card
+  // );
+  // const hasLeadingSuit = updatedHand.findIndex(
+  //   (card) => card.suit === leadingSuit
+  // );
+
+  // if (hasLeadingSuit !== -1) {
+  //   return hasLeadingSuit;
+  // } else {
+  //   return 0;
+  // }
 };

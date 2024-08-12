@@ -38,6 +38,7 @@ import {
   forcedPickTrump,
   getCardsThatCanWin,
   pickThrowAwayCard,
+  pickLeadingCard,
 } from "../lib/computer-player";
 import { useEffect } from "react";
 
@@ -105,7 +106,16 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   useEffect(() => {
     if (canPlay) {
-      if (trick.length > 0) {
+      if (trick.length === 0) {
+        const leadingCardChosen = pickLeadingCard(
+          hand,
+          trump as PlayingCardSuit
+        );
+        console.log(
+          "Leading mode: Leading card chosen is: ",
+          JSON.stringify(hand[leadingCardChosen])
+        );
+      } else {
         const cardIndicesThatCanWin = getCardsThatCanWin(
           trick,
           hand,
@@ -129,8 +139,8 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         }
       }
       const timeoutId = setTimeout(() => {
-        handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
-      }, 20000);
+        handleCardClick(pickCardToPlay(hand, trick, trump as EuchreSuit));
+      }, 5000);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {
