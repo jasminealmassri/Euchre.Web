@@ -6,6 +6,7 @@ import {
   EuchreSuit,
   getHighestCard,
   getLeftBowerSuit,
+  getPartnerIndex,
   getSortedPile,
   isLeftBower,
   isRightBower,
@@ -358,6 +359,7 @@ export const pickLeadingCard = (
 };
 
 export const pickCardToPlay = (
+  currentTrickPosition: number,
   hand: Pile<EuchreSuit, EuchreRank>,
   trick: Pile<EuchreSuit, EuchreRank>,
   trump: EuchreSuit
@@ -372,7 +374,19 @@ export const pickCardToPlay = (
     if (cardsThatCanWin.length === 0) {
       chosenCardIndex = pickThrowAwayCard(hand, trump, leadingSuit);
     } else {
-      chosenCardIndex = cardsThatCanWin[cardsThatCanWin.length - 1];
+      if (trick.length >= 2) {
+        const partnerPointer = getPartnerIndex(currentTrickPosition);
+        console.log(
+          `Current trick position is ${currentTrickPosition}, and their's partner's trick position is ${partnerPointer}`
+        );
+        if (partnerPointer === getHighestCard(trick, trump, leadingSuit)) {
+          chosenCardIndex = pickThrowAwayCard(hand, trump, leadingSuit);
+        } else {
+          chosenCardIndex = cardsThatCanWin[cardsThatCanWin.length - 1];
+        }
+      } else {
+        chosenCardIndex = cardsThatCanWin[cardsThatCanWin.length - 1];
+      }
     }
   }
   return chosenCardIndex;

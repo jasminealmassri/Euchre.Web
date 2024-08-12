@@ -476,6 +476,10 @@ export const getSortedPile = (
   ] as Pile<PlayingCardSuit, EuchreRank>);
 };
 
+export const getPartnerIndex = (playerPointer: number): number => {
+  return (playerPointer + 2) % 4;
+};
+
 export type { Pile } from "../playing-card/playing-card.interface";
 export {
   PlayingCardSuit,
