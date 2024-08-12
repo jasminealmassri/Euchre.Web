@@ -56,6 +56,7 @@ export const playCard =
           dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
         }, 2000);
       }
+    } else {
+      dispatch(nextPlayer());
     }
-    dispatch(nextPlayer());
   };

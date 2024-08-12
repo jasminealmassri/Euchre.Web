@@ -7,10 +7,10 @@ import {
   PlayingCardSuit,
   getNextDealer,
   getNextPlayer,
+  getSortedPile,
   getWinningPlayer,
   initialState,
   scoreRound as scoreEuchreRound,
-  getSortedPile,
   takeCardAt,
 } from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
