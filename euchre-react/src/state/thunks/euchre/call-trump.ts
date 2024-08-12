@@ -17,6 +17,6 @@ export const callTrump =
     dispatch(setTrump(trump));
     dispatch(setRole({ makerPointer: playerPointer }));
     dispatch(setCurrentPlayer(dealer));
-    dispatch(nextPlayer());
     dispatch(transitionToPhase(Phase.DECLARING));
+    dispatch(nextPlayer());
   };

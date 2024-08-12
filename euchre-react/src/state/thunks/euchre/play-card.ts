@@ -40,7 +40,6 @@ export const playCard =
         faceUp: true,
       })
     );
-    dispatch(nextPlayer());
 
     if (player === lastPlayer) {
       dispatch(transitionToPhase(Phase.TRICK_SCORING));
@@ -58,4 +57,5 @@ export const playCard =
         }, 2000);
       }
     }
+    dispatch(nextPlayer());
   };
