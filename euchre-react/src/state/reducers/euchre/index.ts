@@ -49,7 +49,6 @@ export const euchreSlice = createSlice({
 
       state.players[winningPlayerIndex].tricks += 1;
       state.leadingPlayer = winningPlayerIndex;
-      state.currentPlayer = winningPlayerIndex;
     },
 
     benchPlayer: (state) => {
@@ -105,8 +104,10 @@ export const euchreSlice = createSlice({
       });
     },
 
-    nextPlayer(state) {
-      state.currentPlayer = getNextPlayer(state);
+    nextPlayer(state, action: PayloadAction<number | undefined>) {
+      action.payload === undefined
+        ? (state.currentPlayer = getNextPlayer(state))
+        : (state.currentPlayer = action.payload);
     },
 
     // recordScore: (state, action: PayloadAction<number>) => {
