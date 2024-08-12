@@ -136,7 +136,7 @@ export const decideToGoAlone = (
   hand: Pile<EuchreSuit, EuchreRank>,
   proposedTrump: EuchreSuit
 ): boolean => {
-  return getExpectedTricksWin(hand, proposedTrump) >= 4;
+  return getExpectedTricksWin(hand, proposedTrump) === 5;
 };
 
 export const pickCardToDiscard = (
@@ -280,15 +280,26 @@ export const pickThrowAwayCard = (
     );
   }
 
-  const sortedPlayableCards = getSortedPile(playableCards, trump, leadingSuit);
-  let lowestCardIndex = 0;
-  hand.forEach((card, index) => {
-    if (sameCard(card, sortedPlayableCards[sortedPlayableCards.length - 1])) {
-      lowestCardIndex = index;
+  let lowestCardPlayableIndex = 0;
+  let lowestChanceWin = 1.0;
+  playableCards.forEach((card, index) => {
+    const cardsChanceWin = getCardsChanceWinning(card, hand, trump);
+    console.log(`${JSON.stringify(card)}'s chance win is ${cardsChanceWin}`);
+    if (cardsChanceWin < lowestChanceWin) {
+      lowestChanceWin = cardsChanceWin;
+      lowestCardPlayableIndex = index;
     }
   });
 
-  return lowestCardIndex;
+  let lowestCardHandIndex = 0.0;
+  // get the indices of the cards that can win from the copyHand
+  hand.forEach((_card, index) => {
+    if (sameCard(playableCards[lowestCardPlayableIndex], hand[index])) {
+      lowestCardHandIndex = index;
+    }
+  });
+
+  return lowestCardHandIndex;
 };
 
 export const pickCardToPlay = (

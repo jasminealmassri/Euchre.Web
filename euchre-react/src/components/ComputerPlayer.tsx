@@ -130,7 +130,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
       }
       const timeoutId = setTimeout(() => {
         handleCardClick(pickCardToPlay(hand, leadingSuit, trump as EuchreSuit));
-      }, 1200);
+      }, 20000);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {
