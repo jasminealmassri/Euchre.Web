@@ -5,7 +5,7 @@ import {
   nextPlayer,
   shuffle,
   sortPile,
-  transitionToNextPhase,
+  transitionToPhase,
 } from "../../reducers/euchre";
 import { AppThunk } from "../../store";
 
