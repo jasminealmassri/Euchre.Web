@@ -91,7 +91,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     }
   };
 
-  const timeDelayMS: number = 1200;
+  const timeDelayMS: number = 0;
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (canDeal) {
@@ -140,7 +140,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         handleCardClick(
           pickCardToPlay(trick.length, hand, trick, trump as EuchreSuit)
         );
-      }, 1200);
+      }, timeDelayMS);
       return () => clearTimeout(timeoutId);
     }
     // if (canDeal) {
@@ -240,7 +240,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
       <div>
         <div>
           <PileViewer
-            onClick={handleCardClick}
+            flippedUp={true}
             pile={hand}
             className={playerCSSClasses[player.tablePosition]}
           />

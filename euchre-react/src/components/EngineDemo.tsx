@@ -3,6 +3,7 @@ import React from "react";
 import { useEuchreSelector } from "../state/hooks";
 import {
   findPlayer,
+  selectCurrentPlayer,
   selectDealerPointer,
   selectPhase,
   selectPlayers,
@@ -15,11 +16,13 @@ import "./TableComponent.css";
 import ScoreComponent from "./ScoreComponent";
 import MessageComponent from "./MessageComponent";
 import ComputerPlayer from "./ComputerPlayer";
-import { EuchrePlayerState } from "../state";
+import { EuchrePlayerState, Phase } from "../state";
+import { gamePhase } from "../interfaces/gamePhase";
 
 const EngineDemo = () => {
   const phase = useEuchreSelector(selectPhase);
   const players = useEuchreSelector(selectPlayers);
+  const currentPlayer = useEuchreSelector(selectCurrentPlayer);
   const dealerPointer = useEuchreSelector(selectDealerPointer);
   const dealer = useEuchreSelector(findPlayer(dealerPointer));
   const trumpMaker = useEuchreSelector(selectTrumpMaker) as EuchrePlayerState;
@@ -38,12 +41,32 @@ const EngineDemo = () => {
     <>
       <div>
         <ScoreComponent />
-        <MessageComponent />
+        {/* <MessageComponent /> */}
         {/* <PromptComponent/> */}
-        <p id="player-1-label">{players[0].name}</p>
-        <p id="player-2-label">{players[1].name}</p>
-        <p id="player-3-label">{players[2].name}</p>
-        <p id="player-4-label">{players[3].name}</p>
+        <p
+          className={currentPlayer === 0 ? "currentPlayer" : ""}
+          id="player-1-label"
+        >
+          {players[0].name}
+        </p>
+        <p
+          className={currentPlayer === 1 ? "currentPlayer" : ""}
+          id="player-2-label"
+        >
+          {players[1].name}
+        </p>
+        <p
+          className={currentPlayer === 2 ? "currentPlayer" : ""}
+          id="player-3-label"
+        >
+          {players[2].name}
+        </p>
+        <p
+          className={currentPlayer === 3 ? "currentPlayer" : ""}
+          id="player-4-label"
+        >
+          {players[3].name}
+        </p>
         {/* <TableComponent /> */}
       </div>
       <div>
@@ -93,6 +116,9 @@ const EngineDemo = () => {
               )}
             </div>
             {/* <hr /> */}
+            {phase === Phase.END_OF_GAME && (
+              <button className="startNewGame">Start New Game?</button>
+            )}
           </React.Fragment>
         ))}
       </div>

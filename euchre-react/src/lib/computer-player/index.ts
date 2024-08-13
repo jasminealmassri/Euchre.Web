@@ -198,18 +198,8 @@ export const getCardsThatCanWin = (
   let playableCards: Pile<EuchreSuit, EuchreRank> = hand;
 
   // filter it out to only cards that can be played, if leading suit exists in the hand
-  if (
-    hand.find(
-      (card) =>
-        card.suit === leadingSuit ||
-        (leadingSuit === trump && isLeftBower(card, trump))
-    )
-  ) {
-    playableCards = hand.filter(
-      (card) =>
-        card.suit === leadingSuit ||
-        (leadingSuit === trump && isLeftBower(card, trump))
-    );
+  if (hand.find((card) => getSuit(card, trump) === leadingSuit)) {
+    playableCards = hand.filter((card) => getSuit(card, trump) === leadingSuit);
   }
   console.log("playable cards afer filtering is, ", playableCards);
 
@@ -298,13 +288,18 @@ export const pickLeadingCard = (
   trump: EuchreSuit
 ): number => {
   let chosenIndex = 0;
-
+  let hadRightBower = false;
   if (hand.some((card) => isRightBower(card, trump))) {
+    hadRightBower = true;
     hand.forEach((card, index) => {
       if (isRightBower(card, trump)) {
         chosenIndex = index;
       }
     });
+  } else if (hadRightBower) {
+    if (hand.some((card) => isLeftBower(card, trump))) {
+      chosenIndex = hand.findIndex((card) => isLeftBower(card, trump));
+    }
   } else if (
     hand.some(
       (card) => card.suit !== trump && card.rank === PlayingCardRank.ACE

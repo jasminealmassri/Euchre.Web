@@ -63,8 +63,8 @@
 }
 
 .player_2_is_dealer {
-  top: 28%;
-  left: 12%;
+  top: 27.5%;
+  left: 13%;
 }
 
 .player_3_is_dealer {
@@ -73,6 +73,6 @@
 }
 
 .player_4_is_dealer {
-  top: 28%;
+  top: 27.5%;
   left: 78%;
 }

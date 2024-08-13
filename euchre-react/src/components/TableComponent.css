@@ -1,3 +1,20 @@
+.currentPlayer {
+  background-color: yellow;
+  animation: currentPlayer 2.5s linear infinite;
+}
+
+@keyframes currentPlayer {
+  0% {
+    background-color: rgba(248, 214, 78, 0.3);
+  }
+  50% {
+    background-color: rgba(248, 214, 78, 0.1);
+  }
+  100% {
+    background-color: rgba(248, 214, 78, 0.3);
+  }
+}
+
 .player-1-hand {
   position: absolute;
   bottom: 5%;
@@ -15,26 +32,28 @@
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   position: absolute;
+  padding: 0.5rem;
+  border-radius: 15px;
 }
 
 #player-1-label {
-  bottom: 10%;
+  bottom: 8%;
   left: 80%;
 }
 
 #player-2-label {
-  top: 35%;
-  left: 14%;
+  top: 33%;
+  left: 13%;
 }
 
 #player-3-label {
-  top: 23%;
-  left: 25%;
+  top: 20%;
+  left: 24%;
 }
 
 #player-4-label {
-  top: 35%;
-  left: 79%;
+  top: 33%;
+  left: 78%;
 }
 
 .player-2-hand {
