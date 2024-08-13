@@ -1,13 +1,10 @@
-import { sortPile } from "../../state/reducers/euchre";
-import { selectPlayerHand, selectSuit } from "../../state/selectors/euchre";
 import {
-  EuchreGameState,
   EuchreRank,
   EuchreSuit,
   getHighestCard,
   getLeftBowerSuit,
   getPartnerIndex,
-  getSortedPile,
+  getSuit,
   isLeftBower,
   isRightBower,
 } from "../euchre";
@@ -15,7 +12,7 @@ import {
   Pile,
   PlayingCard,
   PlayingCardRank,
-  EuchreSuit,
+  PlayingCardSuit,
 } from "../playing-card/playing-card.interface";
 
 export const sameCard = (
@@ -93,6 +90,7 @@ export const getCardsChanceWinning = (
   const ranksList = getCardsRankList(proposedTrump, card.suit);
 
   const restOfHand = hand.filter((handCard) => !sameCard(card, handCard));
+
   // remove cards that already exist in the hand
   const filteredRanksList = ranksList.filter(
     (rankCard) => !restOfHand.some((handCard) => sameCard(rankCard, handCard))
@@ -100,9 +98,6 @@ export const getCardsChanceWinning = (
   const cardRank = filteredRanksList.findIndex((rankCard) =>
     sameCard(rankCard, card)
   );
-  // hand: console.log("ranksList:", ranksList);
-  // console.log("filteredRanksList:", filteredRanksList);
-  // console.log("cardIndex:", cardRank);
   return (ranksList.length - 1 - cardRank) / (ranksList.length - 1);
 };
 
@@ -200,13 +195,7 @@ export const getCardsThatCanWin = (
 ): number[] => {
   let cardsThatCanWin: PlayingCard<EuchreSuit, EuchreRank>[] = [];
   let cardsIndicesThatCanwin: number[] = [];
-
-  // check if this is working
-  // let copyHand = hand.map((card) => {
-  //   return isLeftBower(card, trump) ? { ...card, suit: trump } : card;
-  // });
   let playableCards: Pile<EuchreSuit, EuchreRank> = hand;
-  //console.log("copy hand after left bower evaluation is ", copyHand);
 
   // filter it out to only cards that can be played, if leading suit exists in the hand
   if (
@@ -303,11 +292,7 @@ export const pickThrowAwayCard = (
 
   return lowestCardHandIndex;
 };
-//
-//
-//
-//
-//
+
 export const pickLeadingCard = (
   hand: Pile<EuchreSuit, EuchreRank>,
   trump: EuchreSuit
@@ -369,18 +354,34 @@ export const pickCardToPlay = (
   if (trick.length === 0) {
     chosenCardIndex = pickLeadingCard(hand, trump);
   } else {
-    const leadingSuit = trick[0].suit;
-    const cardsThatCanWin = getCardsThatCanWin(trick, hand, trump, leadingSuit);
+    const leadingSuit = getSuit(trick[0], trump);
+    const cardsThatCanWin = getCardsThatCanWin(
+      trick,
+      hand,
+      trump,
+      leadingSuit as PlayingCardSuit
+    );
     if (cardsThatCanWin.length === 0) {
-      chosenCardIndex = pickThrowAwayCard(hand, trump, leadingSuit);
+      chosenCardIndex = pickThrowAwayCard(
+        hand,
+        trump,
+        leadingSuit as PlayingCardSuit
+      );
     } else {
       if (trick.length >= 2) {
         const partnerPointer = getPartnerIndex(currentTrickPosition);
         console.log(
           `Current trick position is ${currentTrickPosition}, and their's partner's trick position is ${partnerPointer}`
         );
-        if (partnerPointer === getHighestCard(trick, trump, leadingSuit)) {
-          chosenCardIndex = pickThrowAwayCard(hand, trump, leadingSuit);
+        if (
+          partnerPointer ===
+          getHighestCard(trick, trump, leadingSuit as PlayingCardSuit)
+        ) {
+          chosenCardIndex = pickThrowAwayCard(
+            hand,
+            trump,
+            leadingSuit as PlayingCardSuit
+          );
         } else {
           chosenCardIndex = cardsThatCanWin[cardsThatCanWin.length - 1];
         }
@@ -390,18 +391,4 @@ export const pickCardToPlay = (
     }
   }
   return chosenCardIndex;
-  // TODO
-  // const copyHand: Pile<EuchreSuit, EuchreRank> = [...hand];
-  // const updatedHand = copyHand.map((card) =>
-  //   isLeftBower(card, trumpSuit) ? { ...card, suit: trumpSuit } : card
-  // );
-  // const hasLeadingSuit = updatedHand.findIndex(
-  //   (card) => card.suit === leadingSuit
-  // );
-
-  // if (hasLeadingSuit !== -1) {
-  //   return hasLeadingSuit;
-  // } else {
-  //   return 0;
-  // }
 };

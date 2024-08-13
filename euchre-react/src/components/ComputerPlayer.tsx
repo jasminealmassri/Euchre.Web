@@ -4,7 +4,6 @@ import {
   selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
-  selectLeadingPlayer,
   selectMustCallTrump,
   selectMustDeclare,
   selectMustDiscard,
@@ -57,7 +56,6 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
   const trump = useEuchreSelector((state) => state.trump);
-  const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
   const trick = useEuchreSelector((state) => state.piles.table);
   const talon = useEuchreSelector((state) => state.piles.talon);
   const hand = useEuchreSelector(selectPile(player.hand));
@@ -239,17 +237,6 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
 
   return (
     <div>
-      {/* <ul>
-        <li>
-          Name: {player.name} {canPlay && "*"}
-        </li>
-        <li>
-          Leading Player: {playerPointer === leadingPlayer ? "Yes" : "No"}
-        </li>
-        <li>Role: {player.role}</li>
-        <li>Tricks: {player.tricks}</li>
-        <li>Sitting Out: {player.sittingOut ? "Yes" : "No"}</li>
-      </ul> */}
       <div>
         <div>
           <PileViewer
@@ -258,12 +245,6 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
             className={playerCSSClasses[player.tablePosition]}
           />
         </div>
-        {/* Trial for how computer player can automatically advance state */}
-        {/* {canPlay &&
-          (() => {
-            handleCardClick(pickCardToPlay(state, playerPointer));
-            return null;
-          })()} */}
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
@@ -284,14 +265,6 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
                 </button>
               </>
             )}
-            {/*{canDeal &&
-              (() => {
-                dispatch(startHand());
-                return null;
-              })()} */}
-            {/* {canDeal && (
-              <button onClick={() => dispatch(startHand())}>Deal</button>
-            )} */}
             {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
             {canCallTrump && !mustCallTrump && (
               <button onClick={() => dispatch(passOnTrump())}>Pass</button>

@@ -193,67 +193,6 @@ export interface EuchreGameState {
   players: Array<EuchrePlayerState>;
 }
 
-// export const player1State: EuchrePlayerState = {
-//   hand: "player1",
-//   name: "Player 1",
-//   sittingOut: false,
-//   role: null,
-//   tricks: 0,
-//   type: PlayerType.HUMAN,
-// };
-
-// export const player2State: EuchrePlayerState = {
-//   hand: "player2",
-//   name: "Player 2",
-//   sittingOut: false,
-//   role: null,
-//   tricks: 0,
-//   type: PlayerType.COMPUTER,
-// };
-
-// export const player3State: EuchrePlayerState = {
-//   hand: "player3",
-//   name: "Player 3",
-//   sittingOut: false,
-//   role: null,
-//   tricks: 0,
-//   type: PlayerType.COMPUTER,
-// };
-
-// export const player4State: EuchrePlayerState = {
-//   hand: "player4",
-//   name: "Player 4",
-//   sittingOut: false,
-//   role: null,
-//   tricks: 0,
-//   type: PlayerType.COMPUTER,
-// };
-
-//const firstDealer = Math.floor(Math.random() * 4);
-
-// export const initialState = (dealer = firstDealer): EuchreGameState => ({
-//   currentPlayer: dealer,
-//   dealer,
-//   leadingPlayer: (dealer + 1) % 4,
-//   team1Score: 0,
-//   team2Score: 0,
-//   trump: null,
-//   trumpCandidates: suits,
-//   leadingSuit: null,
-//   phase: Phase.DEALING,
-//   piles: {
-//     deck: makeDeck(suits, ranks),
-//     discard: [],
-//     talon: [],
-//     table: [],
-//     player1: [],
-//     player2: [],
-//     player3: [],
-//     player4: [],
-//   },
-//   players: [player1State, player2State, player3State, player4State],
-// });
-
 // Helper functions
 
 const phaseOrder = () => {
@@ -293,6 +232,23 @@ export const isLeftBower = (
   trumpSuit: PlayingCardSuit
 ) => {
   return card.suit === getLeftBowerSuit(trumpSuit) && card.rank === "J";
+};
+
+export const getSameColorSuit = (
+  suit: PlayingCardSuit | null
+): PlayingCardSuit | null => {
+  switch (suit) {
+    case PlayingCardSuit.HEARTS:
+      return PlayingCardSuit.DIAMONDS;
+    case PlayingCardSuit.DIAMONDS:
+      return PlayingCardSuit.HEARTS;
+    case PlayingCardSuit.CLUBS:
+      return PlayingCardSuit.SPADES;
+    case PlayingCardSuit.SPADES:
+      return PlayingCardSuit.CLUBS;
+    case null:
+      return null;
+  }
 };
 
 export const getEuchreCardValue = (
@@ -478,6 +434,13 @@ export const getSortedPile = (
 
 export const getPartnerIndex = (playerPointer: number): number => {
   return (playerPointer + 2) % 4;
+};
+
+export const getSuit = (
+  card: PlayingCard<PlayingCardSuit, EuchreRank>,
+  trump: PlayingCardSuit
+): PlayingCardSuit | null => {
+  return isLeftBower(card, trump) ? trump : card.suit;
 };
 
 export type { Pile } from "../playing-card/playing-card.interface";
