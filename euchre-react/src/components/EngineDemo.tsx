@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useEuchreSelector } from "../state/hooks";
+import { useAppDispatch, useEuchreSelector } from "../state/hooks";
 import {
   findPlayer,
   selectCurrentPlayer,
@@ -18,8 +18,11 @@ import MessageComponent from "./MessageComponent";
 import ComputerPlayer from "./ComputerPlayer";
 import { EuchrePlayerState, Phase } from "../state";
 import { gamePhase } from "../interfaces/gamePhase";
+import { startHand } from "../state/thunks/euchre";
+import { resetState } from "../state/reducers/euchre";
 
 const EngineDemo = () => {
+  const dispatch = useAppDispatch();
   const phase = useEuchreSelector(selectPhase);
   const players = useEuchreSelector(selectPlayers);
   const currentPlayer = useEuchreSelector(selectCurrentPlayer);
@@ -106,6 +109,16 @@ const EngineDemo = () => {
             />
           )}
         </div>
+        {phase === Phase.END_OF_GAME && (
+          <button
+            className="startNewGame"
+            onClick={() => {
+              dispatch(resetState());
+            }}
+          >
+            Click To Start New Game
+          </button>
+        )}
         {players.map((player, i) => (
           <React.Fragment key={player.name}>
             <div>
@@ -116,9 +129,6 @@ const EngineDemo = () => {
               )}
             </div>
             {/* <hr /> */}
-            {phase === Phase.END_OF_GAME && (
-              <button className="startNewGame">Start New Game?</button>
-            )}
           </React.Fragment>
         ))}
       </div>

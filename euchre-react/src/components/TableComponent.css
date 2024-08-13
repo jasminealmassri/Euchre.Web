@@ -3,6 +3,36 @@
   animation: currentPlayer 2.5s linear infinite;
 }
 
+.trumpSuits {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 0.55em;
+  cursor: pointer;
+  max-width: 2rem;
+  transition: all 0.2s linear;
+}
+
+.trumpSuits:hover {
+  transform: scale(120%);
+  background-color: rgb(250, 222, 145);
+}
+
+.startNewGame {
+  position: absolute;
+  top: 47%;
+  left: 35%;
+  padding: 2%;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  /* background-color: red; */
+}
+
+.startNewGame:hover {
+  background-color: rgb(253, 255, 216);
+}
+
 @keyframes currentPlayer {
   0% {
     background-color: rgba(248, 214, 78, 0.3);
@@ -53,7 +83,7 @@
 
 #player-4-label {
   top: 33%;
-  left: 78%;
+  left: 79%;
 }
 
 .player-2-hand {

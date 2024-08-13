@@ -35,8 +35,12 @@ const ScoreComponent = () => {
   return (
     <div className="scoreboard-container">
       <div className="total_scores">
-        <div>Your team: {team1Score} points</div>
-        <div>Enemy team: {team2Score} points</div>
+        <div>
+          {player1.name} and {player3.name}: {team1Score} points
+        </div>
+        <div>
+          {player2.name} and {player4.name}: {team2Score} points
+        </div>
       </div>
       {trump && (
         <div className="round-scoreboard">

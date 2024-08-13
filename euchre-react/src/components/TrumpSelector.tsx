@@ -3,7 +3,7 @@ import {
   PlayingCardSuit,
   suitToColor,
 } from "../lib/playing-card/playing-card.interface";
-
+import "./TableComponent.css";
 interface Props {
   onClick?: (suit: PlayingCardSuit) => void;
 }
@@ -13,17 +13,14 @@ const TrumpSelector = ({ onClick }: Props) => {
   const candidates = useEuchreSelector((state) => state.trumpCandidates);
 
   return (
-    <div style={{ display: "flex", backgroundColor: "white" }}>
+    <div style={{ display: "flex", gap: "0.75rem" }}>
       {candidates.map((suit) => (
         <div
           key={suit}
           style={{
-            border: "1px solid black",
-            padding: "0.25em",
             color: suitToColor(suit),
-            cursor: "pointer",
-            maxWidth: "1.5em",
           }}
+          className="trumpSuits"
           onClick={() => onClick && onClick(suit)}
         >
           {suits[suit]}

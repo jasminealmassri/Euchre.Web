@@ -91,7 +91,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     }
   };
 
-  const timeDelayMS: number = 0;
+  const timeDelayMS: number = 1000;
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (canDeal) {
