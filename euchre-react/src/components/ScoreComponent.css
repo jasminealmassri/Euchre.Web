@@ -25,7 +25,7 @@
 }
 
 .total_scores {
-  box-shadow: 1px 1px 1px 1px white;
+  box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, 0.551);
   width: 70%;
   display: flex;
   div {
@@ -39,7 +39,7 @@
 }
 
 .round-scoreboard {
-  box-shadow: 1px 1px 1px 1px white;
+  box-shadow: 1px 1px 1px 1px rgba(255, 255, 255, 0.551);
   width: 80%;
   text-align: center;
   margin: 0 auto;

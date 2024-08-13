@@ -35,13 +35,13 @@
 
 @keyframes currentPlayer {
   0% {
-    background-color: rgba(248, 214, 78, 0.3);
+    background-color: rgba(237, 237, 237, 0.3);
   }
   50% {
-    background-color: rgba(248, 214, 78, 0.1);
+    background-color: rgba(237, 237, 237, 0.1);
   }
   100% {
-    background-color: rgba(248, 214, 78, 0.3);
+    background-color: rgba(237, 237, 237, 0.3);
   }
 }
 
@@ -50,6 +50,8 @@
   bottom: 5%;
   left: 25%;
   z-index: 9;
+  display: flex;
+  /* justify-content: right; */
 }
 
 #player-1-label,
@@ -68,7 +70,7 @@
 
 #player-1-label {
   bottom: 8%;
-  left: 80%;
+  left: 15%;
 }
 
 #player-2-label {
@@ -77,8 +79,8 @@
 }
 
 #player-3-label {
-  top: 20%;
-  left: 24%;
+  top: 21.5%;
+  left: 23%;
 }
 
 #player-4-label {

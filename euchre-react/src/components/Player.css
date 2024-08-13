@@ -9,7 +9,7 @@
 }
 
 .prompt {
-  background-color: rgb(255, 247, 176);
+  background-color: rgb(255, 255, 255);
   padding: 4%;
   cursor: pointer;
   font-weight: bold;
@@ -18,7 +18,7 @@
 }
 
 .prompt:hover {
-  background-color: rgb(220, 184, 112);
+  background-color: rgb(231, 224, 161);
   transform: scale(120%);
 }
 
@@ -59,7 +59,7 @@
 
 .player_1_is_dealer {
   top: 80%;
-  left: 78%;
+  left: 13%;
 }
 
 .player_2_is_dealer {

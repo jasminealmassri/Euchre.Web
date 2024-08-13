@@ -20,7 +20,12 @@ import {
   playCard,
   startHand,
 } from "../state/thunks/euchre";
-import { EuchreSuit, Phase, PlayingCardSuit } from "../lib/euchre";
+import {
+  EuchreSuit,
+  getPartnerIndex,
+  Phase,
+  PlayingCardSuit,
+} from "../lib/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
@@ -55,6 +60,9 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   const mustDeclare = useEuchreSelector(selectMustDeclare(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
+  const partner = useEuchreSelector(
+    selectPlayer(getPartnerIndex(playerPointer))
+  );
   const trump = useEuchreSelector((state) => state.trump);
   const trick = useEuchreSelector((state) => state.piles.table);
   const talon = useEuchreSelector((state) => state.piles.talon);
@@ -138,7 +146,13 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
       }
       const timeoutId = setTimeout(() => {
         handleCardClick(
-          pickCardToPlay(trick.length, hand, trick, trump as EuchreSuit)
+          pickCardToPlay(
+            trick.length,
+            partner.sittingOut,
+            hand,
+            trick,
+            trump as EuchreSuit
+          )
         );
       }, timeDelayMS);
       return () => clearTimeout(timeoutId);
@@ -272,9 +286,10 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           </div>
         </div>
       </div>
-      {playerPointer === dealer && (
-        <div className={`${dealerClasses[playerPointer]}`}>Dealer</div>
-      )}
+      {playerPointer === dealer &&
+        (phase === Phase.BIDDING || phase === Phase.CALLING_TRUMP) && (
+          <div className={`${dealerClasses[playerPointer]}`}>Dealer</div>
+        )}
     </div>
   );
 };

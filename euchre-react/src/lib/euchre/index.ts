@@ -117,7 +117,7 @@ export const player3State: EuchrePlayerState = {
 
 export const player4State: EuchrePlayerState = {
   hand: "player4",
-  name: "Brian",
+  name: "Michael",
   tablePosition: 3,
   type: PlayerType.COMPUTER,
   role: null,

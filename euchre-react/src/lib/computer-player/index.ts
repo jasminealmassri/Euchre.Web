@@ -288,18 +288,12 @@ export const pickLeadingCard = (
   trump: EuchreSuit
 ): number => {
   let chosenIndex = 0;
-  let hadRightBower = false;
   if (hand.some((card) => isRightBower(card, trump))) {
-    hadRightBower = true;
     hand.forEach((card, index) => {
       if (isRightBower(card, trump)) {
         chosenIndex = index;
       }
     });
-  } else if (hadRightBower) {
-    if (hand.some((card) => isLeftBower(card, trump))) {
-      chosenIndex = hand.findIndex((card) => isLeftBower(card, trump));
-    }
   } else if (
     hand.some(
       (card) => card.suit !== trump && card.rank === PlayingCardRank.ACE
@@ -310,6 +304,8 @@ export const pickLeadingCard = (
         chosenIndex = index;
       }
     });
+  } else if (hand.some((card) => isLeftBower(card, trump))) {
+    chosenIndex = hand.findIndex((card) => isLeftBower(card, trump));
   } else if (
     hand.some(
       (card) => card.suit !== trump && card.rank === PlayingCardRank.KING
@@ -340,6 +336,7 @@ export const pickLeadingCard = (
 
 export const pickCardToPlay = (
   currentTrickPosition: number,
+  partnerSittingOut: boolean,
   hand: Pile<EuchreSuit, EuchreRank>,
   trick: Pile<EuchreSuit, EuchreRank>,
   trump: EuchreSuit
@@ -369,8 +366,9 @@ export const pickCardToPlay = (
           `Current trick position is ${currentTrickPosition}, and their's partner's trick position is ${partnerPointer}`
         );
         if (
+          !partnerSittingOut &&
           partnerPointer ===
-          getHighestCard(trick, trump, leadingSuit as PlayingCardSuit)
+            getHighestCard(trick, trump, leadingSuit as PlayingCardSuit)
         ) {
           chosenCardIndex = pickThrowAwayCard(
             hand,
