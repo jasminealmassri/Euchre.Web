@@ -135,47 +135,53 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
         </div>
 
         <div className={`player-${playerPointer + 1}-prompt`}>
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
-          >
-            {/* {hand.length > 0 && player.type === PlayerType.HUMAN && (
+          {/* {hand.length > 0 && player.type === PlayerType.HUMAN && (
               <button
                 onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
               >
                 Sort
               </button>
             )} */}
-            {canBid && (
-              <>
-                <button onClick={() => dispatch(pass())}>Pass</button>
-                <button onClick={() => dispatch(orderUp(playerPointer))}>
-                  Order Up
-                </button>
-              </>
-            )}
-            {mustDeclare && (
-              <>
-                <button onClick={() => dispatch(declare("alone"))}>
-                  Play Alone
-                </button>
-                <button onClick={() => dispatch(declare())}>
-                  Play With Partner
-                </button>
-              </>
-            )}
-            {/* {canDeal &&
+          {canBid && (
+            <>
+              <button className="prompt" onClick={() => dispatch(pass())}>
+                Pass
+              </button>
+              <button
+                className="prompt"
+                onClick={() => dispatch(orderUp(playerPointer))}
+              >
+                Order Up
+              </button>
+            </>
+          )}
+          {mustDeclare && (
+            <>
+              <button
+                className="prompt"
+                onClick={() => dispatch(declare("alone"))}
+              >
+                Play Alone
+              </button>
+              <button className="prompt" onClick={() => dispatch(declare())}>
+                Play With Partner
+              </button>
+            </>
+          )}
+          {/* {canDeal &&
               (() => {
                 dispatch(startHand());
                 return null;
               })()} */}
-            {/* {canDeal && (
+          {/* {canDeal && (
               <button onClick={() => dispatch(startHand())}>Deal</button>
             )} */}
-            {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
-            {canCallTrump && !mustCallTrump && (
-              <button onClick={() => dispatch(passOnTrump())}>Pass</button>
-            )}
-          </div>
+          {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
+          {canCallTrump && !mustCallTrump && (
+            <button className="prompt" onClick={() => dispatch(passOnTrump())}>
+              Pass
+            </button>
+          )}
         </div>
       </div>
       {playerPointer === dealer && (

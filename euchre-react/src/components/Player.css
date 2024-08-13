@@ -1,7 +1,25 @@
 .player-1-prompt {
   position: absolute;
-  top: 92%;
-  left: 80%;
+  top: 67%;
+  left: 33%;
+  width: 35%;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.prompt {
+  background-color: rgb(255, 247, 176);
+  padding: 4%;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 10px;
+  transition: all 0.15s linear;
+}
+
+.prompt:hover {
+  background-color: rgb(220, 184, 112);
+  transform: scale(120%);
 }
 
 .player-2-prompt {

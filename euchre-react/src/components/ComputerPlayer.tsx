@@ -249,26 +249,26 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
           >
-            {canBid && (
+            {/* {canBid && (
               <>
                 <button onClick={() => dispatch(pass())}>Pass</button>
                 <button onClick={() => dispatch(orderUp(playerPointer))}>
                   Order Up
                 </button>
               </>
-            )}
-            {mustDeclare && (
+            )} */}
+            {/* {mustDeclare && (
               <>
                 <button onClick={() => dispatch(declare())}>Play Alone</button>
                 <button onClick={() => dispatch(declare())}>
                   Play With Partner
                 </button>
               </>
-            )}
-            {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
+            )} */}
+            {/* {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
             {canCallTrump && !mustCallTrump && (
               <button onClick={() => dispatch(passOnTrump())}>Pass</button>
-            )}
+            )} */}
           </div>
         </div>
       </div>
