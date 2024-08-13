@@ -128,6 +128,7 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
         <div>
           <PileViewer
             onClick={handleCardClick}
+            flippedUp={true}
             pile={hand}
             cardHoverEffect={canPlay ? true : false}
             className={playerCSSClasses[player.tablePosition]}

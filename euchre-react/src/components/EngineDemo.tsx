@@ -68,10 +68,19 @@ const EngineDemo = () => {
         </ul> */}
         <div className={"trick"}>
           {talon.length > 0 && (
-            <Pile pile={talon} className={`player-${dealerPointer + 1}-card`} />
+            <Pile
+              pile={talon}
+              flippedUp={true}
+              className={`player-${dealerPointer + 1}-card`}
+            />
           )}
           {table.length > 0 && (
-            <Pile showHighestCard={true} pile={table} isTablePile={true} />
+            <Pile
+              flippedUp={true}
+              showHighestCard={true}
+              pile={table}
+              isTablePile={true}
+            />
           )}
         </div>
         {players.map((player, i) => (

@@ -14,6 +14,7 @@ interface Props {
   className?: string;
   isTablePile?: boolean;
   cardHoverEffect?: boolean;
+  flippedUp?: boolean;
 }
 
 const PileViewer = ({
@@ -22,6 +23,7 @@ const PileViewer = ({
   className,
   isTablePile = false,
   cardHoverEffect = false,
+  flippedUp = false,
 }: Props) => {
   const tablePositionsPlaying = useEuchreSelector(
     (state) => state.tablePositionsPlaying
@@ -46,6 +48,7 @@ const PileViewer = ({
                 suit: card.suit,
                 rank: card.rank,
                 index,
+                flippedUp: flippedUp,
                 onClick,
               })}
             </React.Fragment>
@@ -59,7 +62,13 @@ const PileViewer = ({
               className={tablePileClasses[tablePositionsPlaying[index]]}
               key={index}
             >
-              {Card({ suit: card.suit, rank: card.rank, index, onClick })}
+              {Card({
+                suit: card.suit,
+                rank: card.rank,
+                index,
+                onClick,
+                flippedUp: flippedUp,
+              })}
               <div
                 className={` ${
                   tablePileClasses[tablePositionsPlaying[index]]
