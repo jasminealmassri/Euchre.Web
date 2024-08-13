@@ -194,19 +194,6 @@ export interface EuchreGameState {
 }
 
 // Helper functions
-
-const phaseOrder = () => {
-  return Object.values(Phase);
-};
-
-const nextPhaseIndex = (currentPhase: Phase) => {
-  return phaseOrder().indexOf(currentPhase) + 1;
-};
-
-export const nextPhase = (currentPhase: Phase) => {
-  return phaseOrder()[nextPhaseIndex(currentPhase)];
-};
-
 export function getLeftBowerSuit(trump: PlayingCardSuit): PlayingCardSuit {
   switch (trump) {
     case PlayingCardSuit.DIAMONDS:
@@ -441,6 +428,17 @@ export const getSuit = (
   trump: PlayingCardSuit
 ): PlayingCardSuit | null => {
   return isLeftBower(card, trump) ? trump : card.suit;
+};
+
+export const getHandValue = (
+  hand: PlayingCard<PlayingCardSuit, EuchreRank>[],
+  trump: PlayingCardSuit | null = null,
+  leadingSuit: PlayingCardSuit | null = null
+): number => {
+  return hand.reduce(
+    (sum, card) => sum + getEuchreCardValue(card, trump, leadingSuit),
+    0
+  );
 };
 
 export type { Pile } from "../playing-card/playing-card.interface";

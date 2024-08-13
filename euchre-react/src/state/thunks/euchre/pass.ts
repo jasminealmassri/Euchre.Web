@@ -16,8 +16,6 @@ export const pass = (): AppThunk => (dispatch, getState) => {
   const currentPlayer = selectCurrentPlayer(state);
   const dealer = selectDealerPointer(state);
 
-  dispatch(nextPlayer());
-
   if (currentPlayer === dealer) {
     dispatch(removeCandidate(state.piles[EuchrePile.TALON][0].suit));
     dispatch(
@@ -25,4 +23,6 @@ export const pass = (): AppThunk => (dispatch, getState) => {
     );
     dispatch(transitionToPhase(Phase.CALLING_TRUMP));
   }
+
+  dispatch(nextPlayer());
 };

@@ -1,4 +1,4 @@
-import { EuchrePile, handParameters, PlayerType, utils } from "../..";
+import { EuchrePile, handParameters, Phase, PlayerType, utils } from "../..";
 import {
   cleanUp,
   moveCard,
@@ -31,6 +31,6 @@ export const startHand = (): AppThunk => (dispatch, getState) => {
       faceUp: true,
     })
   );
-  dispatch(transitionToNextPhase());
+  dispatch(transitionToPhase(Phase.BIDDING));
   dispatch(nextPlayer());
 };

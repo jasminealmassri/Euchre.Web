@@ -20,6 +20,6 @@ export const discard =
         faceUp: false,
       })
     );
-    dispatch(nextPlayer());
     dispatch(transitionToPhase(Phase.DECLARING));
+    dispatch(nextPlayer());
   };

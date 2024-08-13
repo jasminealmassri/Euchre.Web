@@ -1,7 +1,7 @@
 import { EuchrePile, Phase } from "../..";
 import {
   moveCard,
-  setCurrentPlayer,
+  nextPlayer,
   setRole,
   setTrump,
   transitionToPhase,
@@ -26,6 +26,6 @@ export const orderUp =
         faceUp: false,
       })
     );
-    dispatch(setCurrentPlayer(dealer));
+    dispatch(nextPlayer(dealer));
     dispatch(transitionToPhase(Phase.DISCARDING));
   };

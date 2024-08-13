@@ -40,11 +40,13 @@ export const playCard =
         faceUp: true,
       })
     );
-    dispatch(nextPlayer());
 
     if (player === lastPlayer) {
       dispatch(transitionToPhase(Phase.TRICK_SCORING));
       dispatch(scoreTrick());
+      // scoreTrick sets the leading player to the winner of the trick
+      // so we set the current player using the updated state
+      dispatch(nextPlayer(getState().euchre.leadingPlayer));
 
       if (playerHand.length === 1) {
         setTimeout(() => {
@@ -57,5 +59,7 @@ export const playCard =
           dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
         }, 2000);
       }
+    } else {
+      dispatch(nextPlayer());
     }
   };

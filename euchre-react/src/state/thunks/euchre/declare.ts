@@ -1,15 +1,19 @@
 import { Phase, PlayerType } from "../..";
 import {
   benchPlayer,
+  nextPlayer,
+  setCurrentPlayer,
   sortPile,
   transitionToPhase,
 } from "../../reducers/euchre";
-import { selectPlayers } from "../../selectors/euchre";
+import { selectDealerPointer, selectPlayers } from "../../selectors/euchre";
 import { AppThunk } from "../../store";
 
 export const declare =
   (declaration: "alone" | null = null): AppThunk =>
   (dispatch, getState) => {
+    const dealer = selectDealerPointer(getState().euchre);
+
     const players = selectPlayers(getState().euchre);
     if (declaration === "alone") {
       dispatch(benchPlayer());
@@ -21,4 +25,6 @@ export const declare =
     });
 
     dispatch(transitionToPhase(Phase.PLAYING_TRICKS));
+    dispatch(setCurrentPlayer(dealer));
+    dispatch(nextPlayer());
   };

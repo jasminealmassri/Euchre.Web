@@ -7,11 +7,10 @@ import {
   PlayingCardSuit,
   getNextDealer,
   getNextPlayer,
+  getSortedPile,
   getWinningPlayer,
   initialState,
-  nextPhase,
   scoreRound as scoreEuchreRound,
-  getSortedPile,
   takeCardAt,
 } from "../../";
 import { selectHighestCard, selectPile } from "../../selectors/euchre";
@@ -60,7 +59,6 @@ export const euchreSlice = createSlice({
 
       state.players[winningPlayerIndex].tricks += 1;
       state.leadingPlayer = winningPlayerIndex;
-      state.currentPlayer = winningPlayerIndex;
     },
 
     benchPlayer: (state) => {
@@ -122,8 +120,10 @@ export const euchreSlice = createSlice({
       });
     },
 
-    nextPlayer(state) {
-      state.currentPlayer = getNextPlayer(state);
+    nextPlayer(state, action: PayloadAction<number | undefined>) {
+      action.payload === undefined
+        ? (state.currentPlayer = getNextPlayer(state))
+        : (state.currentPlayer = action.payload);
     },
 
     // recordScore: (state, action: PayloadAction<number>) => {
@@ -172,10 +172,6 @@ export const euchreSlice = createSlice({
 
     transitionToPhase: (state, action: PayloadAction<Phase>) => {
       state.phase = action.payload;
-    },
-
-    transitionToNextPhase: (state) => {
-      state.phase = nextPhase(state.phase);
     },
 
     // pile actions
@@ -247,7 +243,6 @@ export const {
   setTrump,
   shuffle,
   sortPile,
-  transitionToNextPhase,
   transitionToPhase,
 } = euchreSlice.actions;
 export default euchreSlice.reducer;
