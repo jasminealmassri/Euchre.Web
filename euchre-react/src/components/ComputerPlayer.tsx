@@ -27,9 +27,8 @@ import {
   PlayingCardSuit,
 } from "../lib/euchre";
 import PileViewer from "./Pile";
-import TrumpSelector from "./TrumpSelector";
 import { declare } from "../state/thunks/euchre";
-import "./TableComponent.css";
+import "./Euchre.css";
 import "./Player.css";
 import {
   pickCardToPlay,

@@ -108,7 +108,19 @@ export const getExpectedTricksWin = (
   return hand.reduce((accumulator, card) => {
     return (
       accumulator +
-      (getCardsChanceWinning(card, hand, proposedTrump) > 0.5 ? 1 : 0)
+      (getCardsChanceWinning(card, hand, proposedTrump) > 0.6 ? 1 : 0)
+    );
+  }, 0);
+};
+
+export const getExpectedTricksWinAlone = (
+  hand: Pile<EuchreSuit, EuchreRank>,
+  proposedTrump: EuchreSuit
+): number => {
+  return hand.reduce((accumulator, card) => {
+    return (
+      accumulator +
+      (getCardsChanceWinning(card, hand, proposedTrump) > 0.75 ? 1 : 0)
     );
   }, 0);
 };
@@ -133,7 +145,7 @@ export const decideToGoAlone = (
   hand: Pile<EuchreSuit, EuchreRank>,
   proposedTrump: EuchreSuit
 ): boolean => {
-  return getExpectedTricksWin(hand, proposedTrump) === 5;
+  return getExpectedTricksWinAlone(hand, proposedTrump) >= 4;
 };
 
 export const pickCardToDiscard = (

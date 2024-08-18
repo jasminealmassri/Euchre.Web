@@ -3,7 +3,7 @@ import {
   PlayingCardSuit,
   suitToColor,
 } from "../lib/playing-card/playing-card.interface";
-import "./TableComponent.css";
+import "./Euchre.css";
 interface Props {
   onClick?: (suit: PlayingCardSuit) => void;
 }

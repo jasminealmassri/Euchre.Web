@@ -2,7 +2,7 @@ import { GameContext } from "./EuchreComponent";
 import { useContext } from "react";
 import HandComponent from "./HandComponent";
 import TrickComponent from "./TrickComponent";
-import "./TableComponent.css";
+import "./Euchre.css";
 import MessageComponent from "./MessageComponent";
 
 const TableComponent = () => {

@@ -21,12 +21,11 @@
 .startNewGame {
   position: absolute;
   top: 47%;
-  left: 35%;
+  left: 39%;
   padding: 2%;
   cursor: pointer;
   font-weight: bold;
   border-radius: 10px;
-  /* background-color: red; */
 }
 
 .startNewGame:hover {
@@ -108,4 +107,47 @@
   right: 10%;
   width: 10%;
   height: 50%;
+}
+
+.endgame {
+  position: absolute;
+  top: 35%;
+  left: 36%;
+  font-size: 2rem;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.winner {
+  animation: winner 2s linear infinite, popIn 0.2s linear;
+}
+
+.loser {
+  color: rgb(115, 115, 200);
+  animation: loser 2s linear infinite, popIn 0.2s linear;
+}
+
+@keyframes popIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes winner {
+  0% {
+    color: red;
+  }
+  33% {
+    color: yellow;
+    transform: scale(120%);
+  }
+  66% {
+    color: rgb(216, 72, 170);
+  }
+  100% {
+    color: red;
+  }
 }

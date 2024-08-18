@@ -26,7 +26,7 @@ import {
 } from "../state/thunks/euchre";
 import PileViewer from "./Pile";
 import TrumpSelector from "./TrumpSelector";
-import "./TableComponent.css";
+import "./Euchre.css";
 import "./Player.css";
 import "./CardComponent.css";
 import { useEffect } from "react";
