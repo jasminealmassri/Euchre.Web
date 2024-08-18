@@ -63,10 +63,10 @@ p {
   }
 
   .game .trick {
-    min-width: 90%;
+    height: 19rem;
+    min-width: 65%;
     top: 20%;
-    left: 4%;
-    /* background-color: white; */
+    left: 15%;
   }
 
   .player-2-hand,
@@ -89,29 +89,61 @@ p {
 
   .game #player-2-label {
     top: 40%;
-    left: 4%;
-    /* bottom: 40%;
-    left: 50%; */
+    left: 2%;
   }
 
   .game #player-3-label {
     top: 15%;
     left: 42%;
-    /* bottom: 40%;
-    left: 50%; */
   }
 
   .game #player-4-label {
-    left: 82%;
+    right: 3%;
     top: 40%;
-    /* bottom: 40%;
-    left: 50%; */
   }
 
   .game .player-1-prompt {
     width: 70%;
     left: 15%;
     top: 90%;
+  }
+
+  .game .player-1-card {
+    bottom: 0%;
+    left: 35%;
+  }
+
+  .game .player-1-card .leadingCard {
+    left: -0.3rem;
+    top: -0.3rem;
+  }
+
+  .game .player-2-card {
+    left: 10%;
+  }
+
+  .game .player-2-card .leadingCard {
+    left: -0.3rem;
+    top: -0.3rem;
+  }
+
+  .game .player-3-card {
+    top: 2%;
+    left: 35%;
+  }
+
+  .game .player-3-card .leadingCard {
+    left: -0.3rem;
+    top: -0.3rem;
+  }
+
+  .game .player-4-card {
+    right: 10%;
+  }
+
+  .game .player-4-card .leadingCard {
+    left: -0.3rem;
+    top: -0.3rem;
   }
 
   .game .player_1_is_dealer,
@@ -136,5 +168,13 @@ p {
   .game .player_4_is_dealer {
     top: 36%;
     left: 81%;
+  }
+
+  .game .endgame {
+    left: 22%;
+  }
+
+  .game .startNewGame {
+    left: 30%;
   }
 }

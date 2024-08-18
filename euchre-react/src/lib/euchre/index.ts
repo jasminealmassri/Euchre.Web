@@ -89,7 +89,7 @@ export const player1State: EuchrePlayerState = {
   hand: "player1",
   name: "You",
   tablePosition: 0,
-  type: PlayerType.COMPUTER,
+  type: PlayerType.HUMAN,
   sittingOut: false,
   role: null,
   tricks: 0,

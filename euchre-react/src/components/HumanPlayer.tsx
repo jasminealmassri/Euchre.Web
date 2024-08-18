@@ -1,6 +1,5 @@
-import { Phase, PlayerType, PlayingCardSuit } from "../lib/euchre";
+import { Phase, PlayingCardSuit } from "../lib/euchre";
 import { useAppDispatch, useEuchreSelector } from "../state/hooks";
-import { sortPile } from "../state/reducers/euchre";
 import {
   selectCanBid,
   selectCanCallTrump,
