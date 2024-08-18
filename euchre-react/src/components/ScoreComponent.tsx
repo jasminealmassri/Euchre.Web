@@ -62,7 +62,6 @@ const ScoreComponent = () => {
             <p>
               Tricks lost: {(player2?.tricks ?? 0) + (player4?.tricks ?? 0)}{" "}
             </p>
-            {/* {trumpMaker && <p>Trump called by {trumpMaker?.name}</p>} */}
           </div>
         </div>
       )}
