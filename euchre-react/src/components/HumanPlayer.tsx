@@ -5,7 +5,6 @@ import {
   selectCanCallTrump,
   selectCanDeal,
   selectCanPlay,
-  selectLeadingPlayer,
   selectMustCallTrump,
   selectMustDeclare,
   selectMustDiscard,
@@ -44,7 +43,6 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
   const mustDeclare = useEuchreSelector(selectMustDeclare(playerPointer));
   const mustDiscard = useEuchreSelector(selectMustDiscard(playerPointer));
   const player = useEuchreSelector(selectPlayer(playerPointer));
-  const leadingPlayer = useEuchreSelector(selectLeadingPlayer);
   const hand = useEuchreSelector(selectPile(player.hand));
   const phase = useEuchreSelector(selectPhase);
   const dealer = useEuchreSelector((state) => state.dealer);

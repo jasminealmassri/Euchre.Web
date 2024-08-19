@@ -14,7 +14,6 @@ import ScoreComponent from "./ScoreComponent";
 import ComputerPlayer from "./ComputerPlayer";
 import { Phase } from "../state";
 import { resetState } from "../state/reducers/euchre";
-import { current } from "@reduxjs/toolkit";
 
 const Euchre = () => {
   const dispatch = useAppDispatch();

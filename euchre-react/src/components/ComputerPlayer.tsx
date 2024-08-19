@@ -244,16 +244,12 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
     dispatch(discard(index, player.hand));
   };
 
-  const handleTrumpClick = (trump: PlayingCardSuit) => {
-    dispatch(callTrump(playerPointer, trump));
-  };
-
   return (
     <div>
       <div>
         <div>
           <PileViewer
-            flippedUp={true}
+            flippedUp={false}
             pile={hand}
             className={playerCSSClasses[player.tablePosition]}
           />
@@ -261,28 +257,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
         <div className={`player-${playerPointer + 1}-prompt`}>
           <div
             style={{ display: "flex", flexDirection: "column", gap: "0.25em" }}
-          >
-            {/* {canBid && (
-              <>
-                <button onClick={() => dispatch(pass())}>Pass</button>
-                <button onClick={() => dispatch(orderUp(playerPointer))}>
-                  Order Up
-                </button>
-              </>
-            )} */}
-            {/* {mustDeclare && (
-              <>
-                <button onClick={() => dispatch(declare())}>Play Alone</button>
-                <button onClick={() => dispatch(declare())}>
-                  Play With Partner
-                </button>
-              </>
-            )} */}
-            {/* {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
-            {canCallTrump && !mustCallTrump && (
-              <button onClick={() => dispatch(passOnTrump())}>Pass</button>
-            )} */}
-          </div>
+          ></div>
         </div>
       </div>
       {playerPointer === dealer &&
