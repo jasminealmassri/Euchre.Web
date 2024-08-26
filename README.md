@@ -2,6 +2,12 @@
 
 <p>I am making a web version of my favourite card game Euchre using React TS + Vite. ♥️♠️♦️♣️</p>
 
+### August 26th update
+
+<p> This project is now hosted at <a href="https://play-euchre.com">play-euchre.com</a>.</p>
+
+<img style="width:55%" src="./euchre-react/project_progress_images/aug26snapshot.png">
+
 ### August 9th update
 
 <p> Current effort is to finish off the comptuer players' playing algorithm. Bidding, declaring, choosing trump and discarding is done first draft, playing cards algorithm is last TODO.</p>
