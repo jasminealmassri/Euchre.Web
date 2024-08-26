@@ -30,6 +30,10 @@ p {
     width: 100%;
   }
 
+  .player-1-hand .card {
+    max-width: 19%;
+  }
+
   body {
     margin: 0;
     padding: 0;
@@ -58,10 +62,6 @@ p {
     left: 2%;
   }
 
-  .player-1-hand .card {
-    max-width: 3.9rem;
-  }
-
   .game .trick {
     height: 19rem;
     min-width: 65%;
@@ -79,16 +79,20 @@ p {
   #player-2-label,
   #player-3-label,
   #player-4-label {
-    z-index: 100;
+    z-index: 5;
+  }
+
+  .game .card:hover {
+    transform: translate(0%, 0%);
   }
 
   .game #player-1-label {
     bottom: 29%;
-    left: 46%;
+    left: 41%;
   }
 
   .game #player-2-label {
-    top: 40%;
+    top: 39.5%;
     left: 2%;
   }
 
@@ -99,18 +103,19 @@ p {
 
   .game #player-4-label {
     right: 3%;
-    top: 40%;
+    top: 39.5%;
   }
 
   .game .player-1-prompt {
     width: 70%;
     left: 15%;
-    top: 90%;
+    top: 63.5%;
+    z-index: 10;
   }
 
   .game .player-1-card {
     bottom: 0%;
-    left: 35%;
+    left: 36%;
   }
 
   .game .player-1-card .leadingCard {
@@ -129,7 +134,7 @@ p {
 
   .game .player-3-card {
     top: 2%;
-    left: 35%;
+    left: 36%;
   }
 
   .game .player-3-card .leadingCard {
@@ -171,7 +176,9 @@ p {
   }
 
   .game .endgame {
-    left: 22%;
+    left: 24%;
+    width: 60%;
+    font-size: 1.6rem;
   }
 
   .game .startNewGame {
