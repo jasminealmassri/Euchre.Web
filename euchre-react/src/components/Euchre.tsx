@@ -29,37 +29,16 @@ const Euchre = () => {
     <>
       <div>
         <ScoreComponent />
-        {!players[0].sittingOut && (
-          <p
-            className={currentPlayer === 0 ? "currentPlayer" : ""}
-            id="player-1-label"
-          >
-            {players[0].name}
-          </p>
-        )}
-        {!players[1].sittingOut && (
-          <p
-            className={currentPlayer === 1 ? "currentPlayer" : ""}
-            id="player-2-label"
-          >
-            {players[1].name}
-          </p>
-        )}
-        {!players[2].sittingOut && (
-          <p
-            className={currentPlayer === 2 ? "currentPlayer" : ""}
-            id="player-3-label"
-          >
-            {players[2].name}
-          </p>
-        )}
-        {!players[3].sittingOut && (
-          <p
-            className={currentPlayer === 3 ? "currentPlayer" : ""}
-            id="player-4-label"
-          >
-            {players[3].name}
-          </p>
+        {players.map(
+          (player, i) =>
+            !player.sittingOut && (
+              <p
+                className={currentPlayer === i ? "currentPlayer" : ""}
+                id={`player-${i + 1}-label`}
+              >
+                {player.name}
+              </p>
+            )
         )}
       </div>
       <div>
