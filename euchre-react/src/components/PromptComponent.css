@@ -1,75 +1,75 @@
 .prompt_container {
-    position: absolute;
-    /* background-color: red; */
-    width: 50%;
-    top: 67%;
-    left: 25%;
-    z-index: 2;
-    display: flex;
-    flex: 1 1 auto;
-    justify-content: space-between;
+  position: absolute;
+  /* background-color: red; */
+  width: 50%;
+  top: 67%;
+  left: 25%;
+  z-index: 2;
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
 }
 
-
-.prompt_choice1, .prompt_choice2, .prompt_choice3, .prompt_choice4 {
-    /* width: 45%; */
-    /* position: relative; */
-    padding : 2.5%;
-    box-sizing: border-box;
-    margin: 1%;
-    border-radius: 20px;
-    background-color: rgb(236, 236, 236);
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
-    z-index: 10;
-    /* top: 48%; */
-    cursor: pointer;
-    transition: all 0.2s linear;
+.prompt_choice1,
+.prompt_choice2,
+.prompt_choice3,
+.prompt_choice4 {
+  /* width: 45%; */
+  /* position: relative; */
+  padding: 2.5%;
+  box-sizing: border-box;
+  margin: 1%;
+  border-radius: 20px;
+  background-color: rgb(236, 236, 236);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
+  z-index: 10;
+  /* top: 48%; */
+  cursor: pointer;
+  transition: all 0.2s linear;
 }
 
-.prompt_choice1 {
-    /* left: 30%; */
+.prompt_choice1:hover,
+.prompt_choice2:hover,
+.prompt_choice3:hover,
+.prompt_choice4:hover {
+  background-color: rgb(250, 208, 90);
+  /* top: 47%; */
+  transform: scale(1.1);
 }
 
-.prompt_choice2 {
-    /* left: 35%; */
-}
-
-.prompt_choice1:hover, .prompt_choice2:hover, .prompt_choice3:hover, .prompt_choice4:hover{
-    background-color: rgb(250, 208, 90);
-    /* top: 47%; */
-    transform: scale(1.1);
-}
-
-.player_1_is_dealer, .player_2_is_dealer, .player_3_is_dealer, .player_4_is_dealer {
-    color: white;
-    border: 1px solid rgba(255,255,255,0.5);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    position: absolute;
-    width: 4rem;
-    padding: 1%;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 0.9rem;
-    box-sizing: border-box;
-    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
+.player_1_is_dealer,
+.player_2_is_dealer,
+.player_3_is_dealer,
+.player_4_is_dealer {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  position: absolute;
+  width: 4rem;
+  padding: 1%;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.459);
 }
 
 .player_1_is_dealer {
-    top: 80%;
-    left: 78%;
+  top: 80%;
+  left: 78%;
 }
 
 .player_2_is_dealer {
-    top: 28%;
-    left: 9%;
+  top: 28%;
+  left: 9%;
 }
 
 .player_3_is_dealer {
-    top: 16%;
-    left: 23%;
+  top: 16%;
+  left: 23%;
 }
 
 .player_4_is_dealer {
-    top: 28%;
-    left: 78%;
+  top: 28%;
+  left: 78%;
 }

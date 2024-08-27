@@ -110,17 +110,6 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
 
   return (
     <div>
-      {/* <ul>
-        <li>
-          Name: {player.name} {canPlay && "*"}
-        </li>
-        <li>
-          Leading Player: {playerPointer === leadingPlayer ? "Yes" : "No"}
-        </li>
-        <li>Role: {player.role}</li>
-        <li>Tricks: {player.tricks}</li>
-        <li>Sitting Out: {player.sittingOut ? "Yes" : "No"}</li>
-      </ul> */}
       <div>
         <div>
           <PileViewer
@@ -133,13 +122,6 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
         </div>
 
         <div className={`player-${playerPointer + 1}-prompt`}>
-          {/* {hand.length > 0 && player.type === PlayerType.HUMAN && (
-              <button
-                onClick={() => dispatch(sortPile(`player${playerPointer + 1}`))}
-              >
-                Sort
-              </button>
-            )} */}
           {canBid && (
             <>
               <button className="prompt" onClick={() => dispatch(pass())}>
@@ -166,14 +148,6 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
               </button>
             </>
           )}
-          {/* {canDeal &&
-              (() => {
-                dispatch(startHand());
-                return null;
-              })()} */}
-          {/* {canDeal && (
-              <button onClick={() => dispatch(startHand())}>Deal</button>
-            )} */}
           {canCallTrump && <TrumpSelector onClick={handleTrumpClick} />}
           {canCallTrump && !mustCallTrump && (
             <button className="prompt" onClick={() => dispatch(passOnTrump())}>
