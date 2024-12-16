@@ -102,7 +102,7 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (canDeal) {
-        console.log(`player ${playerPointer + 1} can deal`);
+        //console.log(`player ${playerPointer + 1} can deal`);
         dispatch(startHand());
       }
     }, 50);
@@ -116,10 +116,10 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           hand,
           trump as PlayingCardSuit
         );
-        console.log(
-          "Leading mode: Leading card chosen is: ",
-          JSON.stringify(hand[leadingCardChosen])
-        );
+        // console.log(
+        //   "Leading mode: Leading card chosen is: ",
+        //   JSON.stringify(hand[leadingCardChosen])
+        // );
       } else {
         const cardIndicesThatCanWin = getCardsThatCanWin(
           trick,
@@ -127,20 +127,20 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           trump as PlayingCardSuit,
           leadingSuit as PlayingCardSuit
         );
-        console.log("Cards that can win:");
-        cardIndicesThatCanWin.forEach((index) =>
-          console.log(JSON.stringify(hand[index]))
-        );
+        //console.log("Cards that can win:");
+        // cardIndicesThatCanWin.forEach((index) =>
+        //   console.log(JSON.stringify(hand[index]))
+        // );
         if (cardIndicesThatCanWin.length === 0) {
           const throwAwayIndex = pickThrowAwayCard(
             hand,
             trump as PlayingCardSuit,
             leadingSuit as PlayingCardSuit
           );
-          console.log(
-            "Throwaway mode, card chosen is: ",
-            JSON.stringify(hand[throwAwayIndex])
-          );
+          // console.log(
+          //   "Throwaway mode, card chosen is: ",
+          //   JSON.stringify(hand[throwAwayIndex])
+          // );
         }
       }
       const timeoutId = setTimeout(() => {
@@ -169,15 +169,15 @@ const ComputerPlayer = ({ playerPointer }: PlayerProps) => {
           hand,
           talon[0].suit
         );
-        console.log(
-          `[${card.suit}, ${card.rank}]'s chance of winning is ${cardChanceWinning}`
-        );
+        // console.log(
+        //   `[${card.suit}, ${card.rank}]'s chance of winning is ${cardChanceWinning}`
+        // );
       });
 
-      console.log(
-        "Number of expected tricks to win is: ",
-        getExpectedTricksWin(hand, talon[0].suit)
-      );
+      // console.log(
+      //   "Number of expected tricks to win is: ",
+      //   getExpectedTricksWin(hand, talon[0].suit)
+      // );
       const timeoutId = setTimeout(() => {
         decideToOrderItUp(hand, talon[0].suit)
           ? dispatch(orderUp(playerPointer)) // dispatch(orderUp(playerPointer))

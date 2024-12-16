@@ -8,7 +8,7 @@ const listenerMiddleware = createListenerMiddleware();
 listenerMiddleware.startListening({
   actionCreator: scoreTrick,
   effect: (_, listenerApi) => {
-    console.log("Time to score the trick!");
+    //console.log("Time to score the trick!");
 
     listenerApi.cancelActiveListeners();
   },

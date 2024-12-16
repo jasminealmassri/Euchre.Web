@@ -85,7 +85,7 @@ const HumanPlayer = ({ playerPointer }: PlayerProps) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (canDeal) {
-        console.log(`player ${playerPointer + 1} can deal`);
+        // console.log(`player ${playerPointer + 1} can deal`);
         dispatch(startHand());
       }
     }, 50);

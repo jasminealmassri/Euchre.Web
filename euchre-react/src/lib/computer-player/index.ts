@@ -213,7 +213,7 @@ export const getCardsThatCanWin = (
   if (hand.find((card) => getSuit(card, trump) === leadingSuit)) {
     playableCards = hand.filter((card) => getSuit(card, trump) === leadingSuit);
   }
-  console.log("playable cards afer filtering is, ", playableCards);
+  //console.log("playable cards afer filtering is, ", playableCards);
 
   // get overall ranks list
   const ranksList = getCardsRankList(trump, leadingSuit);
@@ -277,7 +277,7 @@ export const pickThrowAwayCard = (
   let lowestChanceWin = 1.0;
   playableCards.forEach((card, index) => {
     const cardsChanceWin = getCardsChanceWinning(card, hand, trump);
-    console.log(`${JSON.stringify(card)}'s chance win is ${cardsChanceWin}`);
+    //console.log(`${JSON.stringify(card)}'s chance win is ${cardsChanceWin}`);
     if (cardsChanceWin < lowestChanceWin) {
       lowestChanceWin = cardsChanceWin;
       lowestCardPlayableIndex = index;
@@ -374,9 +374,9 @@ export const pickCardToPlay = (
     } else {
       if (trick.length >= 2) {
         const partnerPointer = getPartnerIndex(currentTrickPosition);
-        console.log(
-          `Current trick position is ${currentTrickPosition}, and their's partner's trick position is ${partnerPointer}`
-        );
+        // console.log(
+        //   `Current trick position is ${currentTrickPosition}, and their's partner's trick position is ${partnerPointer}`
+        // );
         if (
           !partnerSittingOut &&
           partnerPointer ===
