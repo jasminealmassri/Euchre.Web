@@ -7,7 +7,7 @@ build:
   image: node:20
   script:
     - cd euchre-react
-    - npm ci
+    - npm i
     - npm run build
   artifacts:
     paths:
