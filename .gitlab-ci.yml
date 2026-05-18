@@ -27,4 +27,4 @@ deploy:
   script:
     - rsync -az --delete euchre-react/dist/ $DROPLET_USER@$DROPLET_HOST:/var/www/play-euchre.com/html/
   rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "prod"
