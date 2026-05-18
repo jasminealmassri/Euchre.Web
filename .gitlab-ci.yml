@@ -26,5 +26,5 @@ deploy:
   script:
     - rsync -az --delete dist/ $DROPLET_USER@$DROPLET_HOST:/var/www/play-euchre.chmod
 
-only:
-  - main
+rules:
+  - if: $CI_COMMIT_BRANCH == "main
