@@ -25,6 +25,5 @@ deploy:
     - ssh-keyscan -H $DROPLET_HOST >> ~/.ssh/known_hosts
   script:
     - rsync -az --delete dist/ $DROPLET_USER@$DROPLET_HOST:/var/www/play-euchre.chmod
-
-rules:
-  - if: $CI_COMMIT_BRANCH == "main
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
