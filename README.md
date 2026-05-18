@@ -1,18 +1,22 @@
 # Euchre.Web
 
-<p>I am making a web version of my favourite card game Euchre using React TS + Vite. ♥️♠️♦️♣️</p>
+<p>I made a web version of my favourite card game Euchre using React TS + Vite. ♥️♠️♦️♣️</p>
 
-### August 26th update
+### May 18th, 2026 update
+
+<p> Added GitLab CI/CD pipeline for automatic deployment to server </p>
+
+### August 26th, 2024 update
 
 <p> This project is now hosted at <a href="https://play-euchre.com">play-euchre.com</a>.</p>
 
 <img style="width:55%" src="./euchre-react/project_progress_images/aug26snapshot.png">
 
-### August 9th update
+### August 9th, 2024 update
 
 <p> Current effort is to finish off the comptuer players' playing algorithm. Bidding, declaring, choosing trump and discarding is done first draft, playing cards algorithm is last TODO.</p>
 
-### July 31st update
+### July 31st, 2024 update
 
 Collaboration to re-factor the Euchre game engine to use redux, current todo is integrating the new game engine into the current user interface, and completing the remaining todos to finish the game as a single player game with 3 computer players.
 
