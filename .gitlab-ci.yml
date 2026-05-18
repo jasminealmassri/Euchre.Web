@@ -25,6 +25,6 @@ deploy:
     - chmod 700 ~/.ssh
     - ssh-keyscan -H $DROPLET_HOST >> ~/.ssh/known_hosts
   script:
-    - rsync -az --delete euchre-react/dist/ $DROPLET_USER@$DROPLET_HOST:/var/www/play-euchre.com
+    - rsync -az --delete euchre-react/dist/ $DROPLET_USER@$DROPLET_HOST:/var/www/play-euchre.com/html/
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
