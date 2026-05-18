@@ -6,6 +6,7 @@ build:
   stage: build
   image: node:20
   script:
+    - cd euchre-react
     - npm ci
     - npm run build
   artifacts:
